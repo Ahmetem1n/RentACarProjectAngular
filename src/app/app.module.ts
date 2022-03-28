@@ -28,9 +28,10 @@ import { PhoneNumberComponent } from './components/phone-number/phone-number.com
 import { RentalDetailComponent } from './components/rental-detail/rental-detail.component';
 import { UserComponent } from './components/user/user.component';
 import { UserOperationClaimComponent } from './components/user-operation-claim/user-operation-claim.component';
+import { MenuComponent } from './components/menu/menu.component';
 
 @NgModule({
-  declarations: [AppComponent, BrandComponent, NaviComponent, ColorComponent, AdminComponent, AuthComponent, BranchComponent, CarComponent, CardComponent, CarImageComponent, CaseTypeComponent, CityComponent, ClassComponent, CustomerComponent, DrivingInformationComponent, EmployeeComponent, FuelComponent, GearComponent, IdentityInformationComponent, ModelComponent, OperationClaimComponent, PhoneNumberComponent, RentalDetailComponent, UserComponent, UserOperationClaimComponent],
+  declarations: [AppComponent, BrandComponent, NaviComponent, ColorComponent, AdminComponent, AuthComponent, BranchComponent, CarComponent, CardComponent, CarImageComponent, CaseTypeComponent, CityComponent, ClassComponent, CustomerComponent, DrivingInformationComponent, EmployeeComponent, FuelComponent, GearComponent, IdentityInformationComponent, ModelComponent, OperationClaimComponent, PhoneNumberComponent, RentalDetailComponent, UserComponent, UserOperationClaimComponent, MenuComponent],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule],
   providers: [],
   bootstrap: [AppComponent],
