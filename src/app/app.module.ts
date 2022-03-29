@@ -6,6 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+
 import { AdminsComponent } from './components/AdminComponents/admins/admins.component';
 import { AuthComponent } from './components/AuthComponents/auth/auth.component';
 import { BranchsComponent } from './components/BranchComponents/branchs/branchs.component';

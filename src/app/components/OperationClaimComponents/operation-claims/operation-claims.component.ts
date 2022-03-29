@@ -1,15 +1,29 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { OperationClaim } from '../../../models/operationClaim';
+import { OperationClaimService } from '../../../services/operation-claim.service';
 
 @Component({
-  selector: 'app-operation-claims',
-  templateUrl: './operation-claims.component.html',
-  styleUrls: ['./operation-claims.component.css']
+  selector: 'app-operationClaims',
+  templateUrl: './operationClaims.component.html',
+  styleUrls: ['./operationClaims.component.css'],
 })
 export class OperationClaimsComponent implements OnInit {
-
-  constructor() { }
+  operationClaims: OperationClaim[] = [];
+  dataLoaded = false;
+  constructor(
+    private operationClaimService: OperationClaimService,
+    activatedRoute: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
+    this.getOperationClaims();
   }
 
+  getOperationClaims() {
+    this.operationClaimService.getOperationClaims().subscribe((response) => {
+      this.operationClaims = response.data;
+      this.dataLoaded = true;
+    });
+  }
 }

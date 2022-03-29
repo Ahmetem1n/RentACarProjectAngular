@@ -1,15 +1,29 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { PhoneNumber } from '../../../models/phoneNumber';
+import { PhoneNumberService } from '../../../services/phone-number.service';
 
 @Component({
-  selector: 'app-phone-numbers',
-  templateUrl: './phone-numbers.component.html',
-  styleUrls: ['./phone-numbers.component.css']
+  selector: 'app-phoneNumbers',
+  templateUrl: './phoneNumbers.component.html',
+  styleUrls: ['./phoneNumbers.component.css'],
 })
 export class PhoneNumbersComponent implements OnInit {
-
-  constructor() { }
+  phoneNumbers: PhoneNumber[] = [];
+  dataLoaded = false;
+  constructor(
+    private phoneNumberService: PhoneNumberService,
+    activatedRoute: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
+    this.getPhoneNumbers();
   }
 
+  getPhoneNumbers() {
+    this.phoneNumberService.getPhoneNumbers().subscribe((response) => {
+      this.phoneNumbers = response.data;
+      this.dataLoaded = true;
+    });
+  }
 }
