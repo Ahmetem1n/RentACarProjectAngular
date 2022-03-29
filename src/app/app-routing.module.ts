@@ -1,54 +1,54 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AdminComponent } from './components/AdminComponents/admins/admin.component';
+import { AdminsComponent } from './components/AdminComponents/admins/admins.component';
 import { AuthComponent } from './components/AuthComponents/auth/auth.component';
-import { BranchComponent } from './components/BranchComponents/branch/branch.component';
-import { BrandComponent } from './components/BrandComponents/brand/brand.component';
-import { CarComponent } from './components/CarComponents/car/car.component';
-import { CardComponent } from './components/CardComponents/card/card.component';
-import { CarImageComponent } from './components/CarImageComponents/car-image/car-image.component';
-import { CaseTypeComponent } from './components/CaseTypeComponents/case-type/case-type.component';
-import { CityComponent } from './components/CityComponents/city/city.component';
-import { ClassComponent } from './components/ClassComponents/class/class.component';
-import { ColorComponent } from './components/ColorComponents/color/color.component';
-import { CustomerComponent } from './components/CustomerComponents/customer/customer.component';
-import { DrivingInformationComponent } from './components/DrivingInformationComponents/driving-information/driving-information.component';
-import { EmployeeComponent } from './components/EmployeeComponents/employee/employee.component';
-import { FuelComponent } from './components/FuelComponents/fuel/fuel.component';
-import { GearComponent } from './components/GearComponents/gear/gear.component';
-import { IdentityInformationComponent } from './components/IdentityInformationComponents/identity-information/identity-information.component';
-import { ModelComponent } from './components/ModelComponents/model/model.component';
-import { OperationClaimComponent } from './components/OperationClaimComponents/operation-claim/operation-claim.component';
-import { PhoneNumberComponent } from './components/PhoneNumberComponents/phone-number/phone-number.component';
-import { RentalDetailComponent } from './components/RentalDetailComponents/rental-detail/rental-detail.component';
-import { UserComponent } from './components/UserComponents/user/user.component';
-import { UserOperationClaimComponent } from './components/UserOperationClaimComponents/user-operation-claim/user-operation-claim.component';
+import { BranchsComponent } from './components/BranchComponents/branchs/branchs.component';
+import { BrandsComponent } from './components/BrandComponents/brands/brands.component';
+import { CarsComponent } from './components/CarComponents/cars/cars.component';
+import { CardsComponent } from './components/CardComponents/cards/cards.component';
+import { CarImagesComponent } from './components/CarImageComponents/car-images/car-images.component';
+import { CaseTypesComponent } from './components/CaseTypeComponents/case-types/case-types.component';
+import { CitiesComponent } from './components/CityComponents/cities/cities.component';
+import { ClassesComponent } from './components/ClassComponents/classes/classes.component';
+import { ColorsComponent } from './components/ColorComponents/colors/colors.component';
+import { CustomersComponent } from './components/CustomerComponents/customers/customers.component';
+import { DrivingInformationsComponent } from './components/DrivingInformationComponents/driving-informations/driving-informations.component';
+import { EmployeesComponent } from './components/EmployeeComponents/employees/employees.component';
+import { FuelsComponent } from './components/FuelComponents/fuels/fuels.component';
+import { GearsComponent } from './components/GearComponents/gears/gears.component';
+import { IdentityInformationsComponent } from './components/IdentityInformationComponents/identity-informations/identity-informations.component';
+import { ModelsComponent } from './components/ModelComponents/models/models.component';
+import { OperationClaimsComponent } from './components/OperationClaimComponents/operation-claims/operation-claims.component';
+import { PhoneNumbersComponent } from './components/PhoneNumberComponents/phone-numbers/phone-numbers.component';
+import { RentalDetailsComponent } from './components/RentalDetailComponents/rental-details/rental-details.component';
+import { UsersComponent } from './components/UserComponents/users/users.component';
+import { UserOperationClaimsComponent } from './components/UserOperationClaimComponents/user-operation-claims/user-operation-claims.component';
 
 const routes: Routes = [
-  { path: '', pathMatch: 'full', component: BrandComponent },
-  { path: 'admins', component: AdminComponent },
+  { path: '', pathMatch: 'full', component: BrandsComponent },
+  { path: 'admins', component: AdminsComponent },
   { path: 'auths', component: AuthComponent },
-  { path: 'branchs', component: BranchComponent },
-  { path: 'brands', component: BrandComponent },
-  { path: 'cars', component: CarComponent },
-  { path: 'cards', component: CardComponent },
-  { path: 'carImages', component: CarImageComponent },
-  { path: 'caseTypes', component: CaseTypeComponent },
-  { path: 'cities', component: CityComponent },
-  { path: 'classes', component: ClassComponent },
-  { path: 'colors', component: ColorComponent },
-  { path: 'customers', component: CustomerComponent },
-  { path: 'drivingInformations', component: DrivingInformationComponent },
-  { path: 'employees', component: EmployeeComponent },
-  { path: 'fuels', component: FuelComponent },
-  { path: 'gears', component: GearComponent },
-  { path: 'identityInformations', component: IdentityInformationComponent },
-  { path: 'models', component: ModelComponent },
-  { path: 'operationClaims', component: OperationClaimComponent },
-  { path: 'phoneNumbers', component: PhoneNumberComponent },
-  { path: 'rentalDetails', component: RentalDetailComponent },
-  { path: 'users', component: UserComponent },
-  { path: 'userOperationClaims', component: UserOperationClaimComponent },
+  { path: 'branchs', component: BranchsComponent },
+  { path: 'brands', component: BrandsComponent },
+  { path: 'cars', component: CarsComponent },
+  { path: 'cards', component: CardsComponent },
+  { path: 'carImages', component: CarImagesComponent },
+  { path: 'caseTypes', component: CaseTypesComponent },
+  { path: 'cities', component: CitiesComponent },
+  { path: 'classes', component: ClassesComponent },
+  { path: 'colors', component: ColorsComponent },
+  { path: 'customers', component: CustomersComponent },
+  { path: 'drivingInformations', component: DrivingInformationsComponent },
+  { path: 'employees', component: EmployeesComponent },
+  { path: 'fuels', component: FuelsComponent },
+  { path: 'gears', component: GearsComponent },
+  { path: 'identityInformations', component: IdentityInformationsComponent },
+  { path: 'models', component: ModelsComponent },
+  { path: 'operationClaims', component: OperationClaimsComponent },
+  { path: 'phoneNumbers', component: PhoneNumbersComponent },
+  { path: 'rentalDetails', component: RentalDetailsComponent },
+  { path: 'users', component: UsersComponent },
+  { path: 'userOperationClaims', component: UserOperationClaimsComponent },
 ];
 
 @NgModule({

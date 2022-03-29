@@ -6,60 +6,84 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AdminComponent } from './components/AdminComponents/admins/admin.component';
+import { AdminsComponent } from './components/AdminComponents/admins/admins.component';
 import { AuthComponent } from './components/AuthComponents/auth/auth.component';
-import { BranchComponent } from './components/BranchComponents/branch/branch.component';
-import { BrandComponent } from './components/BrandComponents/brand/brand.component';
-import { CarComponent } from './components/CarComponents/car/car.component';
-import { CardComponent } from './components/CardComponents/card/card.component';
-import { CarImageComponent } from './components/CarImageComponents/car-image/car-image.component';
-import { CaseTypeComponent } from './components/CaseTypeComponents/case-type/case-type.component';
-import { CityComponent } from './components/CityComponents/city/city.component';
-import { ClassComponent } from './components/ClassComponents/class/class.component';
-import { ColorComponent } from './components/ColorComponents/color/color.component';
-import { CustomerComponent } from './components/CustomerComponents/customer/customer.component';
-import { DrivingInformationComponent } from './components/DrivingInformationComponents/driving-information/driving-information.component';
-import { EmployeeComponent } from './components/EmployeeComponents/employee/employee.component';
-import { FuelComponent } from './components/FuelComponents/fuel/fuel.component';
-import { GearComponent } from './components/GearComponents/gear/gear.component';
-import { IdentityInformationComponent } from './components/IdentityInformationComponents/identity-information/identity-information.component';
+import { BranchsComponent } from './components/BranchComponents/branchs/branchs.component';
+import { BrandsComponent } from './components/BrandComponents/brands/brands.component';
+import { CarsComponent } from './components/CarComponents/cars/cars.component';
+import { CardsComponent } from './components/CardComponents/cards/cards.component';
+import { CarImagesComponent } from './components/CarImageComponents/car-images/car-images.component';
+import { CaseTypesComponent } from './components/CaseTypeComponents/case-types/case-types.component';
+import { CitiesComponent } from './components/CityComponents/cities/cities.component';
+import { ClassesComponent } from './components/ClassComponents/classes/classes.component';
+import { ColorsComponent } from './components/ColorComponents/colors/colors.component';
+import { CustomersComponent } from './components/CustomerComponents/customers/customers.component';
+import { DrivingInformationsComponent } from './components/DrivingInformationComponents/driving-informations/driving-informations.component';
+import { EmployeesComponent } from './components/EmployeeComponents/employees/employees.component';
+import { FuelsComponent } from './components/FuelComponents/fuels/fuels.component';
+import { GearsComponent } from './components/GearComponents/gears/gears.component';
+import { IdentityInformationUpdateComponent } from './components/IdentityInformationComponents/identity-information-update/identity-information-update.component';
+import { IdentityInformationsComponent } from './components/IdentityInformationComponents/identity-informations/identity-informations.component';
 import { MenuComponent } from './components/menu/menu.component';
-import { ModelComponent } from './components/ModelComponents/model/model.component';
+import { ModelsComponent } from './components/ModelComponents/models/models.component';
 import { NaviComponent } from './components/navi/navi.component';
-import { OperationClaimComponent } from './components/OperationClaimComponents/operation-claim/operation-claim.component';
-import { PhoneNumberComponent } from './components/PhoneNumberComponents/phone-number/phone-number.component';
-import { RentalDetailComponent } from './components/RentalDetailComponents/rental-detail/rental-detail.component';
-import { UserComponent } from './components/UserComponents/user/user.component';
-import { UserOperationClaimComponent } from './components/UserOperationClaimComponents/user-operation-claim/user-operation-claim.component';
+import { OperationClaimsComponent } from './components/OperationClaimComponents/operation-claims/operation-claims.component';
+import { PhoneNumbersComponent } from './components/PhoneNumberComponents/phone-numbers/phone-numbers.component';
+import { RentalDetailsComponent } from './components/RentalDetailComponents/rental-details/rental-details.component';
+import { UsersComponent } from './components/UserComponents/users/users.component';
+import { UserOperationClaimsComponent } from './components/UserOperationClaimComponents/user-operation-claims/user-operation-claims.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    BrandComponent,
+    BrandsComponent,
     NaviComponent,
-    ColorComponent,
-    AdminComponent,
+    ColorsComponent,
+    AdminsComponent,
     AuthComponent,
-    BranchComponent,
-    CarComponent,
-    CardComponent,
-    CarImageComponent,
-    CaseTypeComponent,
-    CityComponent,
-    ClassComponent,
-    CustomerComponent,
-    DrivingInformationComponent,
-    EmployeeComponent,
-    FuelComponent,
-    GearComponent,
-    IdentityInformationComponent,
-    ModelComponent,
-    OperationClaimComponent,
-    PhoneNumberComponent,
-    RentalDetailComponent,
-    UserComponent,
-    UserOperationClaimComponent,
+    BranchsComponent,
+    CarsComponent,
+    CardsComponent,
+    CarImagesComponent,
+    CaseTypesComponent,
+    CitiesComponent,
+    ClassesComponent,
+    CustomersComponent,
+    DrivingInformationsComponent,
+    EmployeesComponent,
+    FuelsComponent,
+    GearsComponent,
+    IdentityInformationsComponent,
+    ModelsComponent,
+    OperationClaimsComponent,
+    PhoneNumbersComponent,
+    RentalDetailsComponent,
+    UsersComponent,
+    UserOperationClaimsComponent,
     MenuComponent,
+    UserOperationClaimsComponent,
+    UsersComponent,
+    RentalDetailsComponent,
+    PhoneNumbersComponent,
+    OperationClaimsComponent,
+    ModelsComponent,
+    IdentityInformationUpdateComponent,
+    IdentityInformationsComponent,
+    GearsComponent,
+    FuelsComponent,
+    EmployeesComponent,
+    DrivingInformationsComponent,
+    CustomersComponent,
+    ColorsComponent,
+    ClassesComponent,
+    CitiesComponent,
+    CaseTypesComponent,
+    CarImagesComponent,
+    CardsComponent,
+    CarsComponent,
+    BrandsComponent,
+    BranchsComponent,
+    AdminsComponent,
   ],
   imports: [
     BrowserModule,
