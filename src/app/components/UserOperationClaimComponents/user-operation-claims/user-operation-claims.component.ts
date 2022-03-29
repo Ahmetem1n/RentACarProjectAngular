@@ -5,8 +5,8 @@ import { UserOperationClaimService } from '../../../services/user-operation-clai
 
 @Component({
   selector: 'app-userOperationClaims',
-  templateUrl: './userOperationClaims.component.html',
-  styleUrls: ['./userOperationClaims.component.css'],
+  templateUrl: './user-operation-claims.component.html',
+  styleUrls: ['./user-operation-claims.component.css'],
 })
 export class UserOperationClaimsComponent implements OnInit {
   userOperationClaims: UserOperationClaim[] = [];

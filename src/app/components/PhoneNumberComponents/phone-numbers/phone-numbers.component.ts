@@ -5,8 +5,8 @@ import { PhoneNumberService } from '../../../services/phone-number.service';
 
 @Component({
   selector: 'app-phoneNumbers',
-  templateUrl: './phoneNumbers.component.html',
-  styleUrls: ['./phoneNumbers.component.css'],
+  templateUrl: './phone-numbers.component.html',
+  styleUrls: ['./phone-numbers.component.css'],
 })
 export class PhoneNumbersComponent implements OnInit {
   phoneNumbers: PhoneNumber[] = [];

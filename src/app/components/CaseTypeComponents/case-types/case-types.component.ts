@@ -5,8 +5,8 @@ import { CaseTypeService } from '../../../services/case-type.service';
 
 @Component({
   selector: 'app-caseTypes',
-  templateUrl: './caseTypes.component.html',
-  styleUrls: ['./caseTypes.component.css'],
+  templateUrl: './case-types.component.html',
+  styleUrls: ['./case-types.component.css'],
 })
 export class CaseTypesComponent implements OnInit {
   caseTypes: CaseType[] = [];

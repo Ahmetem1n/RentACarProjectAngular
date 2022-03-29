@@ -5,8 +5,8 @@ import { DrivingInformationService } from '../../../services/driving-information
 
 @Component({
   selector: 'app-drivingInformations',
-  templateUrl: './drivingInformations.component.html',
-  styleUrls: ['./drivingInformations.component.css'],
+  templateUrl: './driving-informations.component.html',
+  styleUrls: ['./driving-informations.component.css'],
 })
 export class DrivingInformationsComponent implements OnInit {
   drivingInformations: DrivingInformation[] = [];

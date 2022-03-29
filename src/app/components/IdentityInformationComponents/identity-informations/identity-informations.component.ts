@@ -5,8 +5,8 @@ import { IdentityInformationService } from '../../../services/identity-informati
 
 @Component({
   selector: 'app-identityInformations',
-  templateUrl: './identityInformations.component.html',
-  styleUrls: ['./identityInformations.component.css'],
+  templateUrl: './identity-informations.component.html',
+  styleUrls: ['./identity-informations.component.css'],
 })
 export class IdentityInformationsComponent implements OnInit {
   identityInformations: IdentityInformation[] = [];

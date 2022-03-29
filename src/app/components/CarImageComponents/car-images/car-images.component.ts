@@ -5,8 +5,8 @@ import { CarImageService } from '../../../services/car-image.service';
 
 @Component({
   selector: 'app-carImages',
-  templateUrl: './carImages.component.html',
-  styleUrls: ['./carImages.component.css'],
+  templateUrl: './car-images.component.html',
+  styleUrls: ['./car-images.component.css'],
 })
 export class CarImagesComponent implements OnInit {
   carImages: CarImage[] = [];
