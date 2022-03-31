@@ -3,5 +3,5 @@ export interface Customer {
   userId: number;
   identityId: number;
   drivingId: number;
-  adress: string;
+  address: string;
 }

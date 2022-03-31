@@ -22,7 +22,11 @@ export class CardAddComponent implements OnInit {
 
   createCardAddForm() {
     this.cardAddForm = this.formBuilder.group({
-      Id: ['', Validators.required],
+      userId: ['', Validators.required],
+      fullName: ['', Validators.required],
+      cardNo: ['', Validators.required],
+      expiryDate: ['', Validators.required],
+      cvv: ['', Validators.required],
     });
   }
 

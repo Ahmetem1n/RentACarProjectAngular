@@ -22,7 +22,7 @@ export class GearAddComponent implements OnInit {
 
   createGearAddForm() {
     this.gearAddForm = this.formBuilder.group({
-      Id: ['', Validators.required],
+      gearName: ['', Validators.required],
     });
   }
 

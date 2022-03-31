@@ -22,7 +22,12 @@ export class CardDeleteComponent implements OnInit {
 
   createCardDeleteForm() {
     this.cardDeleteForm = this.formBuilder.group({
-      Id: ['', Validators.required],
+      cardId: ['', Validators.required],
+      userId: ['', Validators.required],
+      fullName: ['', Validators.required],
+      cardNo: ['', Validators.required],
+      expiryDate: ['', Validators.required],
+      cvv: ['', Validators.required],
     });
   }
 

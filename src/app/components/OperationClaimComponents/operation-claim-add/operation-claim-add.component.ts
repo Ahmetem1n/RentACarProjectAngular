@@ -22,7 +22,7 @@ export class OperationClaimAddComponent implements OnInit {
 
   createOperationClaimAddForm() {
     this.operationClaimAddForm = this.formBuilder.group({
-      Id: ['', Validators.required],
+      claimName: ['', Validators.required],
     });
   }
 

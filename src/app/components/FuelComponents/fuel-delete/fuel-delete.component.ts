@@ -22,7 +22,8 @@ export class FuelDeleteComponent implements OnInit {
 
   createFuelDeleteForm() {
     this.fuelDeleteForm = this.formBuilder.group({
-      Id: ['', Validators.required],
+      fuelId: ['', Validators.required],
+      fuelName: ['', Validators.required],
     });
   }
 

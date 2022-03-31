@@ -22,7 +22,8 @@ export class BrandDeleteComponent implements OnInit {
 
   createBrandDeleteForm() {
     this.brandDeleteForm = this.formBuilder.group({
-      Id: ['', Validators.required],
+      brandId: ['', Validators.required],
+      brandName: ['', Validators.required],
     });
   }
 

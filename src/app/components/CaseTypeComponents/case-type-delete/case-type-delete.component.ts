@@ -22,7 +22,8 @@ export class CaseTypeDeleteComponent implements OnInit {
 
   createCaseTypeDeleteForm() {
     this.caseTypeDeleteForm = this.formBuilder.group({
-      Id: ['', Validators.required],
+      caseId: ['', Validators.required],
+      caseName: ['', Validators.required],
     });
   }
 

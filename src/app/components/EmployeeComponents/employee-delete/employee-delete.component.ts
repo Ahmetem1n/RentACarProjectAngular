@@ -22,7 +22,8 @@ export class EmployeeDeleteComponent implements OnInit {
 
   createEmployeeDeleteForm() {
     this.employeeDeleteForm = this.formBuilder.group({
-      Id: ['', Validators.required],
+      employeeId: ['', Validators.required],
+      userId: ['', Validators.required],
     });
   }
 

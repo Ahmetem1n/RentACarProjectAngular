@@ -22,7 +22,11 @@ export class CustomerDeleteComponent implements OnInit {
 
   createCustomerDeleteForm() {
     this.customerDeleteForm = this.formBuilder.group({
-      Id: ['', Validators.required],
+      customerId: ['', Validators.required],
+      userId: ['', Validators.required],
+      identityId: ['', Validators.required],
+      drivingId: ['', Validators.required],
+      address: ['', Validators.required],
     });
   }
 

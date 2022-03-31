@@ -22,7 +22,7 @@ export class FuelAddComponent implements OnInit {
 
   createFuelAddForm() {
     this.fuelAddForm = this.formBuilder.group({
-      Id: ['', Validators.required],
+      fuelName: ['', Validators.required],
     });
   }
 

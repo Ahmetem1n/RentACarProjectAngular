@@ -22,7 +22,10 @@ export class CustomerAddComponent implements OnInit {
 
   createCustomerAddForm() {
     this.customerAddForm = this.formBuilder.group({
-      Id: ['', Validators.required],
+      userId: ['', Validators.required],
+      identityId: ['', Validators.required],
+      drivingId: ['', Validators.required],
+      address: ['', Validators.required],
     });
   }
 

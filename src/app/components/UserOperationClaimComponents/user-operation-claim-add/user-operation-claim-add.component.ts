@@ -22,7 +22,8 @@ export class UserOperationClaimAddComponent implements OnInit {
 
   createUserOperationClaimAddForm() {
     this.userOperationClaimAddForm = this.formBuilder.group({
-      Id: ['', Validators.required],
+      userId: ['', Validators.required],
+      claimId: ['', Validators.required],
     });
   }
 

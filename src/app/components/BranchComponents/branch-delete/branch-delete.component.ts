@@ -22,7 +22,9 @@ export class BranchDeleteComponent implements OnInit {
 
   createBranchDeleteForm() {
     this.branchDeleteForm = this.formBuilder.group({
-      Id: ['', Validators.required],
+      branchId: ['', Validators.required],
+      cityId: ['', Validators.required],
+      branchName: ['', Validators.required],
     });
   }
 

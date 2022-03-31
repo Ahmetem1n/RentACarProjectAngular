@@ -22,7 +22,7 @@ export class ClassAddComponent implements OnInit {
 
   createClassAddForm() {
     this.classAddForm = this.formBuilder.group({
-      Id: ['', Validators.required],
+      className: ['', Validators.required],
     });
   }
 

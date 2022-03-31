@@ -22,7 +22,8 @@ export class PhoneNumberAddComponent implements OnInit {
 
   createPhoneNumberAddForm() {
     this.phoneNumberAddForm = this.formBuilder.group({
-      Id: ['', Validators.required],
+      userId: ['', Validators.required],
+      phoneNo: ['', Validators.required],
     });
   }
 

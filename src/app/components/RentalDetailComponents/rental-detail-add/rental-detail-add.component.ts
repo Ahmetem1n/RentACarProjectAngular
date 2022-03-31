@@ -22,7 +22,12 @@ export class RentalDetailAddComponent implements OnInit {
 
   createRentalDetailAddForm() {
     this.rentalDetailAddForm = this.formBuilder.group({
-      Id: ['', Validators.required],
+      userId: ['', Validators.required],
+      carId: ['', Validators.required],
+      rentDate: ['', Validators.required],
+      returnDate: ['', Validators.required],
+      firstMileage: ['', Validators.required],
+      lastMileage: ['', Validators.required],
     });
   }
 

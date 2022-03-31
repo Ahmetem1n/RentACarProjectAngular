@@ -22,7 +22,9 @@ export class CarImageDeleteComponent implements OnInit {
 
   createCarImageDeleteForm() {
     this.carImageDeleteForm = this.formBuilder.group({
-      Id: ['', Validators.required],
+      imageId: ['', Validators.required],
+      carId: ['', Validators.required],
+      imagePath: ['', Validators.required],
     });
   }
 

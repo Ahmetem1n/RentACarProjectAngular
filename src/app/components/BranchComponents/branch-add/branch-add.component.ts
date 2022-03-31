@@ -22,7 +22,8 @@ export class BranchAddComponent implements OnInit {
 
   createBranchAddForm() {
     this.branchAddForm = this.formBuilder.group({
-      Id: ['', Validators.required],
+      cityId: ['', Validators.required],
+      branchName: ['', Validators.required],
     });
   }
 

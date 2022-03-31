@@ -22,13 +22,22 @@ export class RentalDetailDeleteComponent implements OnInit {
 
   createRentalDetailDeleteForm() {
     this.rentalDetailDeleteForm = this.formBuilder.group({
-      Id: ['', Validators.required],
+      detailId: ['', Validators.required],
+      userId: ['', Validators.required],
+      carId: ['', Validators.required],
+      rentDate: ['', Validators.required],
+      returnDate: ['', Validators.required],
+      firstMileage: ['', Validators.required],
+      lastMileage: ['', Validators.required],
     });
   }
 
   delete() {
     if (this.rentalDetailDeleteForm.valid) {
-      let rentalDetailModel = Object.assign({}, this.rentalDetailDeleteForm.value);
+      let rentalDetailModel = Object.assign(
+        {},
+        this.rentalDetailDeleteForm.value
+      );
       this.rentalDetailService.deleteRentalDetail(rentalDetailModel).subscribe(
         (response) => {
           this.toastrService.success(response.message, 'Success');

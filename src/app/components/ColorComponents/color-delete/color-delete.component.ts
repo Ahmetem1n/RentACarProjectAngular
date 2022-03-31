@@ -22,7 +22,8 @@ export class ColorDeleteComponent implements OnInit {
 
   createColorDeleteForm() {
     this.colorDeleteForm = this.formBuilder.group({
-      Id: ['', Validators.required],
+      colorId: ['', Validators.required],
+      colorName: ['', Validators.required],
     });
   }
 

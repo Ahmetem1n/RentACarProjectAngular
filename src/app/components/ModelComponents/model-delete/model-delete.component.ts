@@ -22,7 +22,8 @@ export class ModelDeleteComponent implements OnInit {
 
   createModelDeleteForm() {
     this.modelDeleteForm = this.formBuilder.group({
-      Id: ['', Validators.required],
+      modelId: ['', Validators.required],
+      modelName: ['', Validators.required],
     });
   }
 

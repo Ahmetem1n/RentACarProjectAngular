@@ -22,13 +22,18 @@ export class PhoneNumberDeleteComponent implements OnInit {
 
   createPhoneNumberDeleteForm() {
     this.phoneNumberDeleteForm = this.formBuilder.group({
-      Id: ['', Validators.required],
+      phoneId: ['', Validators.required],
+      userId: ['', Validators.required],
+      phoneNo: ['', Validators.required],
     });
   }
 
   delete() {
     if (this.phoneNumberDeleteForm.valid) {
-      let phoneNumberModel = Object.assign({}, this.phoneNumberDeleteForm.value);
+      let phoneNumberModel = Object.assign(
+        {},
+        this.phoneNumberDeleteForm.value
+      );
       this.phoneNumberService.deletePhoneNumber(phoneNumberModel).subscribe(
         (response) => {
           this.toastrService.success(response.message, 'Success');

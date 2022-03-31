@@ -22,7 +22,7 @@ export class ModelAddComponent implements OnInit {
 
   createModelAddForm() {
     this.modelAddForm = this.formBuilder.group({
-      Id: ['', Validators.required],
+      modelName: ['', Validators.required],
     });
   }
 

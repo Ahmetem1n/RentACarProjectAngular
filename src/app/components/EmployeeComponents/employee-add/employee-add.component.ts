@@ -22,7 +22,7 @@ export class EmployeeAddComponent implements OnInit {
 
   createEmployeeAddForm() {
     this.employeeAddForm = this.formBuilder.group({
-      Id: ['', Validators.required],
+      userId: ['', Validators.required],
     });
   }
 

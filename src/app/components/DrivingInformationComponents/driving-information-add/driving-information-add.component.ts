@@ -22,37 +22,45 @@ export class DrivingInformationAddComponent implements OnInit {
 
   createDrivingInformationAddForm() {
     this.drivingInformationAddForm = this.formBuilder.group({
-      Id: ['', Validators.required],
+      licenceNumber: ['', Validators.required],
+      expiryDate: ['', Validators.required],
+      licenceProvince: ['', Validators.required],
+      bloodGroup: ['', Validators.required],
     });
   }
 
   add() {
     if (this.drivingInformationAddForm.valid) {
-      let drivingInformationModel = Object.assign({}, this.drivingInformationAddForm.value);
-      this.drivingInformationService.addDrivingInformation(drivingInformationModel).subscribe(
-        (response) => {
-          this.toastrService.success(response.message, 'Success');
-        },
-        (responseError) => {
-          if (
-            responseError.error.ValidationErrors &&
-            responseError.error.ValidationErrors.length > 0
-          ) {
-            for (
-              let i = 0;
-              i < responseError.error.ValidationErrors.length;
-              i++
-            ) {
-              this.toastrService.error(
-                responseError.error.ValidationErrors[i].ErrorMessage,
-                'Validation Error'
-              );
-            }
-          } else {
-            this.toastrService.error(responseError.error.message, 'Error');
-          }
-        }
+      let drivingInformationModel = Object.assign(
+        {},
+        this.drivingInformationAddForm.value
       );
+      this.drivingInformationService
+        .addDrivingInformation(drivingInformationModel)
+        .subscribe(
+          (response) => {
+            this.toastrService.success(response.message, 'Success');
+          },
+          (responseError) => {
+            if (
+              responseError.error.ValidationErrors &&
+              responseError.error.ValidationErrors.length > 0
+            ) {
+              for (
+                let i = 0;
+                i < responseError.error.ValidationErrors.length;
+                i++
+              ) {
+                this.toastrService.error(
+                  responseError.error.ValidationErrors[i].ErrorMessage,
+                  'Validation Error'
+                );
+              }
+            } else {
+              this.toastrService.error(responseError.error.message, 'Error');
+            }
+          }
+        );
     } else {
       this.toastrService.error('Form not completed', 'Warning');
     }

@@ -22,7 +22,8 @@ export class ClassDeleteComponent implements OnInit {
 
   createClassDeleteForm() {
     this.classDeleteForm = this.formBuilder.group({
-      Id: ['', Validators.required],
+      classId: ['', Validators.required],
+      className: ['', Validators.required],
     });
   }
 

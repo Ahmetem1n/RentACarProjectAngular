@@ -22,7 +22,13 @@ export class UserAddComponent implements OnInit {
 
   createUserAddForm() {
     this.userAddForm = this.formBuilder.group({
-      Id: ['', Validators.required],
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      nationalityId: ['', Validators.required],
+      birthYear: ['', Validators.required],
+      email: ['', Validators.required],
+      photo: ['', Validators.required],
+      status: ['', Validators.required],
     });
   }
 

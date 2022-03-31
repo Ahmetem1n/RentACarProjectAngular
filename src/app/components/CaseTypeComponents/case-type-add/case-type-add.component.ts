@@ -22,7 +22,7 @@ export class CaseTypeAddComponent implements OnInit {
 
   createCaseTypeAddForm() {
     this.caseTypeAddForm = this.formBuilder.group({
-      Id: ['', Validators.required],
+      caseName: ['', Validators.required],
     });
   }
 

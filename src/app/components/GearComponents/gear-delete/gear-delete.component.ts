@@ -22,7 +22,8 @@ export class GearDeleteComponent implements OnInit {
 
   createGearDeleteForm() {
     this.gearDeleteForm = this.formBuilder.group({
-      Id: ['', Validators.required],
+      gearId: ['', Validators.required],
+      gearName: ['', Validators.required],
     });
   }
 

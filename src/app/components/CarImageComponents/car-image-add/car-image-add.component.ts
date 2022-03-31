@@ -22,7 +22,8 @@ export class CarImageAddComponent implements OnInit {
 
   createCarImageAddForm() {
     this.carImageAddForm = this.formBuilder.group({
-      Id: ['', Validators.required],
+      carId: ['', Validators.required],
+      imagePath: ['', Validators.required],
     });
   }
 

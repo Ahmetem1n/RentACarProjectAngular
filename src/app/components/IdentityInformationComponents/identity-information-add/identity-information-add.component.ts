@@ -22,7 +22,15 @@ export class IdentityInformationAddComponent implements OnInit {
 
   createIdentityInformationAddForm() {
     this.identityInformationAddForm = this.formBuilder.group({
-      Id: ['', Validators.required],
+      serialNumber: ['', Validators.required],
+      fatherName: ['', Validators.required],
+      motherName: ['', Validators.required],
+      birthPlace: ['', Validators.required],
+      birthYear: ['', Validators.required],
+      maritalStatus: ['', Validators.required],
+      gender: ['', Validators.required],
+      validUntil: ['', Validators.required],
+
     });
   }
 

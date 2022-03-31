@@ -22,7 +22,8 @@ export class OperationClaimDeleteComponent implements OnInit {
 
   createOperationClaimDeleteForm() {
     this.operationClaimDeleteForm = this.formBuilder.group({
-      Id: ['', Validators.required],
+      claimId: ['', Validators.required],
+      claimName: ['', Validators.required],
     });
   }
 

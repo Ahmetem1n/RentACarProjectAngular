@@ -22,7 +22,22 @@ export class CarDeleteComponent implements OnInit {
 
   createCarDeleteForm() {
     this.carDeleteForm = this.formBuilder.group({
-      Id: ['', Validators.required],
+      carId: ['', Validators.required],
+      brandId: ['', Validators.required],
+      colorId: ['', Validators.required],
+      branchId: ['', Validators.required],
+      gearId: ['', Validators.required],
+      fuelId: ['', Validators.required],
+      classId: ['', Validators.required],
+      bodyId: ['', Validators.required],
+      modelId: ['', Validators.required],
+      carPlate: ['', Validators.required],
+      carStar: ['', Validators.required],
+      modelYear: ['', Validators.required],
+      dailyPrice: ['', Validators.required],
+      description: ['', Validators.required],
+      carUsable: ['', Validators.required],
+      carLocation: ['', Validators.required],
     });
   }
 

@@ -22,37 +22,44 @@ export class UserOperationClaimDeleteComponent implements OnInit {
 
   createUserOperationClaimDeleteForm() {
     this.userOperationClaimDeleteForm = this.formBuilder.group({
-      Id: ['', Validators.required],
+      detailId: ['', Validators.required],
+      userId: ['', Validators.required],
+      claimId: ['', Validators.required],
     });
   }
 
   delete() {
     if (this.userOperationClaimDeleteForm.valid) {
-      let userOperationClaimModel = Object.assign({}, this.userOperationClaimDeleteForm.value);
-      this.userOperationClaimService.deleteUserOperationClaim(userOperationClaimModel).subscribe(
-        (response) => {
-          this.toastrService.success(response.message, 'Success');
-        },
-        (responseError) => {
-          if (
-            responseError.error.ValidationErrors &&
-            responseError.error.ValidationErrors.length > 0
-          ) {
-            for (
-              let i = 0;
-              i < responseError.error.ValidationErrors.length;
-              i++
-            ) {
-              this.toastrService.error(
-                responseError.error.ValidationErrors[i].ErrorMessage,
-                'Validation Error'
-              );
-            }
-          } else {
-            this.toastrService.error(responseError.error.message, 'Error');
-          }
-        }
+      let userOperationClaimModel = Object.assign(
+        {},
+        this.userOperationClaimDeleteForm.value
       );
+      this.userOperationClaimService
+        .deleteUserOperationClaim(userOperationClaimModel)
+        .subscribe(
+          (response) => {
+            this.toastrService.success(response.message, 'Success');
+          },
+          (responseError) => {
+            if (
+              responseError.error.ValidationErrors &&
+              responseError.error.ValidationErrors.length > 0
+            ) {
+              for (
+                let i = 0;
+                i < responseError.error.ValidationErrors.length;
+                i++
+              ) {
+                this.toastrService.error(
+                  responseError.error.ValidationErrors[i].ErrorMessage,
+                  'Validation Error'
+                );
+              }
+            } else {
+              this.toastrService.error(responseError.error.message, 'Error');
+            }
+          }
+        );
     } else {
       this.toastrService.error('Form not completed', 'Warning');
     }
