@@ -1,8 +1,9 @@
-import { City } from './../models/city';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { City } from '../models/city';
 import { ListResponseModel } from '../models/listResponseModel';
+import { SingleResponseModel } from './../models/singleResponseModel';
 
 @Injectable({
   providedIn: 'root',
@@ -15,5 +16,10 @@ export class CityService {
   getCities(): Observable<ListResponseModel<City>> {
     let newPath = this.apiUrl + 'cities/getall';
     return this.httpClient.get<ListResponseModel<City>>(newPath);
+  }
+
+  detailCity(city: City) {
+    let newPath = this.apiUrl + 'cities/getById?cityId' + city.cityId;
+    return this.httpClient.get<SingleResponseModel<City>>(newPath);
   }
 }

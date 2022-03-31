@@ -1,8 +1,10 @@
-import { CarImage } from './../models/carImage';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { CarImage } from '../models/carImage';
 import { ListResponseModel } from '../models/listResponseModel';
+import { ResponseModel } from './../models/responseModel';
+import { SingleResponseModel } from './../models/singleResponseModel';
 
 @Injectable({
   providedIn: 'root',
@@ -15,5 +17,24 @@ export class CarImageService {
   getCarImages(): Observable<ListResponseModel<CarImage>> {
     let newPath = this.apiUrl + 'carImages/getall';
     return this.httpClient.get<ListResponseModel<CarImage>>(newPath);
+  }
+
+  addCarImage(carImage: CarImage): Observable<ResponseModel> {
+    let newPath = this.apiUrl + 'carImages/add';
+    return this.httpClient.post<ResponseModel>(newPath, carImage);
+  }
+
+  updateCarImage(carImage: CarImage): Observable<ResponseModel> {
+    let newPath = this.apiUrl + 'carImages/update';
+    return this.httpClient.post<ResponseModel>(newPath, carImage);
+  }
+  deleteCarImage(carImage: CarImage): Observable<ResponseModel> {
+    let newPath = this.apiUrl + 'carImages/delete';
+    return this.httpClient.post<ResponseModel>(newPath, carImage);
+  }
+
+  detailCarImage(carImage: CarImage) {
+    let newPath = this.apiUrl + 'carImages/getById?imageId' + carImage.imageId;
+    return this.httpClient.get<SingleResponseModel<CarImage>>(newPath);
   }
 }

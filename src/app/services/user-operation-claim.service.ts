@@ -1,8 +1,10 @@
-import { UserOperationClaim } from './../models/userOperationClaim';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { UserOperationClaim } from '../models/userOperationClaim';
 import { ListResponseModel } from '../models/listResponseModel';
+import { ResponseModel } from './../models/responseModel';
+import { SingleResponseModel } from './../models/singleResponseModel';
 
 @Injectable({
   providedIn: 'root',
@@ -15,5 +17,24 @@ export class UserOperationClaimService {
   getUserOperationClaims(): Observable<ListResponseModel<UserOperationClaim>> {
     let newPath = this.apiUrl + 'userOperationClaims/getall';
     return this.httpClient.get<ListResponseModel<UserOperationClaim>>(newPath);
+  }
+
+  addUserOperationClaim(userOperationClaim: UserOperationClaim): Observable<ResponseModel> {
+    let newPath = this.apiUrl + 'userOperationClaims/add';
+    return this.httpClient.post<ResponseModel>(newPath, userOperationClaim);
+  }
+
+  updateUserOperationClaim(userOperationClaim: UserOperationClaim): Observable<ResponseModel> {
+    let newPath = this.apiUrl + 'userOperationClaims/update';
+    return this.httpClient.post<ResponseModel>(newPath, userOperationClaim);
+  }
+  deleteUserOperationClaim(userOperationClaim: UserOperationClaim): Observable<ResponseModel> {
+    let newPath = this.apiUrl + 'userOperationClaims/delete';
+    return this.httpClient.post<ResponseModel>(newPath, userOperationClaim);
+  }
+
+  detailUserOperationClaim(userOperationClaim: UserOperationClaim) {
+    let newPath = this.apiUrl + 'userOperationClaims/getById?detailId' + userOperationClaim.detailId;
+    return this.httpClient.get<SingleResponseModel<UserOperationClaim>>(newPath);
   }
 }
