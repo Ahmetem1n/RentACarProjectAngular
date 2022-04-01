@@ -1,3 +1,4 @@
+import { DrivingInformation } from './../../../models/drivingInformation';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
@@ -9,7 +10,8 @@ import { DrivingInformationService } from './../../../services/driving-informati
   styleUrls: ['./driving-information-delete.component.css'],
 })
 export class DrivingInformationDeleteComponent implements OnInit {
-  drivingInformationDeleteForm: FormGroup;
+  drivingInformationDeleteForm : FormGroup;
+  drivingInformation : DrivingInformation
   constructor(
     private formBuilder: FormBuilder,
     private drivingInformationService: DrivingInformationService,
@@ -22,11 +24,11 @@ export class DrivingInformationDeleteComponent implements OnInit {
 
   createDrivingInformationDeleteForm() {
     this.drivingInformationDeleteForm = this.formBuilder.group({
-      drivingId: ['', Validators.required],
-      licenceNumber: ['', Validators.required],
-      expiryDate: ['', Validators.required],
-      licenceProvince: ['', Validators.required],
-      bloodGroup: ['', Validators.required],
+      drivingId: [this.drivingInformation.drivingId, Validators.required],
+      licenceNumber: [this.drivingInformation.licenceNumber, Validators.required],
+      expiryDate: [this.drivingInformation.expiryDate, Validators.required],
+      licenceProvince: [this.drivingInformation.licenceProvince, Validators.required],
+      bloodGroup: [this.drivingInformation.bloodGroup, Validators.required],
     });
   }
 

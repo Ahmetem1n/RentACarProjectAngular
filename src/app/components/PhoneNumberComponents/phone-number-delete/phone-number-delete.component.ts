@@ -1,3 +1,4 @@
+import { PhoneNumber } from './../../../models/phoneNumber';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
@@ -10,6 +11,7 @@ import { PhoneNumberService } from './../../../services/phone-number.service';
 })
 export class PhoneNumberDeleteComponent implements OnInit {
   phoneNumberDeleteForm: FormGroup;
+  phoneNumber: PhoneNumber;
   constructor(
     private formBuilder: FormBuilder,
     private phoneNumberService: PhoneNumberService,
@@ -22,9 +24,9 @@ export class PhoneNumberDeleteComponent implements OnInit {
 
   createPhoneNumberDeleteForm() {
     this.phoneNumberDeleteForm = this.formBuilder.group({
-      phoneId: ['', Validators.required],
-      userId: ['', Validators.required],
-      phoneNo: ['', Validators.required],
+      phoneId: [this.phoneNumber.phoneId, Validators.required],
+      userId: [this.phoneNumber.userId, Validators.required],
+      phoneNo: [this.phoneNumber.userId, Validators.required],
     });
   }
 

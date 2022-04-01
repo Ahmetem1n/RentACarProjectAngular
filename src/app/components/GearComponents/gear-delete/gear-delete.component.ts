@@ -1,3 +1,4 @@
+import { Gear } from './../../../models/gear';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
@@ -10,6 +11,7 @@ import { GearService } from './../../../services/gear.service';
 })
 export class GearDeleteComponent implements OnInit {
   gearDeleteForm: FormGroup;
+  gear: Gear;
   constructor(
     private formBuilder: FormBuilder,
     private gearService: GearService,
@@ -22,8 +24,8 @@ export class GearDeleteComponent implements OnInit {
 
   createGearDeleteForm() {
     this.gearDeleteForm = this.formBuilder.group({
-      gearId: ['', Validators.required],
-      gearName: ['', Validators.required],
+      gearId: [this.gear.gearId, Validators.required],
+      gearName: [this.gear.gearName, Validators.required],
     });
   }
 

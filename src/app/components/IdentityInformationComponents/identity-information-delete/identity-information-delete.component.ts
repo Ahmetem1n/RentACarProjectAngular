@@ -1,3 +1,4 @@
+import { IdentityInformation } from './../../../models/identityInformation';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
@@ -10,6 +11,7 @@ import { IdentityInformationService } from './../../../services/identity-informa
 })
 export class IdentityInformationDeleteComponent implements OnInit {
   identityInformationDeleteForm: FormGroup;
+  identityInformation:IdentityInformation
   constructor(
     private formBuilder: FormBuilder,
     private identityInformationService: IdentityInformationService,
@@ -22,15 +24,15 @@ export class IdentityInformationDeleteComponent implements OnInit {
 
   createIdentityInformationDeleteForm() {
     this.identityInformationDeleteForm = this.formBuilder.group({
-      identityId: ['', Validators.required],
-      serialNumber: ['', Validators.required],
-      fatherName: ['', Validators.required],
-      motherName: ['', Validators.required],
-      birthPlace: ['', Validators.required],
-      birthYear: ['', Validators.required],
-      maritalStatus: ['', Validators.required],
-      gender: ['', Validators.required],
-      validUntil: ['', Validators.required],
+      identityId: [this.identityInformation.identityId, Validators.required],
+      serialNumber: [this.identityInformation.serialNumber, Validators.required],
+      fatherName: [this.identityInformation.fatherName, Validators.required],
+      motherName: [this.identityInformation.motherName, Validators.required],
+      birthPlace: [this.identityInformation.birthPlace, Validators.required],
+      birthYear: [this.identityInformation.birthYear, Validators.required],
+      maritalStatus: [this.identityInformation.maritalStatus, Validators.required],
+      gender: [this.identityInformation.gender, Validators.required],
+      validUntil: [this.identityInformation.validUntil, Validators.required],
     });
   }
 

@@ -1,3 +1,4 @@
+import { Branch } from './../../../models/branch';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
@@ -10,6 +11,7 @@ import { BranchService } from './../../../services/branch.service';
 })
 export class BranchDeleteComponent implements OnInit {
   branchDeleteForm: FormGroup;
+  branch: Branch;
   constructor(
     private formBuilder: FormBuilder,
     private branchService: BranchService,
@@ -22,9 +24,9 @@ export class BranchDeleteComponent implements OnInit {
 
   createBranchDeleteForm() {
     this.branchDeleteForm = this.formBuilder.group({
-      branchId: ['', Validators.required],
-      cityId: ['', Validators.required],
-      branchName: ['', Validators.required],
+      branchId: [this.branch.branchId, Validators.required],
+      cityId: [this.branch.cityId, Validators.required],
+      branchName: [this.branch.branchName, Validators.required],
     });
   }
 

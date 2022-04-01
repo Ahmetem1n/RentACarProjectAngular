@@ -1,3 +1,4 @@
+import { Brand } from './../../../models/brand';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
@@ -10,6 +11,7 @@ import { BrandService } from './../../../services/brand.service';
 })
 export class BrandDeleteComponent implements OnInit {
   brandDeleteForm: FormGroup;
+  brand: Brand;
   constructor(
     private formBuilder: FormBuilder,
     private brandService: BrandService,
@@ -22,8 +24,8 @@ export class BrandDeleteComponent implements OnInit {
 
   createBrandDeleteForm() {
     this.brandDeleteForm = this.formBuilder.group({
-      brandId: ['', Validators.required],
-      brandName: ['', Validators.required],
+      brandId: [this.brand.brandId, Validators.required],
+      brandName: [this.brand.brandName, Validators.required],
     });
   }
 

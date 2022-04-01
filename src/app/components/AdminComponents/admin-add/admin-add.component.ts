@@ -1,3 +1,4 @@
+import { Admin } from './../../../models/admin';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
@@ -10,6 +11,7 @@ import { AdminService } from './../../../services/admin.service';
 })
 export class AdminAddComponent implements OnInit {
   adminAddForm: FormGroup;
+  admin: Admin;
   constructor(
     private formBuilder: FormBuilder,
     private adminService: AdminService,
@@ -17,9 +19,16 @@ export class AdminAddComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    //this.updateDeneme();
     this.createAdminAddForm();
   }
 
+  updateDeneme() {
+    this.adminService.detailAdmin(6).subscribe((response) => {
+      this.admin = response.data;
+      console.log(this.admin);
+    });
+  }
   createAdminAddForm() {
     this.adminAddForm = this.formBuilder.group({
       userId: ['', Validators.required],

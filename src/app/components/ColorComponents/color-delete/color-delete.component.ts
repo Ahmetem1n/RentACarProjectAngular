@@ -1,3 +1,4 @@
+import { Color } from './../../../models/color';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
@@ -10,6 +11,7 @@ import { ColorService } from './../../../services/color.service';
 })
 export class ColorDeleteComponent implements OnInit {
   colorDeleteForm: FormGroup;
+  color: Color;
   constructor(
     private formBuilder: FormBuilder,
     private colorService: ColorService,
@@ -22,8 +24,8 @@ export class ColorDeleteComponent implements OnInit {
 
   createColorDeleteForm() {
     this.colorDeleteForm = this.formBuilder.group({
-      colorId: ['', Validators.required],
-      colorName: ['', Validators.required],
+      colorId: [this.color.colorId, Validators.required],
+      colorName: [this.color.colorName, Validators.required],
     });
   }
 

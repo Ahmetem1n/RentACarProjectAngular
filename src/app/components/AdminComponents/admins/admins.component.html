@@ -1,1 +1,151 @@
-<p>admins works!</p>
+<table class="table table-success table-striped">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">First</th>
+      <th scope="col">Last</th>
+      <th scope="col">Handle</th>
+      <th scope="col">Update</th>
+      <th scope="col">Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">1</th>
+      <td><a routerLink="/admin/detail">Mark</a></td>
+      <td>Otto</td>
+      <td>@mdo</td>
+      <td>
+        <a routerLink="/admin/update"><button>update</button></a>
+      </td>
+      <td>
+        <a routerLink="/admin/delete"><button>delete</button></a>
+      </td>
+    </tr>
+    <tr>
+      <th scope="row">2</th>
+      <td>Jacob</td>
+      <td>Thornton</td>
+      <td>@fat</td>
+      <td>
+        <a routerLink="/admin/update"><button>update</button></a>
+      </td>
+      <td>
+        <a routerLink="/admin/delete"><button>delete</button></a>
+      </td>
+    </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td colspan="2">Larry the Bird</td>
+      <td>@twitter</td>
+      <td>
+        <a routerLink="/admin/update"><button>update</button></a>
+      </td>
+      <td>
+        <a routerLink="/admin/delete"><button>delete</button></a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<a routerLink="/admin/add"
+  ><button>Add Rengi yukarıdaki gibi olabilir.</button></a
+>
+
+<nav
+  class="d-md-flex justify-content-md-end"
+  aria-label="Page navigation example"
+>
+  <ul class="pagination justify-content-center">
+    <li class="page-item">
+      <a class="page-link">Previous</a>
+    </li>
+    <li class="page-item"><a class="page-link" href="#">1</a></li>
+    <li class="page-item"><a class="page-link" href="#">2</a></li>
+    <li class="page-item"><a class="page-link" href="#">3</a></li>
+    <li class="page-item">
+      <a class="page-link" href="#">Next</a>
+    </li>
+  </ul>
+</nav>
+
+<button
+  type="button"
+  class="btn btn-primary"
+  data-bs-toggle="modal"
+  data-bs-target="#exampleModal"
+  data-bs-whatever="@mdo"
+>
+  Admin Add
+</button>
+<button
+  type="button"
+  class="btn btn-primary"
+  data-bs-toggle="modal"
+  data-bs-target="#exampleModal"
+  data-bs-whatever="@fat"
+>
+  Open modal for @fat
+</button>
+<button
+  type="button"
+  class="btn btn-primary"
+  data-bs-toggle="modal"
+  data-bs-target="#exampleModal"
+  data-bs-whatever="@getbootstrap"
+>
+  Open modal for @getbootstrap
+</button>
+
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Admin Add</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">User Id:</label>
+            <input type="text" class="form-control" id="recipient-name" />
+          </div>
+          <div class="mb-3">
+            <label for="message-text" class="col-form-label"
+              >Admin deneme:</label
+            >
+            <textarea class="form-control" id="message-text"></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          data-bs-dismiss="modal"
+          onclick="alert('Clicked')"
+        >
+          Close
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          onclick="alert('Clicked')"
+        >
+          Send message
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

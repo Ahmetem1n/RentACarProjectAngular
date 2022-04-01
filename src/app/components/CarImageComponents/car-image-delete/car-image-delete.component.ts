@@ -1,3 +1,4 @@
+import { CarImage } from './../../../models/carImage';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
@@ -10,6 +11,7 @@ import { CarImageService } from './../../../services/car-image.service';
 })
 export class CarImageDeleteComponent implements OnInit {
   carImageDeleteForm: FormGroup;
+  carImage: CarImage;
   constructor(
     private formBuilder: FormBuilder,
     private carImageService: CarImageService,
@@ -22,9 +24,9 @@ export class CarImageDeleteComponent implements OnInit {
 
   createCarImageDeleteForm() {
     this.carImageDeleteForm = this.formBuilder.group({
-      imageId: ['', Validators.required],
-      carId: ['', Validators.required],
-      imagePath: ['', Validators.required],
+      imageId: [this.carImage.imageId, Validators.required],
+      carId: [this.carImage.carId, Validators.required],
+      imagePath: [this.carImage.imagePath, Validators.required],
     });
   }
 

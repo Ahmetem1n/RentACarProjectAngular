@@ -1,3 +1,4 @@
+import { User } from './../../../models/user';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
@@ -10,6 +11,7 @@ import { UserService } from './../../../services/user.service';
 })
 export class UserDeleteComponent implements OnInit {
   userDeleteForm: FormGroup;
+  user: User;
   constructor(
     private formBuilder: FormBuilder,
     private userService: UserService,
@@ -22,14 +24,14 @@ export class UserDeleteComponent implements OnInit {
 
   createUserDeleteForm() {
     this.userDeleteForm = this.formBuilder.group({
-      userId: ['', Validators.required],
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
-      nationalityId: ['', Validators.required],
-      birthYear: ['', Validators.required],
-      email: ['', Validators.required],
-      photo: ['', Validators.required],
-      status: ['', Validators.required],
+      userId: [this.user.userId, Validators.required],
+      firstName: [this.user.firstName, Validators.required],
+      lastName: [this.user.lastName, Validators.required],
+      nationalityId: [this.user.nationalityId, Validators.required],
+      birthYear: [this.user.birthYear, Validators.required],
+      email: [this.user.email, Validators.required],
+      photo: [this.user.photo, Validators.required],
+      status: [this.user.status, Validators.required],
     });
   }
 

@@ -1,3 +1,4 @@
+import { Car } from './../../../models/car';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
@@ -10,6 +11,7 @@ import { CarService } from './../../../services/car.service';
 })
 export class CarDeleteComponent implements OnInit {
   carDeleteForm: FormGroup;
+  car: Car;
   constructor(
     private formBuilder: FormBuilder,
     private carService: CarService,
@@ -22,22 +24,22 @@ export class CarDeleteComponent implements OnInit {
 
   createCarDeleteForm() {
     this.carDeleteForm = this.formBuilder.group({
-      carId: ['', Validators.required],
-      brandId: ['', Validators.required],
-      colorId: ['', Validators.required],
-      branchId: ['', Validators.required],
-      gearId: ['', Validators.required],
-      fuelId: ['', Validators.required],
-      classId: ['', Validators.required],
-      bodyId: ['', Validators.required],
-      modelId: ['', Validators.required],
-      carPlate: ['', Validators.required],
-      carStar: ['', Validators.required],
-      modelYear: ['', Validators.required],
-      dailyPrice: ['', Validators.required],
-      description: ['', Validators.required],
-      carUsable: ['', Validators.required],
-      carLocation: ['', Validators.required],
+      carId: [this.car.carId, Validators.required],
+      brandId: [this.car.brandId, Validators.required],
+      colorId: [this.car.colorId, Validators.required],
+      branchId: [this.car.branchId, Validators.required],
+      gearId: [this.car.gearId, Validators.required],
+      fuelId: [this.car.fuelId, Validators.required],
+      classId: [this.car.classId, Validators.required],
+      bodyId: [this.car.bodyId, Validators.required],
+      modelId: [this.car.modelId, Validators.required],
+      carPlate: [this.car.carPlate, Validators.required],
+      carStar: [this.car.carStar, Validators.required],
+      modelYear: [this.car.modelYear, Validators.required],
+      dailyPrice: [this.car.dailyPrice, Validators.required],
+      description: [this.car.description, Validators.required],
+      carUsable: [this.car.carUsable, Validators.required],
+      carLocation: [this.car.carLocation, Validators.required],
     });
   }
 

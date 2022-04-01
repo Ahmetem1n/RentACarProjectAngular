@@ -1,3 +1,4 @@
+import { RentalDetail } from './../../../models/rentalDetail';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
@@ -10,6 +11,7 @@ import { RentalDetailService } from './../../../services/rental-detail.service';
 })
 export class RentalDetailDeleteComponent implements OnInit {
   rentalDetailDeleteForm: FormGroup;
+  rentalDetail: RentalDetail;
   constructor(
     private formBuilder: FormBuilder,
     private rentalDetailService: RentalDetailService,
@@ -22,13 +24,13 @@ export class RentalDetailDeleteComponent implements OnInit {
 
   createRentalDetailDeleteForm() {
     this.rentalDetailDeleteForm = this.formBuilder.group({
-      detailId: ['', Validators.required],
-      userId: ['', Validators.required],
-      carId: ['', Validators.required],
-      rentDate: ['', Validators.required],
-      returnDate: ['', Validators.required],
-      firstMileage: ['', Validators.required],
-      lastMileage: ['', Validators.required],
+      rentalId: [this.rentalDetail.rentalId, Validators.required],
+      userId: [this.rentalDetail.userId, Validators.required],
+      carId: [this.rentalDetail.carId, Validators.required],
+      rentDate: [this.rentalDetail.rentDate, Validators.required],
+      returnDate: [this.rentalDetail.returnDate, Validators.required],
+      firstMileage: [this.rentalDetail.firstMileage, Validators.required],
+      lastMileage: [this.rentalDetail.lastMileage, Validators.required],
     });
   }
 

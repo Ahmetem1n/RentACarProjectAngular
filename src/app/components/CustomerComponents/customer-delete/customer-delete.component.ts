@@ -1,3 +1,4 @@
+import { Customer } from './../../../models/customer';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
@@ -10,6 +11,7 @@ import { CustomerService } from './../../../services/customer.service';
 })
 export class CustomerDeleteComponent implements OnInit {
   customerDeleteForm: FormGroup;
+  customer: Customer;
   constructor(
     private formBuilder: FormBuilder,
     private customerService: CustomerService,
@@ -22,11 +24,11 @@ export class CustomerDeleteComponent implements OnInit {
 
   createCustomerDeleteForm() {
     this.customerDeleteForm = this.formBuilder.group({
-      customerId: ['', Validators.required],
-      userId: ['', Validators.required],
-      identityId: ['', Validators.required],
-      drivingId: ['', Validators.required],
-      address: ['', Validators.required],
+      customerId: [this.customer.customerId, Validators.required],
+      userId: [this.customer.userId, Validators.required],
+      identityId: [this.customer.identityId, Validators.required],
+      drivingId: [this.customer.drivingId, Validators.required],
+      address: [this.customer.address, Validators.required],
     });
   }
 

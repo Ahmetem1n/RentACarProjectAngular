@@ -33,8 +33,8 @@ export class AdminService {
     return this.httpClient.post<ResponseModel>(newPath, admin);
   }
 
-  detailAdmin(admin: Admin) {
-    let newPath = this.apiUrl + 'admins/getById?adminId' + admin.adminId;
+  detailAdmin(adminId: number) {
+    let newPath = this.apiUrl + 'admins/getById?adminId=' + adminId;
     return this.httpClient.get<SingleResponseModel<Admin>>(newPath);
   }
 }

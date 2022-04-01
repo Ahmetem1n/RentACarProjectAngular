@@ -1,3 +1,4 @@
+import { Model } from './../../../models/model';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
@@ -10,6 +11,7 @@ import { ModelService } from './../../../services/model.service';
 })
 export class ModelDeleteComponent implements OnInit {
   modelDeleteForm: FormGroup;
+  model: Model;
   constructor(
     private formBuilder: FormBuilder,
     private modelService: ModelService,
@@ -22,8 +24,8 @@ export class ModelDeleteComponent implements OnInit {
 
   createModelDeleteForm() {
     this.modelDeleteForm = this.formBuilder.group({
-      modelId: ['', Validators.required],
-      modelName: ['', Validators.required],
+      modelId: [this.model.modelId, Validators.required],
+      modelName: [this.model.modelName, Validators.required],
     });
   }
 

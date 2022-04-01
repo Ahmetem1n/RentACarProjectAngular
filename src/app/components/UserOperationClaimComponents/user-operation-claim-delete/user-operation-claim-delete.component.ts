@@ -1,3 +1,4 @@
+import { UserOperationClaim } from './../../../models/userOperationClaim';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
@@ -10,6 +11,7 @@ import { UserOperationClaimService } from './../../../services/user-operation-cl
 })
 export class UserOperationClaimDeleteComponent implements OnInit {
   userOperationClaimDeleteForm: FormGroup;
+  userOperationClaim: UserOperationClaim;
   constructor(
     private formBuilder: FormBuilder,
     private userOperationClaimService: UserOperationClaimService,
@@ -22,9 +24,9 @@ export class UserOperationClaimDeleteComponent implements OnInit {
 
   createUserOperationClaimDeleteForm() {
     this.userOperationClaimDeleteForm = this.formBuilder.group({
-      detailId: ['', Validators.required],
-      userId: ['', Validators.required],
-      claimId: ['', Validators.required],
+      detailId: [this.userOperationClaim.detailId, Validators.required],
+      userId: [this.userOperationClaim.userId, Validators.required],
+      claimId: [this.userOperationClaim.claimId, Validators.required],
     });
   }
 

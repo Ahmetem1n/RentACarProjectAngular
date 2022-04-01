@@ -1,3 +1,4 @@
+import { CaseType } from './../../../models/caseType';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
@@ -10,6 +11,7 @@ import { CaseTypeService } from './../../../services/case-type.service';
 })
 export class CaseTypeDeleteComponent implements OnInit {
   caseTypeDeleteForm: FormGroup;
+  caseType: CaseType;
   constructor(
     private formBuilder: FormBuilder,
     private caseTypeService: CaseTypeService,
@@ -22,8 +24,8 @@ export class CaseTypeDeleteComponent implements OnInit {
 
   createCaseTypeDeleteForm() {
     this.caseTypeDeleteForm = this.formBuilder.group({
-      caseId: ['', Validators.required],
-      caseName: ['', Validators.required],
+      caseId: [this.caseType.caseId, Validators.required],
+      caseName: [this.caseType.caseName, Validators.required],
     });
   }
 

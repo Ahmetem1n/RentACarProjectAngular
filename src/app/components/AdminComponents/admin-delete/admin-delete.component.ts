@@ -1,3 +1,4 @@
+import { Admin } from './../../../models/admin';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
@@ -10,6 +11,7 @@ import { AdminService } from './../../../services/admin.service';
 })
 export class AdminDeleteComponent implements OnInit {
   adminDeleteForm: FormGroup;
+  admin: Admin;
   constructor(
     private formBuilder: FormBuilder,
     private adminService: AdminService,
@@ -22,8 +24,8 @@ export class AdminDeleteComponent implements OnInit {
 
   createAdminDeleteForm() {
     this.adminDeleteForm = this.formBuilder.group({
-      adminId: ['', Validators.required],
-      userId: ['', Validators.required],
+      adminId: [this.admin.adminId, Validators.required],
+      userId: [this.admin.userId, Validators.required],
     });
   }
 

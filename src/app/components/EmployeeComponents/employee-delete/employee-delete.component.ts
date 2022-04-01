@@ -1,3 +1,4 @@
+import { Employee } from './../../../models/employee';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
@@ -10,6 +11,7 @@ import { EmployeeService } from './../../../services/employee.service';
 })
 export class EmployeeDeleteComponent implements OnInit {
   employeeDeleteForm: FormGroup;
+  employee: Employee;
   constructor(
     private formBuilder: FormBuilder,
     private employeeService: EmployeeService,
@@ -22,8 +24,8 @@ export class EmployeeDeleteComponent implements OnInit {
 
   createEmployeeDeleteForm() {
     this.employeeDeleteForm = this.formBuilder.group({
-      employeeId: ['', Validators.required],
-      userId: ['', Validators.required],
+      employeeId: [this.employee.employeeId, Validators.required],
+      userId: [this.employee.userId, Validators.required],
     });
   }
 

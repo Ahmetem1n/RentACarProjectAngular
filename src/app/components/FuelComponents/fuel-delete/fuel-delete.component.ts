@@ -1,3 +1,4 @@
+import { Fuel } from './../../../models/fuel';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
@@ -10,6 +11,7 @@ import { FuelService } from './../../../services/fuel.service';
 })
 export class FuelDeleteComponent implements OnInit {
   fuelDeleteForm: FormGroup;
+  fuel: Fuel;
   constructor(
     private formBuilder: FormBuilder,
     private fuelService: FuelService,
@@ -22,8 +24,8 @@ export class FuelDeleteComponent implements OnInit {
 
   createFuelDeleteForm() {
     this.fuelDeleteForm = this.formBuilder.group({
-      fuelId: ['', Validators.required],
-      fuelName: ['', Validators.required],
+      fuelId: [this.fuel.fuelId, Validators.required],
+      fuelName: [this.fuel.fuelName, Validators.required],
     });
   }
 

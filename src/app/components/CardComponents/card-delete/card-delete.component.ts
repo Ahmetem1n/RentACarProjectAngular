@@ -1,3 +1,4 @@
+import { Card } from './../../../models/card';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
@@ -10,6 +11,7 @@ import { CardService } from './../../../services/card.service';
 })
 export class CardDeleteComponent implements OnInit {
   cardDeleteForm: FormGroup;
+  card: Card;
   constructor(
     private formBuilder: FormBuilder,
     private cardService: CardService,
@@ -22,12 +24,12 @@ export class CardDeleteComponent implements OnInit {
 
   createCardDeleteForm() {
     this.cardDeleteForm = this.formBuilder.group({
-      cardId: ['', Validators.required],
-      userId: ['', Validators.required],
-      fullName: ['', Validators.required],
-      cardNo: ['', Validators.required],
-      expiryDate: ['', Validators.required],
-      cvv: ['', Validators.required],
+      cardId: [this.card.cardId, Validators.required],
+      userId: [this.card.userId, Validators.required],
+      fullName: [this.card.fullName, Validators.required],
+      cardNo: [this.card.cardNo, Validators.required],
+      expiryDate: [this.card.expiryDate, Validators.required],
+      cvv: [this.card.cvv, Validators.required],
     });
   }
 
