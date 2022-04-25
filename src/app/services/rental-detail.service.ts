@@ -33,8 +33,8 @@ export class RentalDetailService {
     return this.httpClient.post<ResponseModel>(newPath, rentalDetail);
   }
 
-  detailRentalDetail(rentalDetail: RentalDetail) {
-    let newPath = this.apiUrl + 'rentalDetails/getById?rentalId' + rentalDetail.rentalId;
+  detailRentalDetail(rentalId: number) {
+    let newPath = this.apiUrl + 'rentalDetails/getById?rentalId=' + rentalId;
     return this.httpClient.get<SingleResponseModel<RentalDetail>>(newPath);
   }
 }

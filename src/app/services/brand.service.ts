@@ -33,8 +33,8 @@ export class BrandService {
     return this.httpClient.post<ResponseModel>(newPath, brand);
   }
 
-  detailBrand(brand: Brand) {
-    let newPath = this.apiUrl + 'brands/getById?brandId' + brand.brandId;
+  detailBrand(brandId: number) {
+    let newPath = this.apiUrl + 'brands/getById?brandId=' + brandId;
     return this.httpClient.get<SingleResponseModel<Brand>>(newPath);
   }
 }

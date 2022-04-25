@@ -1,3 +1,4 @@
+import { ActivatedRoute } from '@angular/router';
 import { Admin } from './../../../models/admin';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -11,14 +12,26 @@ import { AdminService } from './../../../services/admin.service';
 })
 export class AdminDeleteComponent implements OnInit {
   adminDeleteForm: FormGroup;
-  admin: Admin;
+  admin: Admin = { adminId: 0, userId: 0 };
   constructor(
     private formBuilder: FormBuilder,
+    private activatedRoute: ActivatedRoute,
     private adminService: AdminService,
     private toastrService: ToastrService
   ) {}
 
   ngOnInit(): void {
+    this.activatedRoute.params.subscribe((params) => {
+      if (params['adminId']) {
+        this.adminService
+          .detailAdmin(params['adminId'])
+          .subscribe((response) => {
+            this.admin = response.data;
+            console.log(this.admin);
+            this.createAdminDeleteForm();
+          });
+      }
+    });
     this.createAdminDeleteForm();
   }
 

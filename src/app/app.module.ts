@@ -15,12 +15,10 @@ import { AdminsComponent } from './components/AdminComponents/admins/admins.comp
 import { AuthComponent } from './components/AuthComponents/auth/auth.component';
 import { BranchAddComponent } from './components/BranchComponents/branch-add/branch-add.component';
 import { BranchDeleteComponent } from './components/BranchComponents/branch-delete/branch-delete.component';
-import { BranchDetailComponent } from './components/BranchComponents/branch-detail/branch-detail.component';
 import { BranchUpdateComponent } from './components/BranchComponents/branch-update/branch-update.component';
 import { BranchsComponent } from './components/BranchComponents/branchs/branchs.component';
 import { BrandAddComponent } from './components/BrandComponents/brand-add/brand-add.component';
 import { BrandDeleteComponent } from './components/BrandComponents/brand-delete/brand-delete.component';
-import { BrandDetailComponent } from './components/BrandComponents/brand-detail/brand-detail.component';
 import { BrandUpdateComponent } from './components/BrandComponents/brand-update/brand-update.component';
 import { BrandsComponent } from './components/BrandComponents/brands/brands.component';
 import { CarAddComponent } from './components/CarComponents/car-add/car-add.component';
@@ -218,8 +216,6 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
     UserOperationClaimDeleteComponent,
     //DetailComponent
     AdminDetailComponent,
-    BranchDetailComponent,
-    BrandDetailComponent,
     CarDetailComponent,
     CardDetailComponent,
     CarImageDetailComponent,

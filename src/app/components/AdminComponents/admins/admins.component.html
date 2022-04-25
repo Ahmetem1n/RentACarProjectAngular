@@ -1,113 +1,77 @@
-<table class="table table-success table-striped">
-  <thead>
+<table class="table table-striped" *ngIf="dataLoaded == true">
+  <thead class="table-dark">
     <tr>
-      <th scope="col">#</th>
-      <th scope="col">First</th>
-      <th scope="col">Last</th>
-      <th scope="col">Handle</th>
-      <th scope="col">Update</th>
-      <th scope="col">Delete</th>
+      <th scope="col">Admin Id</th>
+      <th scope="col">User Id</th>
+      <th scope="col">Güncelle</th>
+      <th scope="col">Sil</th>
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td><a routerLink="/admin/detail">Mark</a></td>
-      <td>Otto</td>
-      <td>@mdo</td>
+    <tr *ngFor="let admin of admins">
+      <th scope="row">
+        <a routerLink="/admin/detail/{{ admin.adminId }}">{{
+          admin.adminId
+        }}</a>
+      </th>
       <td>
-        <a routerLink="/admin/update"><button>update</button></a>
+        <a routerLink="/user/detail/{{ admin.userId }}">{{ admin.userId }}</a>
+      </td>
+
+      <td>
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-bs-toggle="modal"
+          data-bs-target="#update"
+          data-bs-whatever="@mdo"
+          (click)="createAdminDetail(admin)"
+        >
+          Güncelle
+        </button>
       </td>
       <td>
-        <a routerLink="/admin/delete"><button>delete</button></a>
-      </td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-      <td>
-        <a routerLink="/admin/update"><button>update</button></a>
-      </td>
-      <td>
-        <a routerLink="/admin/delete"><button>delete</button></a>
-      </td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td colspan="2">Larry the Bird</td>
-      <td>@twitter</td>
-      <td>
-        <a routerLink="/admin/update"><button>update</button></a>
-      </td>
-      <td>
-        <a routerLink="/admin/delete"><button>delete</button></a>
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-bs-toggle="modal"
+          data-bs-target="#delete"
+          data-bs-whatever="@mdo"
+          (click)="createAdminDetail(admin)"
+        >
+          Sil
+        </button>
       </td>
     </tr>
   </tbody>
 </table>
 
-<a routerLink="/admin/add"
-  ><button>Add Rengi yukarıdaki gibi olabilir.</button></a
->
+<a routerLink="/admin/add"><button>Ekle</button></a>
 
-<nav
-  class="d-md-flex justify-content-md-end"
-  aria-label="Page navigation example"
->
-  <ul class="pagination justify-content-center">
-    <li class="page-item">
-      <a class="page-link">Previous</a>
-    </li>
-    <li class="page-item"><a class="page-link" href="#">1</a></li>
-    <li class="page-item"><a class="page-link" href="#">2</a></li>
-    <li class="page-item"><a class="page-link" href="#">3</a></li>
-    <li class="page-item">
-      <a class="page-link" href="#">Next</a>
-    </li>
-  </ul>
-</nav>
+<br /><br /><br />
 
 <button
   type="button"
   class="btn btn-primary"
   data-bs-toggle="modal"
-  data-bs-target="#exampleModal"
+  data-bs-target="#add"
   data-bs-whatever="@mdo"
 >
-  Admin Add
-</button>
-<button
-  type="button"
-  class="btn btn-primary"
-  data-bs-toggle="modal"
-  data-bs-target="#exampleModal"
-  data-bs-whatever="@fat"
->
-  Open modal for @fat
-</button>
-<button
-  type="button"
-  class="btn btn-primary"
-  data-bs-toggle="modal"
-  data-bs-target="#exampleModal"
-  data-bs-whatever="@getbootstrap"
->
-  Open modal for @getbootstrap
+  Ekle
 </button>
 
+<!-- Admin Ekleme modal -->
 <div
   class="modal fade"
-  id="exampleModal"
+  id="add"
   tabindex="-1"
-  aria-labelledby="exampleModalLabel"
+  aria-labelledby="addLabel"
   aria-hidden="true"
 >
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Admin Add</h5>
+        <h5 class="modal-title" id="addLabel">Yönetici Ekleme</h5>
         <button
           type="button"
           class="btn-close"
@@ -116,35 +80,137 @@
         ></button>
       </div>
       <div class="modal-body">
-        <form>
+        <form [formGroup]="adminAddForm">
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label">User Id:</label>
-            <input type="text" class="form-control" id="recipient-name" />
+            <div class="form-group">
+              <input
+                type="number"
+                id="userId"
+                formControlName="userId"
+                class="form-control"
+                placeholder="User Id"
+              />
+            </div>
           </div>
-          <div class="mb-3">
-            <label for="message-text" class="col-form-label"
-              >Admin deneme:</label
+
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
             >
-            <textarea class="form-control" id="message-text"></textarea>
+              Kapat
+            </button>
+            <button type="button" class="btn btn-primary" (click)="add()">
+              Kaydet
+            </button>
           </div>
         </form>
       </div>
-      <div class="modal-footer">
+    </div>
+  </div>
+</div>
+
+<!-- Admin Güncelleme Modal -->
+<div
+  class="modal fade"
+  id="update"
+  tabindex="-1"
+  aria-labelledby="updateLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="updateLabel">Yönetici Güncelleme</h5>
         <button
           type="button"
-          class="btn btn-secondary"
+          class="btn-close"
           data-bs-dismiss="modal"
-          onclick="alert('Clicked')"
-        >
-          Close
-        </button>
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="adminUpdateAndDeleteForm">
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">User Id:</label>
+            <div class="form-group">
+              <input
+                type="number"
+                id="userId"
+                formControlName="userId"
+                class="form-control"
+                placeholder="User Id"
+              />
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Kapat
+            </button>
+            <button type="button" class="btn btn-primary" (click)="update()">
+              Güncelle
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Admin Silme Modal -->
+<div
+  class="modal fade"
+  id="delete"
+  tabindex="-1"
+  aria-labelledby="deleteLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteLabel">Yönetici Silme</h5>
         <button
           type="button"
-          class="btn btn-primary"
-          onclick="alert('Clicked')"
-        >
-          Send message
-        </button>
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="adminUpdateAndDeleteForm">
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">User Id:</label>
+            <div class="form-group">
+              <input
+                [readonly]="true"
+                type="number"
+                id="userId"
+                formControlName="userId"
+                class="form-control"
+              />
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Kapat
+            </button>
+            <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="delete()">
+              Sil
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   </div>

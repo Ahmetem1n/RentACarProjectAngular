@@ -33,6 +33,7 @@ export class LoginComponent implements OnInit {
       this.authService.login(loginModel).subscribe(
         (response) => {
           this.toastrService.info(response.message);
+          console.log(response.data);
           localStorage.setItem('token', response.data.token);
         },
         (responseError) => {
@@ -40,7 +41,6 @@ export class LoginComponent implements OnInit {
           this.toastrService.error(responseError.error);
         }
       );
-      console.log(this.loginForm.value);
     } else {
       this.toastrService.error('Form not completed', 'Warning');
     }

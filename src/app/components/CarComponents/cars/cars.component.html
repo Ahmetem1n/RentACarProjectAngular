@@ -1,1 +1,798 @@
-<p>cars works!</p>
+<table class="table table-striped" *ngIf="dataLoaded == true">
+  <thead class="table-dark">
+    <tr>
+      <th scope="col">Marka</th>
+      <th scope="col">Renk</th>
+      <th scope="col">Şube</th>
+      <th scope="col">Vites</th>
+      <th scope="col">Yakıt</th>
+      <th scope="col">Sınıf</th>
+      <th scope="col">Kasa</th>
+      <th scope="col">Model</th>
+      <th scope="col">Plaka</th>
+      <th scope="col">Yıldız</th>
+      <th scope="col">Yıl</th>
+      <th scope="col">Günlük Fiyat</th>
+      <th scope="col">Açıklama</th>
+      <th scope="col">Kullanılabilirlik</th>
+      <th scope="col">Konum</th>
+      <th scope="col">Güncelle</th>
+      <th scope="col">Sil</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let car of cars">
+      <td>{{ car.brandId }}</td>
+      <td>{{ car.colorId }}</td>
+      <td>{{ car.branchId }}</td>
+      <td>{{ car.gearId }}</td>
+      <td>{{ car.fuelId }}</td>
+      <td>{{ car.classId }}</td>
+      <td>{{ car.bodyId }}</td>
+      <td>{{ car.modelId }}</td>
+      <td>{{ car.carPlate }}</td>
+      <td>{{ car.carStar }}</td>
+      <td>{{ car.modelYear }}</td>
+      <td>{{ car.dailyPrice }}</td>
+      <td>{{ car.description }}</td>
+      <td>{{ car.carUsable }}</td>
+      <td>{{ car.carLocation }}</td>
+
+      <td>
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-bs-toggle="modal"
+          data-bs-target="#update"
+          data-bs-whatever="@mdo"
+          (click)="createCarDetail(car)"
+        >
+          Güncelle
+        </button>
+      </td>
+      <td>
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-bs-toggle="modal"
+          data-bs-target="#delete"
+          data-bs-whatever="@mdo"
+          (click)="createCarDetail(car)"
+        >
+          Sil
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<button
+  type="button"
+  class="btn btn-primary"
+  data-bs-toggle="modal"
+  data-bs-target="#add"
+  data-bs-whatever="@mdo"
+>
+  Ekle
+</button>
+
+<!-- Car Ekleme modal -->
+<div
+  class="modal fade"
+  id="add"
+  tabindex="-1"
+  aria-labelledby="addLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addLabel">Araba Ekleme</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="carAddForm">
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Brand Id:</label>
+            <div class="form-group">
+              <input
+                type="number"
+                id="brandId"
+                formControlName="brandId"
+                class="form-control"
+                placeholder="Brand Id"
+              />
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Color Id:</label>
+            <div class="form-group">
+              <input
+                type="number"
+                id="colorId"
+                formControlName="colorId"
+                class="form-control"
+                placeholder="Color Id"
+              />
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label"
+              >Branch Id:</label
+            >
+            <div class="form-group">
+              <input
+                type="number"
+                id="branchId"
+                formControlName="branchId"
+                class="form-control"
+                placeholder="Branch Id"
+              />
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Gear Id:</label>
+            <div class="form-group">
+              <input
+                type="number"
+                id="gearId"
+                formControlName="gearId"
+                class="form-control"
+                placeholder="gearId"
+              />
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Fuel Id:</label>
+            <div class="form-group">
+              <input
+                type="number"
+                id="fuelId"
+                formControlName="fuelId"
+                class="form-control"
+                placeholder="fuelId"
+              />
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Class Id:</label>
+            <div class="form-group">
+              <input
+                type="number"
+                id="classId"
+                formControlName="classId"
+                class="form-control"
+                placeholder="classId"
+              />
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Body Id:</label>
+            <div class="form-group">
+              <input
+                type="number"
+                id="bodyId"
+                formControlName="bodyId"
+                class="form-control"
+                placeholder="bodyId"
+              />
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Model Id:</label>
+            <div class="form-group">
+              <input
+                type="number"
+                id="modelId"
+                formControlName="modelId"
+                class="form-control"
+                placeholder="modelId"
+              />
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label"
+              >Car Plate:</label
+            >
+            <div class="form-group">
+              <input
+                type="text"
+                id="carPlate"
+                formControlName="carPlate"
+                class="form-control"
+                placeholder="carPlate"
+              />
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Car Star:</label>
+            <div class="form-group">
+              <input
+                type="number"
+                id="carStar"
+                formControlName="carStar"
+                class="form-control"
+                placeholder="carStar"
+              />
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label"
+              >Model Year:</label
+            >
+            <div class="form-group">
+              <input
+                type="number"
+                id="modelYear"
+                formControlName="modelYear"
+                class="form-control"
+                placeholder="modelYear"
+              />
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label"
+              >Daily Price:</label
+            >
+            <div class="form-group">
+              <input
+                type="number"
+                id="dailyPrice"
+                formControlName="dailyPrice"
+                class="form-control"
+                placeholder="dailyPrice"
+              />
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label"
+              >Description:</label
+            >
+            <div class="form-group">
+              <input
+                type="text"
+                id="description"
+                formControlName="description"
+                class="form-control"
+                placeholder="description"
+              />
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label"
+              >Car Usable:</label
+            >
+            <div class="form-group">
+              <input
+                type="checkbox"
+                checked
+                id="carUsable"
+                formControlName="carUsable"
+                class="form-control"
+                placeholder="carUsable"
+              />
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label"
+              >Car Location:</label
+            >
+            <div class="form-group">
+              <input
+                type="text"
+                id="carLocation"
+                formControlName="carLocation"
+                class="form-control"
+                placeholder="carLocation"
+              />
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Kapat
+            </button>
+            <button type="button" class="btn btn-primary" (click)="add()">
+              Kaydet
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Car Güncelleme Modal -->
+<div
+  class="modal fade"
+  id="update"
+  tabindex="-1"
+  aria-labelledby="updateLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="updateLabel">Araba Güncelleme</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="carUpdateAndDeleteForm">
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Brand Id:</label>
+            <div class="form-group">
+              <input
+                type="number"
+                id="brandId"
+                formControlName="brandId"
+                class="form-control"
+              />
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Color Id:</label>
+            <div class="form-group">
+              <input
+                type="number"
+                id="colorId"
+                formControlName="colorId"
+                class="form-control"
+              />
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label"
+              >Branch Id:</label
+            >
+            <div class="form-group">
+              <input
+                type="number"
+                id="branchId"
+                formControlName="branchId"
+                class="form-control"
+              />
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Gear Id:</label>
+            <div class="form-group">
+              <input
+                type="number"
+                id="gearId"
+                formControlName="gearId"
+                class="form-control"
+              />
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Fuel Id:</label>
+            <div class="form-group">
+              <input
+                type="number"
+                id="fuelId"
+                formControlName="fuelId"
+                class="form-control"
+              />
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Class Id:</label>
+            <div class="form-group">
+              <input
+                type="number"
+                id="classId"
+                formControlName="classId"
+                class="form-control"
+              />
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Body Id:</label>
+            <div class="form-group">
+              <input
+                type="number"
+                id="bodyId"
+                formControlName="bodyId"
+                class="form-control"
+              />
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Model Id:</label>
+            <div class="form-group">
+              <input
+                type="number"
+                id="modelId"
+                formControlName="modelId"
+                class="form-control"
+              />
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label"
+              >Car Plate:</label
+            >
+            <div class="form-group">
+              <input
+                type="text"
+                id="carPlate"
+                formControlName="carPlate"
+                class="form-control"
+              />
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Car Star:</label>
+            <div class="form-group">
+              <input
+                type="number"
+                id="carStar"
+                formControlName="carStar"
+                class="form-control"
+              />
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label"
+              >Model Year:</label
+            >
+            <div class="form-group">
+              <input
+                type="number"
+                id="modelYear"
+                formControlName="modelYear"
+                class="form-control"
+              />
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label"
+              >Daily Price:</label
+            >
+            <div class="form-group">
+              <input
+                type="number"
+                id="dailyPrice"
+                formControlName="dailyPrice"
+                class="form-control"
+              />
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label"
+              >Description:</label
+            >
+            <div class="form-group">
+              <input
+                type="text"
+                id="description"
+                formControlName="description"
+                class="form-control"
+              />
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label"
+              >Car Usable:</label
+            >
+            <div class="form-group">
+              <input
+                type="checkbox"
+                id="carUsable"
+                formControlName="carUsable"
+                class="form-control"
+              />
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label"
+              >Car Location:</label
+            >
+            <div class="form-group">
+              <input
+                type="text"
+                id="carLocation"
+                formControlName="carLocation"
+                class="form-control"
+              />
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Kapat
+            </button>
+            <button type="button" class="btn btn-primary" (click)="update()">
+              Güncelle
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Car Silme Modal -->
+<div
+  class="modal fade"
+  id="delete"
+  tabindex="-1"
+  aria-labelledby="deleteLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteLabel">Araba Silme</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="carUpdateAndDeleteForm">
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Brand Id:</label>
+            <div class="form-group">
+              <input [readonly]="true"
+                type="number"
+                id="brandId"
+                formControlName="brandId"
+                class="form-control"
+              />
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Color Id:</label>
+            <div class="form-group">
+              <input [readonly]="true"
+                type="number"
+                id="colorId"
+                formControlName="colorId"
+                class="form-control"
+              />
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label"
+              >Branch Id:</label
+            >
+            <div class="form-group">
+              <input [readonly]="true"
+                type="number"
+                id="branchId"
+                formControlName="branchId"
+                class="form-control"
+              />
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Gear Id:</label>
+            <div class="form-group">
+              <input [readonly]="true"
+                type="number"
+                id="gearId"
+                formControlName="gearId"
+                class="form-control"
+              />
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Fuel Id:</label>
+            <div class="form-group">
+              <input [readonly]="true"
+                type="number"
+                id="fuelId"
+                formControlName="fuelId"
+                class="form-control"
+              />
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Class Id:</label>
+            <div class="form-group">
+              <input [readonly]="true"
+                type="number"
+                id="classId"
+                formControlName="classId"
+                class="form-control"
+              />
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Body Id:</label>
+            <div class="form-group">
+              <input [readonly]="true"
+                type="number"
+                id="bodyId"
+                formControlName="bodyId"
+                class="form-control"
+              />
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Model Id:</label>
+            <div class="form-group">
+              <input [readonly]="true"
+                type="number"
+                id="modelId"
+                formControlName="modelId"
+                class="form-control"
+              />
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label"
+              >Car Plate:</label
+            >
+            <div class="form-group">
+              <input [readonly]="true"
+                type="text"
+                id="carPlate"
+                formControlName="carPlate"
+                class="form-control"
+              />
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Car Star:</label>
+            <div class="form-group">
+              <input [readonly]="true"
+                type="number"
+                id="carStar"
+                formControlName="carStar"
+                class="form-control"
+              />
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label"
+              >Model Year:</label
+            >
+            <div class="form-group">
+              <input [readonly]="true"
+                type="number"
+                id="modelYear"
+                formControlName="modelYear"
+                class="form-control"
+              />
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label"
+              >Daily Price:</label
+            >
+            <div class="form-group">
+              <input [readonly]="true"
+                type="number"
+                id="dailyPrice"
+                formControlName="dailyPrice"
+                class="form-control"
+              />
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label"
+              >Description:</label
+            >
+            <div class="form-group">
+              <input [readonly]="true"
+                type="text"
+                id="description"
+                formControlName="description"
+                class="form-control"
+              />
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label"
+              >Car Usable:</label
+            >
+            <div class="form-group">
+              <input [readonly]="true"
+                type="text"
+                id="carUsable"
+                formControlName="carUsable"
+                class="form-control"
+              />
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label"
+              >Car Location:</label
+            >
+            <div class="form-group">
+              <input
+                [readonly]="true"
+                type="text"
+                id="carLocation"
+                formControlName="carLocation"
+                class="form-control"
+              />
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Kapat
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              data-bs-dismiss="modal"
+              (click)="delete()"
+            >
+              Sil
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

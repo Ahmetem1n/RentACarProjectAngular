@@ -33,8 +33,8 @@ export class UserService {
     return this.httpClient.post<ResponseModel>(newPath, user);
   }
 
-  detailUser(user: User) {
-    let newPath = this.apiUrl + 'users/getById?userId' + user.userId;
+  detailUser(userId: number) {
+    let newPath = this.apiUrl + 'users/getById?userId=' + userId;
     return this.httpClient.get<SingleResponseModel<User>>(newPath);
   }
 }

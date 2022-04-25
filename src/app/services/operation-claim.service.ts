@@ -33,8 +33,8 @@ export class OperationClaimService {
     return this.httpClient.post<ResponseModel>(newPath, operationClaim);
   }
 
-  detailOperationClaim(operationClaim: OperationClaim) {
-    let newPath = this.apiUrl + 'operationClaims/getById?claimId' + operationClaim.claimId;
+  detailOperationClaim(claimId: number) {
+    let newPath = this.apiUrl + 'operationClaims/getById?claimId=' + claimId;
     return this.httpClient.get<SingleResponseModel<OperationClaim>>(newPath);
   }
 }

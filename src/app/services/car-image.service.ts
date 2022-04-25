@@ -33,8 +33,8 @@ export class CarImageService {
     return this.httpClient.post<ResponseModel>(newPath, carImage);
   }
 
-  detailCarImage(carImage: CarImage) {
-    let newPath = this.apiUrl + 'carImages/getById?imageId' + carImage.imageId;
+  detailCarImage(imageId: number) {
+    let newPath = this.apiUrl + 'carImages/getById?imageId=' + imageId;
     return this.httpClient.get<SingleResponseModel<CarImage>>(newPath);
   }
 }

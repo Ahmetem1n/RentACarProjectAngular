@@ -1,1 +1,348 @@
-<p>customers works!</p>
+<table class="table table-striped" *ngIf="dataLoaded == true">
+  <thead class="table-dark">
+    <tr>
+      <th scope="col">Kullanıcı Adı</th>
+      <th scope="col">Kimlik Seri No</th>
+      <th scope="col">Ehliyet Seri No</th>
+      <th scope="col">Adres</th>
+      <th scope="col">Güncelle</th>
+      <th scope="col">Sil</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let customer of customers">
+      <td>
+        {{ customer.userId }}
+      </td>
+      <td>
+        {{ customer.identityId }}
+      </td>
+      <td>
+        {{ customer.drivingId }}
+      </td>
+      <td>
+        {{ customer.address }}
+      </td>
+      <td>
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-bs-toggle="modal"
+          data-bs-target="#update"
+          data-bs-whatever="@mdo"
+          (click)="createCustomerDetail(customer)"
+        >
+          Güncelle
+        </button>
+      </td>
+      <td>
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-bs-toggle="modal"
+          data-bs-target="#delete"
+          data-bs-whatever="@mdo"
+          (click)="createCustomerDetail(customer)"
+        >
+          Sil
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<button
+  type="button"
+  class="btn btn-primary"
+  data-bs-toggle="modal"
+  data-bs-target="#add"
+  data-bs-whatever="@mdo"
+>
+  Ekle
+</button>
+
+<!-- Customer Ekleme modal -->
+<div
+  class="modal fade"
+  id="add"
+  tabindex="-1"
+  aria-labelledby="addLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addLabel">Müşteri Ekleme</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="customerAddForm">
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">User Id:</label>
+            <div class="form-group">
+              <input
+                type="number"
+                id="userId"
+                formControlName="userId"
+                class="form-control"
+                placeholder="userId"
+              />
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label"
+              >Identity Id:</label
+            >
+            <div class="form-group">
+              <input
+                type="number"
+                id="identityId"
+                formControlName="identityId"
+                class="form-control"
+                placeholder="identityId"
+              />
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label"
+              >Driving Id:</label
+            >
+            <div class="form-group">
+              <input
+                type="number"
+                id="drivingId"
+                formControlName="drivingId"
+                class="form-control"
+                placeholder="drivingId"
+              />
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Address:</label>
+            <div class="form-group">
+              <input
+                type="text"
+                id="address"
+                formControlName="address"
+                class="form-control"
+                placeholder="address"
+              />
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Kapat
+            </button>
+            <button type="button" class="btn btn-primary" (click)="add()">
+              Kaydet
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Customer Güncelleme Modal -->
+<div
+  class="modal fade"
+  id="update"
+  tabindex="-1"
+  aria-labelledby="updateLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="updateLabel">Müşteri Güncelleme</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="customerUpdateAndDeleteForm">
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">User Id:</label>
+            <div class="form-group">
+              <input
+                type="number"
+                id="userId"
+                formControlName="userId"
+                class="form-control"
+              />
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label"
+              >Identity Id:</label
+            >
+            <div class="form-group">
+              <input
+                type="number"
+                id="identityId"
+                formControlName="identityId"
+                class="form-control"
+              />
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label"
+              >Driving Id:</label
+            >
+            <div class="form-group">
+              <input
+                type="number"
+                id="drivingId"
+                formControlName="drivingId"
+                class="form-control"
+              />
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Address:</label>
+            <div class="form-group">
+              <input
+                type="text"
+                id="address"
+                formControlName="address"
+                class="form-control"
+              />
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Kapat
+            </button>
+            <button type="button" class="btn btn-primary" (click)="update()">
+              Güncelle
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Customer Silme Modal -->
+<div
+  class="modal fade"
+  id="delete"
+  tabindex="-1"
+  aria-labelledby="deleteLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteLabel">Müşteri Silme</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="customerUpdateAndDeleteForm">
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">User Id:</label>
+            <div class="form-group">
+              <input
+                [readonly]="true"
+                type="number"
+                id="userId"
+                formControlName="userId"
+                class="form-control"
+              />
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label"
+              >Identity Id:</label
+            >
+            <div class="form-group">
+              <input
+                [readonly]="true"
+                type="number"
+                id="identityId"
+                formControlName="identityId"
+                class="form-control"
+              />
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label"
+              >Driving Id:</label
+            >
+            <div class="form-group">
+              <input
+                [readonly]="true"
+                type="number"
+                id="drivingId"
+                formControlName="drivingId"
+                class="form-control"
+              />
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Address:</label>
+            <div class="form-group">
+              <input
+                [readonly]="true"
+                type="text"
+                id="address"
+                formControlName="address"
+                class="form-control"
+              />
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Kapat
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              data-bs-dismiss="modal"
+              (click)="delete()"
+            >
+              Sil
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

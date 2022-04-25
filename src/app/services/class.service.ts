@@ -15,26 +15,26 @@ export class ClassService {
   constructor(private httpClient: HttpClient) {}
 
   getClasses(): Observable<ListResponseModel<Class>> {
-    let newPath = this.apiUrl + 'classes/getall';
+    let newPath = this.apiUrl + 'classs/getall';
     return this.httpClient.get<ListResponseModel<Class>>(newPath);
   }
 
   addClass(classes: Class): Observable<ResponseModel> {
-    let newPath = this.apiUrl + 'classes/add';
+    let newPath = this.apiUrl + 'classs/add';
     return this.httpClient.post<ResponseModel>(newPath, classes);
   }
 
   updateClass(classes: Class): Observable<ResponseModel> {
-    let newPath = this.apiUrl + 'classes/update';
+    let newPath = this.apiUrl + 'classs/update';
     return this.httpClient.post<ResponseModel>(newPath, classes);
   }
   deleteClass(classes: Class): Observable<ResponseModel> {
-    let newPath = this.apiUrl + 'classes/delete';
+    let newPath = this.apiUrl + 'classs/delete';
     return this.httpClient.post<ResponseModel>(newPath, classes);
   }
 
-  detailClass(classes: Class) {
-    let newPath = this.apiUrl + 'classes/getById?classId' + classes.classId;
+  detailClass(classId: number) {
+    let newPath = this.apiUrl + 'classs/getById?classId=' + classId;
     return this.httpClient.get<SingleResponseModel<Class>>(newPath);
   }
 }

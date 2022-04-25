@@ -1,3 +1,5 @@
+import { ToastrService } from 'ngx-toastr';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { User } from '../../../models/user';
@@ -10,14 +12,23 @@ import { UserService } from '../../../services/user.service';
 })
 export class UsersComponent implements OnInit {
   users: User[] = [];
+  userAddForm: FormGroup;
+
+  userUpdateAndDeleteForm: FormGroup;
+  user: User = { userId: 0, firstName: '',lastName:"",nationalityId:"",birthYear:0,email:"",photo:"",status:false };
+
   dataLoaded = false;
   constructor(
+    private formBuilder: FormBuilder,
     private userService: UserService,
-    activatedRoute: ActivatedRoute
+    private toastrService: ToastrService,
+    private activatedRoute: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
     this.getUsers();
+    this.createUserAddForm();
+    this.createUserUpdateAndDeleteForm();
   }
 
   getUsers() {
@@ -25,5 +36,137 @@ export class UsersComponent implements OnInit {
       this.users = response.data;
       this.dataLoaded = true;
     });
+  }
+
+  createUserDetail(user: User) {
+    console.log(user);
+    this.userService.detailUser(user.userId).subscribe((response) => {
+      this.user = response.data;
+      this.createUserUpdateAndDeleteForm();
+    });
+  }
+
+  createUserUpdateAndDeleteForm() {
+    this.userUpdateAndDeleteForm = this.formBuilder.group({
+      userId: [this.user.userId, Validators.required],
+      firstName: [this.user.firstName, Validators.required],
+      lastName: [this.user.lastName, Validators.required],
+      nationalityId: [this.user.nationalityId, Validators.required],
+      birthYear: [this.user.birthYear, Validators.required],
+      email: [this.user.email, Validators.required],
+      photo: [this.user.photo, Validators.required],
+      status: [this.user.status, Validators.required],
+    });
+  }
+
+  createUserAddForm() {
+    this.userAddForm = this.formBuilder.group({
+      firstName: ["", Validators.required],
+      lastName: ["", Validators.required],
+      nationalityId: ["", Validators.required],
+      birthYear: ["", Validators.required],
+      email: ["", Validators.required],
+      photo: ["", Validators.required],
+      status: ["", Validators.required],
+    });
+  }
+
+  add() {
+    if (this.userAddForm.valid) {
+      let userModel = Object.assign({}, this.userAddForm.value);
+      this.userService.addUser(userModel).subscribe(
+        (response) => {
+          this.toastrService.success(response.message, 'Success');
+          window.location.reload();
+        },
+        (responseError) => {
+          if (
+            responseError.error.ValidationErrors &&
+            responseError.error.ValidationErrors.length > 0
+          ) {
+            for (
+              let i = 0;
+              i < responseError.error.ValidationErrors.length;
+              i++
+            ) {
+              this.toastrService.error(
+                responseError.error.ValidationErrors[i].ErrorMessage,
+                'Validation Error'
+              );
+            }
+          } else {
+            this.toastrService.error(responseError.error.message, 'Error');
+          }
+        }
+      );
+    } else {
+      this.toastrService.error('Form not completed', 'Warning');
+    }
+  }
+
+  delete() {
+    if (this.userUpdateAndDeleteForm.valid) {
+      let userModel = Object.assign({}, this.userUpdateAndDeleteForm.value);
+      this.userService.deleteUser(userModel).subscribe(
+        (response) => {
+          this.toastrService.success(response.message, 'Success');
+          window.location.reload();
+        },
+        (responseError) => {
+          if (
+            responseError.error.ValidationErrors &&
+            responseError.error.ValidationErrors.length > 0
+          ) {
+            for (
+              let i = 0;
+              i < responseError.error.ValidationErrors.length;
+              i++
+            ) {
+              this.toastrService.error(
+                responseError.error.ValidationErrors[i].ErrorMessage,
+                'Validation Error'
+              );
+            }
+          } else {
+            this.toastrService.error(responseError.error.message, 'Error');
+          }
+        }
+      );
+    } else {
+      this.toastrService.error('Form not completed', 'Warning');
+    }
+  }
+
+  update() {
+    if (this.userUpdateAndDeleteForm.valid) {
+      let userModel = Object.assign({}, this.userUpdateAndDeleteForm.value);
+      this.userService.updateUser(userModel).subscribe(
+        (response) => {
+          this.toastrService.success(response.message, 'Success');
+          window.location.reload();
+        },
+        (responseError) => {
+          if (
+            responseError.error.ValidationErrors &&
+            responseError.error.ValidationErrors.length > 0
+          ) {
+            for (
+              let i = 0;
+              i < responseError.error.ValidationErrors.length;
+              i++
+            ) {
+              this.toastrService.error(
+                responseError.error.ValidationErrors[i].ErrorMessage,
+                'Validation Error'
+              );
+            }
+          } else {
+            this.toastrService.error(responseError.error.message, 'Error');
+          }
+        }
+      );
+    } else {
+      this.toastrService.error('Form not completed', 'Warning');
+    }
   }
 }

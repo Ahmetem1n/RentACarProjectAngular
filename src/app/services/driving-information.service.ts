@@ -33,8 +33,8 @@ export class DrivingInformationService {
     return this.httpClient.post<ResponseModel>(newPath, drivingInformation);
   }
 
-  detailDrivingInformation(drivingInformation: DrivingInformation) {
-    let newPath = this.apiUrl + 'drivingInformations/getById?drivingId' + drivingInformation.drivingId;
+  detailDrivingInformation(drivingId: number) {
+    let newPath = this.apiUrl + 'drivingInformations/getById?drivingId=' + drivingId;
     return this.httpClient.get<SingleResponseModel<DrivingInformation>>(newPath);
   }
 }

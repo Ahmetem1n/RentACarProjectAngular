@@ -33,8 +33,8 @@ export class BranchService {
     return this.httpClient.post<ResponseModel>(newPath, branch);
   }
 
-  detailBranch(branch: Branch) {
-    let newPath = this.apiUrl + 'branchs/getById?branchId' + branch.branchId;
+  detailBranch(branchId: number) {
+    let newPath = this.apiUrl + 'branchs/getById?branchId=' + branchId;
     return this.httpClient.get<SingleResponseModel<Branch>>(newPath);
   }
 }

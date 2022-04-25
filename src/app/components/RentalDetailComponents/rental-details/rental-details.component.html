@@ -1,1 +1,436 @@
-<p>rental-details works!</p>
+<table class="table table-striped" *ngIf="dataLoaded == true">
+  <thead class="table-dark">
+    <tr>
+      <th scope="col">User Id</th>
+      <th scope="col">Car Id</th>
+      <th scope="col">Rent Date</th>
+      <th scope="col">Return Date</th>
+      <th scope="col">Başlangıç Km</th>
+      <th scope="col">Bitiş Km</th>
+      <th scope="col">Güncelle</th>
+      <th scope="col">Sil</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let rentalDetail of rentalDetails">
+      <td>
+        {{ rentalDetail.userId }}
+      </td>
+      <td>
+        {{ rentalDetail.carId }}
+      </td>
+      <td>
+        {{ rentalDetail.rentDate }}
+      </td>
+      <td>
+        {{ rentalDetail.returnDate }}
+      </td>
+      <td>
+        {{ rentalDetail.firstMileage }}
+      </td>
+      <td>
+        {{ rentalDetail.lastMileage }}
+      </td>
+
+      <td>
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-bs-toggle="modal"
+          data-bs-target="#update"
+          data-bs-whatever="@mdo"
+          (click)="createRentalDetail(rentalDetail)"
+        >
+          Güncelle
+        </button>
+      </td>
+      <td>
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-bs-toggle="modal"
+          data-bs-target="#delete"
+          data-bs-whatever="@mdo"
+          (click)="createRentalDetail(rentalDetail)"
+        >
+          Sil
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<button
+  type="button"
+  class="btn btn-primary"
+  data-bs-toggle="modal"
+  data-bs-target="#add"
+  data-bs-whatever="@mdo"
+>
+  Ekle
+</button>
+
+<!-- RentalDetail Ekleme modal -->
+<div
+  class="modal fade"
+  id="add"
+  tabindex="-1"
+  aria-labelledby="addLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addLabel">Kiralama Detayı Ekleme</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="rentalDetailAddForm">
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">User Id:</label>
+            <div class="form-group">
+              <input
+                type="number"
+                id="userId"
+                formControlName="userId"
+                class="form-control"
+                placeholder="userId"
+              />
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Car Id:</label>
+            <div class="form-group">
+              <input
+                type="number"
+                id="carId"
+                formControlName="carId"
+                class="form-control"
+                placeholder="carId"
+              />
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label"
+              >Rent Date:</label
+            >
+            <div class="form-group">
+              <input
+                type="date"
+                id="rentDate"
+                formControlName="rentDate"
+                class="form-control"
+                placeholder="rentDate"
+              />
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label"
+              >Return Date:</label
+            >
+            <div class="form-group">
+              <input
+                type="date"
+                id="returnDate"
+                formControlName="returnDate"
+                class="form-control"
+                placeholder="returnDate"
+              />
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label"
+              >First Mileage:</label
+            >
+            <div class="form-group">
+              <input
+                type="number"
+                id="firstMileage"
+                formControlName="firstMileage"
+                class="form-control"
+                placeholder="firstMileage"
+              />
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label"
+              >Last Mileage:</label
+            >
+            <div class="form-group">
+              <input
+                type="number"
+                id="lastMileage"
+                formControlName="lastMileage"
+                class="form-control"
+                placeholder="lastMileage"
+              />
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Kapat
+            </button>
+            <button type="button" class="btn btn-primary" (click)="add()">
+              Kaydet
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- RentalDetail Güncelleme Modal -->
+<div
+  class="modal fade"
+  id="update"
+  tabindex="-1"
+  aria-labelledby="updateLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="updateLabel">Kiralama Detayı Güncelleme</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="rentalDetailUpdateAndDeleteForm">
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">User Id:</label>
+            <div class="form-group">
+              <input
+                type="number"
+                id="userId"
+                formControlName="userId"
+                class="form-control"
+                placeholder="userId"
+              />
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Car Id:</label>
+            <div class="form-group">
+              <input
+                type="number"
+                id="carId"
+                formControlName="carId"
+                class="form-control"
+                placeholder="carId"
+              />
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label"
+              >Rent Date:</label
+            >
+            <div class="form-group">
+              <input
+                type="date"
+                id="rentDate"
+                formControlName="rentDate"
+                class="form-control"
+                placeholder="rentDate"
+              />
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label"
+              >Return Date:</label
+            >
+            <div class="form-group">
+              <input
+                type="date"
+                id="returnDate"
+                formControlName="returnDate"
+                class="form-control"
+                placeholder="returnDate"
+              />
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label"
+              >First Mileage:</label
+            >
+            <div class="form-group">
+              <input
+                type="number"
+                id="firstMileage"
+                formControlName="firstMileage"
+                class="form-control"
+                placeholder="firstMileage"
+              />
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label"
+              >Last Mileage:</label
+            >
+            <div class="form-group">
+              <input
+                type="number"
+                id="lastMileage"
+                formControlName="lastMileage"
+                class="form-control"
+                placeholder="lastMileage"
+              />
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Kapat
+            </button>
+            <button type="button" class="btn btn-primary" (click)="update()">
+              Güncelle
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- RentalDetail Silme Modal -->
+<div
+  class="modal fade"
+  id="delete"
+  tabindex="-1"
+  aria-labelledby="deleteLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteLabel">Kiralama Detayı Silme</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="rentalDetailUpdateAndDeleteForm">
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">User Id:</label>
+            <div class="form-group">
+              <input
+                [readonly]="true"
+                type="number"
+                id="userId"
+                formControlName="userId"
+                class="form-control"
+              />
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Car Id:</label>
+            <div class="form-group">
+              <input
+                [readonly]="true"
+                type="number"
+                id="carId"
+                formControlName="carId"
+                class="form-control"
+              />
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label"
+              >Rent Date:</label
+            >
+            <div class="form-group">
+              <input
+                [readonly]="true"
+                type="date"
+                id="rentDate"
+                formControlName="rentDate"
+                class="form-control"
+              />
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label"
+              >Return Date:</label
+            >
+            <div class="form-group">
+              <input
+                [readonly]="true"
+                type="date"
+                id="returnDate"
+                formControlName="returnDate"
+                class="form-control"
+              />
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label"
+              >First Mileage:</label
+            >
+            <div class="form-group">
+              <input
+                [readonly]="true"
+                type="number"
+                id="firstMileage"
+                formControlName="firstMileage"
+                class="form-control"
+              />
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label"
+              >Last Mileage:</label
+            >
+            <div class="form-group">
+              <input
+                [readonly]="true"
+                type="number"
+                id="lastMileage"
+                formControlName="lastMileage"
+                class="form-control"
+              />
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Kapat
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              data-bs-dismiss="modal"
+              (click)="delete()"
+            >
+              Sil
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

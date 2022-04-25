@@ -33,8 +33,8 @@ export class CarService {
     return this.httpClient.post<ResponseModel>(newPath, car);
   }
 
-  detailCar(car: Car) {
-    let newPath = this.apiUrl + 'cars/getById?carId' + car.carId;
+  detailCar(carId: number) {
+    let newPath = this.apiUrl + 'cars/getById?carId=' + carId;
     return this.httpClient.get<SingleResponseModel<Car>>(newPath);
   }
 }

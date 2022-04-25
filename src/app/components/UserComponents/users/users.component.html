@@ -1,1 +1,462 @@
-<p>users works!</p>
+<table class="table table-striped" *ngIf="dataLoaded == true">
+  <thead class="table-dark">
+    <tr>
+      <th scope="col">Adı</th>
+      <th scope="col">Soyadı</th>
+      <th scope="col">TC No</th>
+      <th scope="col">Doğum Yılı</th>
+      <th scope="col">Mail Adresi</th>
+      <th scope="col">Fotoğraf</th>
+      <th scope="col">Durum</th>
+      <th scope="col">Güncelle</th>
+      <th scope="col">Sil</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of users">
+      <td>{{ user.firstName }}</td>
+      <td>{{ user.lastName }}</td>
+      <td>{{ user.nationalityId }}</td>
+      <td>{{ user.birthYear }}</td>
+      <td>{{ user.email }}</td>
+      <td>{{ user.photo }}</td>
+      <td>{{ user.status }}</td>
+      <td>
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-bs-toggle="modal"
+          data-bs-target="#update"
+          data-bs-whatever="@mdo"
+          (click)="createUserDetail(user)"
+        >
+          Güncelle
+        </button>
+      </td>
+      <td>
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-bs-toggle="modal"
+          data-bs-target="#delete"
+          data-bs-whatever="@mdo"
+          (click)="createUserDetail(user)"
+        >
+          Sil
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<button
+  type="button"
+  class="btn btn-primary"
+  data-bs-toggle="modal"
+  data-bs-target="#add"
+  data-bs-whatever="@mdo"
+>
+  Ekle
+</button>
+
+<!-- User Ekleme modal -->
+<div
+  class="modal fade"
+  id="add"
+  tabindex="-1"
+  aria-labelledby="addLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addLabel">Kullanıcı Ekleme</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="userAddForm">
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label"
+              >First Name:</label
+            >
+            <div class="form-group">
+              <input
+                type="text"
+                id="firstName"
+                formControlName="firstName"
+                class="form-control"
+                placeholder="firstName"
+              />
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label"
+              >Last Name:</label
+            >
+            <div class="form-group">
+              <input
+                type="text"
+                id="lastName"
+                formControlName="lastName"
+                class="form-control"
+                placeholder="lastName"
+              />
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label"
+              >Nationality Id:</label
+            >
+            <div class="form-group">
+              <input
+                type="text"
+                id="nationalityId"
+                formControlName="nationalityId"
+                class="form-control"
+                placeholder="nationalityId"
+              />
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label"
+              >Birth Year:</label
+            >
+            <div class="form-group">
+              <input
+                type="number"
+                id="birthYear"
+                formControlName="birthYear"
+                class="form-control"
+                placeholder="birthYear"
+              />
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Email:</label>
+            <div class="form-group">
+              <input
+                type="text"
+                id="email"
+                formControlName="email"
+                class="form-control"
+                placeholder="email"
+              />
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Photo:</label>
+            <div class="form-group">
+              <input
+                type="text"
+                id="photo"
+                formControlName="photo"
+                class="form-control"
+                placeholder="photo"
+              />
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Status:</label>
+            <div class="form-group">
+              <input
+                type="checkbox"
+                checked
+                id="status"
+                formControlName="status"
+                class="form-control"
+                placeholder="status"
+              />
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Kapat
+            </button>
+            <button type="button" class="btn btn-primary" (click)="add()">
+              Kaydet
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- User Güncelleme Modal -->
+<div
+  class="modal fade"
+  id="update"
+  tabindex="-1"
+  aria-labelledby="updateLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="updateLabel">Kullanıcı Güncelleme</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="userUpdateAndDeleteForm">
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label"
+              >First Name:</label
+            >
+            <div class="form-group">
+              <input
+                type="text"
+                id="firstName"
+                formControlName="firstName"
+                class="form-control"
+                placeholder="firstName"
+              />
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label"
+              >Last Name:</label
+            >
+            <div class="form-group">
+              <input
+                type="text"
+                id="lastName"
+                formControlName="lastName"
+                class="form-control"
+                placeholder="lastName"
+              />
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label"
+              >Nationality Id:</label
+            >
+            <div class="form-group">
+              <input
+                type="text"
+                id="nationalityId"
+                formControlName="nationalityId"
+                class="form-control"
+                placeholder="nationalityId"
+              />
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label"
+              >Birth Year:</label
+            >
+            <div class="form-group">
+              <input
+                type="number"
+                id="birthYear"
+                formControlName="birthYear"
+                class="form-control"
+                placeholder="birthYear"
+              />
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Email:</label>
+            <div class="form-group">
+              <input
+                type="text"
+                id="email"
+                formControlName="email"
+                class="form-control"
+                placeholder="email"
+              />
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Photo:</label>
+            <div class="form-group">
+              <input
+                type="text"
+                id="photo"
+                formControlName="photo"
+                class="form-control"
+                placeholder="photo"
+              />
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Status:</label>
+            <div class="form-group">
+              <input
+                type="checkbox"
+                id="status"
+                formControlName="status"
+                class="form-control"
+                placeholder="status"
+              />
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Kapat
+            </button>
+            <button type="button" class="btn btn-primary" (click)="update()">
+              Güncelle
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- User Silme Modal -->
+<div
+  class="modal fade"
+  id="delete"
+  tabindex="-1"
+  aria-labelledby="deleteLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteLabel">Kullanıcı Silme</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="userUpdateAndDeleteForm">
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label"
+              >First Name:</label
+            >
+            <div class="form-group">
+              <input
+                [readonly]="true"
+                type="text"
+                id="firstName"
+                formControlName="firstName"
+                class="form-control"
+              />
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label"
+              >Last Name:</label
+            >
+            <div class="form-group">
+              <input
+                [readonly]="true"
+                type="text"
+                id="lastName"
+                formControlName="lastName"
+                class="form-control"
+              />
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label"
+              >Nationality Id:</label
+            >
+            <div class="form-group">
+              <input
+                [readonly]="true"
+                type="text"
+                id="nationalityId"
+                formControlName="nationalityId"
+                class="form-control"
+              />
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label"
+              >Birth Year:</label
+            >
+            <div class="form-group">
+              <input
+                [readonly]="true"
+                type="number"
+                id="birthYear"
+                formControlName="birthYear"
+                class="form-control"
+              />
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Email:</label>
+            <div class="form-group">
+              <input
+                [readonly]="true"
+                type="text"
+                id="email"
+                formControlName="email"
+                class="form-control"
+              />
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Photo:</label>
+            <div class="form-group">
+              <input
+                [readonly]="true"
+                type="text"
+                id="photo"
+                formControlName="photo"
+                class="form-control"
+              />
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Status:</label>
+            <div class="form-group">
+              <input
+                [readonly]="true"
+                type="checkbox"
+                id="status"
+                formControlName="status"
+                class="form-control"
+              />
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Kapat
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              data-bs-dismiss="modal"
+              (click)="delete()"
+            >
+              Sil
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

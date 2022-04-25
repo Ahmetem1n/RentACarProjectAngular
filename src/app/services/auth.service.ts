@@ -8,7 +8,7 @@ import { TokenModel } from './../models/tokenModel';
   providedIn: 'root',
 })
 export class AuthService {
-  apiUrl = 'https://localhost:44303/api/auth/';
+  apiUrl = 'https://localhost:44349/api/auth/';
 
   constructor(private httpClient: HttpClient) {}
 

@@ -33,8 +33,8 @@ export class EmployeeService {
     return this.httpClient.post<ResponseModel>(newPath, employee);
   }
 
-  detailEmployee(employee: Employee) {
-    let newPath = this.apiUrl + 'employees/getById?employeeId' + employee.employeeId;
+  detailEmployee(employeeId: number) {
+    let newPath = this.apiUrl + 'employees/getById?employeeId=' + employeeId;
     return this.httpClient.get<SingleResponseModel<Employee>>(newPath);
   }
 }

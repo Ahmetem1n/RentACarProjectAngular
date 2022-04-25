@@ -33,8 +33,8 @@ export class PhoneNumberService {
     return this.httpClient.post<ResponseModel>(newPath, phoneNumber);
   }
 
-  detailPhoneNumber(phoneNumber: PhoneNumber) {
-    let newPath = this.apiUrl + 'phoneNumbers/getById?phoneId' + phoneNumber.phoneId;
+  detailPhoneNumber(phoneId: number) {
+    let newPath = this.apiUrl + 'phoneNumbers/getById?phoneId=' + phoneId;
     return this.httpClient.get<SingleResponseModel<PhoneNumber>>(newPath);
   }
 }

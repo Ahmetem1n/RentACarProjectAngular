@@ -33,8 +33,8 @@ export class CaseTypeService {
     return this.httpClient.post<ResponseModel>(newPath, caseType);
   }
 
-  detailCaseType(caseType: CaseType) {
-    let newPath = this.apiUrl + 'caseTypes/getById?caseId' + caseType.caseId;
+  detailCaseType(caseId: number) {
+    let newPath = this.apiUrl + 'caseTypes/getById?caseId=' + caseId;
     return this.httpClient.get<SingleResponseModel<CaseType>>(newPath);
   }
 }

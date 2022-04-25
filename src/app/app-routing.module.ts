@@ -9,12 +9,10 @@ import { AdminsComponent } from './components/AdminComponents/admins/admins.comp
 import { AuthComponent } from './components/AuthComponents/auth/auth.component';
 import { BranchAddComponent } from './components/BranchComponents/branch-add/branch-add.component';
 import { BranchDeleteComponent } from './components/BranchComponents/branch-delete/branch-delete.component';
-import { BranchDetailComponent } from './components/BranchComponents/branch-detail/branch-detail.component';
 import { BranchUpdateComponent } from './components/BranchComponents/branch-update/branch-update.component';
 import { BranchsComponent } from './components/BranchComponents/branchs/branchs.component';
 import { BrandAddComponent } from './components/BrandComponents/brand-add/brand-add.component';
 import { BrandDeleteComponent } from './components/BrandComponents/brand-delete/brand-delete.component';
-import { BrandDetailComponent } from './components/BrandComponents/brand-detail/brand-detail.component';
 import { BrandUpdateComponent } from './components/BrandComponents/brand-update/brand-update.component';
 import { BrandsComponent } from './components/BrandComponents/brands/brands.component';
 import { CarAddComponent } from './components/CarComponents/car-add/car-add.component';
@@ -167,7 +165,7 @@ const routes: Routes = [
   { path: 'userOperationClaim/add', component: UserOperationClaimAddComponent },
 
   //DELETE COMPONENT PATH
-  { path: 'admin/delete', component: AdminDeleteComponent },
+  { path: 'admin/delete/:adminId', component: AdminDeleteComponent },
   { path: 'branch/delete', component: BranchDeleteComponent },
   { path: 'brand/delete', component: BrandDeleteComponent },
   { path: 'car/delete', component: CarDeleteComponent },
@@ -190,7 +188,7 @@ const routes: Routes = [
   { path: 'userOperationClaim/delete', component: UserOperationClaimDeleteComponent },
 
   //UPDATE COMPONENT PATH
-  { path: 'admin/update', component: AdminUpdateComponent },
+  { path: 'admin/update/:adminId', component: AdminUpdateComponent },
   { path: 'branch/update', component: BranchUpdateComponent },
   { path: 'brand/update', component: BrandUpdateComponent },
   { path: 'car/update', component: CarUpdateComponent },
@@ -213,9 +211,8 @@ const routes: Routes = [
   { path: 'userOperationClaim/update', component: UserOperationClaimUpdateComponent },
 
   //DETAIL COMPONENT PATH
-  { path: 'admin/detail', component: AdminDetailComponent },
-  { path: 'branch/detail', component: BranchDetailComponent },
-  { path: 'brand/detail', component: BrandDetailComponent },
+  { path: 'admin/detail/:adminId', component: AdminDetailComponent },  
+
   { path: 'car/detail', component: CarDetailComponent },
   { path: 'card/detail', component: CardDetailComponent },
   { path: 'carImage/detail', component: CarImageDetailComponent },
@@ -233,7 +230,7 @@ const routes: Routes = [
   { path: 'operationClaim/detail', component: OperationClaimDetailComponent },
   { path: 'phoneNumber/detail', component: PhoneNumberDetailComponent },
   { path: 'rentalDetail/detail', component: RentalDetailDetailComponent },
-  { path: 'user/detail', component: UserDetailComponent },
+  { path: 'user/detail/:userId', component: UserDetailComponent },
   { path: 'userOperationClaim/detail', component: UserOperationClaimDetailComponent },
 ];
 

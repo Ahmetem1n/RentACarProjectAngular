@@ -33,8 +33,8 @@ export class ColorService {
     return this.httpClient.post<ResponseModel>(newPath, color);
   }
 
-  detailColor(color: Color) {
-    let newPath = this.apiUrl + 'colors/getById?colorId' + color.colorId;
+  detailColor(colorId: number) {
+    let newPath = this.apiUrl + 'colors/getById?colorId=' + colorId;
     return this.httpClient.get<SingleResponseModel<Color>>(newPath);
   }
 }

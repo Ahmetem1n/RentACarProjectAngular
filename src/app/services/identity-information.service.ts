@@ -33,8 +33,8 @@ export class IdentityInformationService {
     return this.httpClient.post<ResponseModel>(newPath, identityInformation);
   }
 
-  detailIdentityInformation(identityInformation: IdentityInformation) {
-    let newPath = this.apiUrl + 'identityInformations/getById?identityId' + identityInformation.identityId;
+  detailIdentityInformation(identityId: number) {
+    let newPath = this.apiUrl + 'identityInformations/getById?identityId=' + identityId;
     return this.httpClient.get<SingleResponseModel<IdentityInformation>>(newPath);
   }
 }

@@ -33,9 +33,8 @@ export class CustomerService {
     return this.httpClient.post<ResponseModel>(newPath, customer);
   }
 
-  detailCustomer(customer: Customer) {
-    let newPath =
-      this.apiUrl + 'customers/getById?customerId' + customer.customerId;
+  detailCustomer(customerId: number) {
+    let newPath = this.apiUrl + 'customers/getById?customerId=' + customerId;
     return this.httpClient.get<SingleResponseModel<Customer>>(newPath);
   }
 }

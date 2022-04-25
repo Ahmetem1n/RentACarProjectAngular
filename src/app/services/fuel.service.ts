@@ -33,8 +33,8 @@ export class FuelService {
     return this.httpClient.post<ResponseModel>(newPath, fuel);
   }
 
-  detailFuel(fuel: Fuel) {
-    let newPath = this.apiUrl + 'fuels/getById?fuelId' + fuel.fuelId;
+  detailFuel(fuelId: number) {
+    let newPath = this.apiUrl + 'fuels/getById?fuelId=' + fuelId;
     return this.httpClient.get<SingleResponseModel<Fuel>>(newPath);
   }
 }

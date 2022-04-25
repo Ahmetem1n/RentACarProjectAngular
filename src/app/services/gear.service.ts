@@ -33,8 +33,8 @@ export class GearService {
     return this.httpClient.post<ResponseModel>(newPath, gear);
   }
 
-  detailGear(gear: Gear) {
-    let newPath = this.apiUrl + 'gears/getById?gearId' + gear.gearId;
+  detailGear(gearId: number) {
+    let newPath = this.apiUrl + 'gears/getById?gearId=' + gearId;
     return this.httpClient.get<SingleResponseModel<Gear>>(newPath);
   }
 }
