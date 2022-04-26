@@ -1,3 +1,7 @@
+import { Car } from './../../../models/car';
+import { User } from './../../../models/user';
+import { CarService } from './../../../services/car.service';
+import { UserService } from './../../../services/user.service';
 import { ToastrService } from 'ngx-toastr';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
@@ -25,16 +29,23 @@ export class RentalDetailsComponent implements OnInit {
     lastMileage: 0,
   };
 
+  users: User[] = [];
+  cars: Car[] = [];
+
   dataLoaded = false;
   constructor(
     private formBuilder: FormBuilder,
     private rentalDetailService: RentalDetailService,
+    private userService: UserService,
+    private carService: CarService,
     private toastrService: ToastrService,
     private activatedRoute: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
     this.getRentalDetails();
+    this.getUsers();
+    this.getCars();
     this.createRentalDetailAddForm();
     this.createRentalDetailUpdateAndDeleteForm();
   }
@@ -44,6 +55,26 @@ export class RentalDetailsComponent implements OnInit {
       this.rentalDetails = response.data;
       this.dataLoaded = true;
     });
+  }
+
+  getUsers() {
+    this.userService.getUsers().subscribe((response) => {
+      this.users = response.data;
+    });
+  }
+
+  getUserNationalityId(userId: number) {
+    return this.users.find((u) => u.userId == userId).nationalityId;
+  }
+
+  getCars() {
+    this.carService.getCars().subscribe((response) => {
+      this.cars = response.data;
+    });
+  }
+
+  getCarPlate(carId: number) {
+    return this.cars.find((c) => c.carId == carId).carPlate;
   }
 
   createRentalDetail(rentalDetail: RentalDetail) {

@@ -1,3 +1,5 @@
+import { User } from './../../../models/user';
+import { UserService } from './../../../services/user.service';
 import { ToastrService } from 'ngx-toastr';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
@@ -17,16 +19,20 @@ export class PhoneNumbersComponent implements OnInit {
   phoneNumberUpdateAndDeleteForm: FormGroup;
   phoneNumber: PhoneNumber = { phoneId: 0, userId: 0, phoneNo: '' };
 
+  users: User[] = [];
+
   dataLoaded = false;
   constructor(
     private formBuilder: FormBuilder,
     private phoneNumberService: PhoneNumberService,
+    private userService: UserService,
     private toastrService: ToastrService,
     private activatedRoute: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
     this.getPhoneNumbers();
+    this.getUsers();
     this.createPhoneNumberAddForm();
     this.createPhoneNumberUpdateAndDeleteForm();
   }
@@ -37,6 +43,16 @@ export class PhoneNumbersComponent implements OnInit {
       this.dataLoaded = true;
     });
   }
+
+  getUsers() {
+    this.userService.getUsers().subscribe((response) => {
+      this.users = response.data;
+    });
+  }
+
+  getUserNationalityId(userId:number) {
+    return this.users.find(u=>u.userId==userId).nationalityId
+   }
 
   createPhoneNumberDetail(phoneNumber: PhoneNumber) {
     console.log(phoneNumber);

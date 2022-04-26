@@ -10,7 +10,7 @@
   <tbody>
     <tr *ngFor="let branch of branchs">
       <td>
-        {{ branch.cityId }}
+        {{ getCityName(branch.cityId) }}
       </td>
       <td>
         {{ branch.branchName }}
@@ -76,20 +76,21 @@
       <div class="modal-body">
         <form [formGroup]="branchAddForm">
           <div class="mb-3">
-            <label for="recipient-name" class="col-form-label">City Id:</label>
+            <label for="recipient-name" class="col-form-label">Şehir:</label>
             <div class="form-group">
-              <input
-                type="number"
-                id="cityId"
-                formControlName="cityId"
-                class="form-control"
-                placeholder="City Id"
-              />
+              <select formControlName="cityId" id="cityId">
+                <option
+                  *ngFor="let city of cities; let i = index"
+                  [ngValue]="cities[i].cityId"
+                >
+                  {{ cities[i].cityName }}
+                </option>
+              </select>
             </div>
           </div>
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label"
-              >Branch Name:</label
+              >Şube Adı:</label
             >
             <div class="form-group">
               <input
@@ -97,7 +98,7 @@
                 id="branchName"
                 formControlName="branchName"
                 class="form-control"
-                placeholder="Branch Name"
+                placeholder="Şube Adı"
               />
             </div>
           </div>
@@ -142,20 +143,21 @@
       <div class="modal-body">
         <form [formGroup]="branchUpdateAndDeleteForm">
           <div class="mb-3">
-            <label for="recipient-name" class="col-form-label">City Id:</label>
+            <label for="recipient-name" class="col-form-label">Şehir:</label>
             <div class="form-group">
-              <input
-                type="number"
-                id="cityId"
-                formControlName="cityId"
-                class="form-control"
-                placeholder="City Id"
-              />
+              <select formControlName="cityId" id="cityId">
+                <option
+                  *ngFor="let city of cities; let i = index"
+                  [ngValue]="cities[i].cityId"
+                >
+                  {{ cities[i].cityName }}
+                </option>
+              </select>
             </div>
           </div>
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label"
-              >Branch Name:</label
+              >Şube Adı:</label
             >
             <div class="form-group">
               <input
@@ -163,7 +165,7 @@
                 id="branchName"
                 formControlName="branchName"
                 class="form-control"
-                placeholder="Branch Name"
+                placeholder="Şube Adı"
               />
             </div>
           </div>
@@ -208,20 +210,22 @@
       <div class="modal-body">
         <form [formGroup]="branchUpdateAndDeleteForm">
           <div class="mb-3">
-            <label for="recipient-name" class="col-form-label">City Id:</label>
+            <label for="recipient-name" class="col-form-label">Şehir:</label>
             <div class="form-group">
-              <input
-                [readonly]="true"
-                type="number"
-                id="cityId"
-                formControlName="cityId"
-                class="form-control"
-              />
+              <select formControlName="cityId" id="cityId">
+                <option
+                  disabled
+                  *ngFor="let city of cities; let i = index"
+                  [ngValue]="cities[i].cityId"
+                >
+                  {{ cities[i].cityName }}
+                </option>
+              </select>
             </div>
           </div>
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label"
-              >Branch Name:</label
+              >Şube Adı:</label
             >
             <div class="form-group">
               <input

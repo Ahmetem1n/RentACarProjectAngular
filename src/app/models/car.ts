@@ -6,7 +6,7 @@ export interface Car {
   gearId: number;
   fuelId: number;
   classId: number;
-  bodyId: number;
+  caseId: number;
   modelId: number;
   carPlate: string;
   carStar: number;

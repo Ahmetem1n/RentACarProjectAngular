@@ -1,7 +1,7 @@
 export interface DrivingInformation {
   drivingId: number;
+  cityId: number;
   licenceNumber: string;
   expiryDate: Date;
-  licenceProvince: string;
   bloodGroup: string;
 }

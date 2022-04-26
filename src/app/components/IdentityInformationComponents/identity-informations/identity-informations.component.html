@@ -84,7 +84,7 @@
         <form [formGroup]="identityInformationAddForm">
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label"
-              >Serial Number:</label
+              >Seri Numarası:</label
             >
             <div class="form-group">
               <input
@@ -92,44 +92,40 @@
                 id="serialNumber"
                 formControlName="serialNumber"
                 class="form-control"
-                placeholder="serialNumber"
+                placeholder="Seri Numarası"
               />
             </div>
           </div>
 
           <div class="mb-3">
-            <label for="recipient-name" class="col-form-label"
-              >Father Name:</label
-            >
+            <label for="recipient-name" class="col-form-label">Baba Adı:</label>
             <div class="form-group">
               <input
                 type="text"
                 id="fatherName"
                 formControlName="fatherName"
                 class="form-control"
-                placeholder="fatherName"
+                placeholder="Baba Adı"
               />
             </div>
           </div>
 
           <div class="mb-3">
-            <label for="recipient-name" class="col-form-label"
-              >Mother Name:</label
-            >
+            <label for="recipient-name" class="col-form-label">Anne Adı:</label>
             <div class="form-group">
               <input
                 type="text"
                 id="motherName"
                 formControlName="motherName"
                 class="form-control"
-                placeholder="motherName"
+                placeholder="Anne Adı"
               />
             </div>
           </div>
 
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label"
-              >Birth Place:</label
+              >Doğum Yeri:</label
             >
             <div class="form-group">
               <input
@@ -137,14 +133,14 @@
                 id="birthPlace"
                 formControlName="birthPlace"
                 class="form-control"
-                placeholder="birthPlace"
+                placeholder="Doğum Yeri"
               />
             </div>
           </div>
 
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label"
-              >Birth Year:</label
+              >Doğum Yılı:</label
             >
             <div class="form-group">
               <input
@@ -152,42 +148,44 @@
                 id="birthYear"
                 formControlName="birthYear"
                 class="form-control"
-                placeholder="birthYear"
+                placeholder="Doğum Yılı"
               />
             </div>
           </div>
 
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label"
-              >Marital Status:</label
+              >Medeni Hali:</label
             >
             <div class="form-group">
-              <input
-                type="text"
-                id="maritalStatus"
-                formControlName="maritalStatus"
-                class="form-control"
-                placeholder="maritalStatus"
-              />
+              <select formControlName="maritalStatus" id="maritalStatus">
+                <option
+                  *ngFor="let maritalStatus of maritalStatuses; let i = index"
+                  [ngValue]="maritalStatuses[i].maritalStatus"
+                >
+                  {{ maritalStatuses[i].maritalStatus }}
+                </option>
+              </select>
             </div>
           </div>
 
           <div class="mb-3">
-            <label for="recipient-name" class="col-form-label">Gender:</label>
+            <label for="recipient-name" class="col-form-label">Cinsiyet:</label>
             <div class="form-group">
-              <input
-                type="text"
-                id="gender"
-                formControlName="gender"
-                class="form-control"
-                placeholder="gender"
-              />
+              <select formControlName="gender" id="gender">
+                <option
+                  *ngFor="let gender of genders; let i = index"
+                  [ngValue]="genders[i].gender"
+                >
+                  {{ genders[i].gender }}
+                </option>
+              </select>
             </div>
           </div>
 
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label"
-              >Valid Until:</label
+              >Son Geçerlilik Tarihi:</label
             >
             <div class="form-group">
               <input
@@ -195,7 +193,7 @@
                 id="validUntil"
                 formControlName="validUntil"
                 class="form-control"
-                placeholder="validUntil"
+                placeholder="Son Geçerlilik Tarihi"
               />
             </div>
           </div>
@@ -241,7 +239,7 @@
         <form [formGroup]="identityInformationUpdateAndDeleteForm">
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label"
-              >Serial Number:</label
+              >Seri Numarası:</label
             >
             <div class="form-group">
               <input
@@ -249,44 +247,40 @@
                 id="serialNumber"
                 formControlName="serialNumber"
                 class="form-control"
-                placeholder="serialNumber"
+                placeholder="Seri Numarası"
               />
             </div>
           </div>
 
           <div class="mb-3">
-            <label for="recipient-name" class="col-form-label"
-              >Father Name:</label
-            >
+            <label for="recipient-name" class="col-form-label">Baba Adı:</label>
             <div class="form-group">
               <input
                 type="text"
                 id="fatherName"
                 formControlName="fatherName"
                 class="form-control"
-                placeholder="fatherName"
+                placeholder="Baba Adı"
               />
             </div>
           </div>
 
           <div class="mb-3">
-            <label for="recipient-name" class="col-form-label"
-              >Mother Name:</label
-            >
+            <label for="recipient-name" class="col-form-label">Anne Adı:</label>
             <div class="form-group">
               <input
                 type="text"
                 id="motherName"
                 formControlName="motherName"
                 class="form-control"
-                placeholder="motherName"
+                placeholder="Anne Adı"
               />
             </div>
           </div>
 
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label"
-              >Birth Place:</label
+              >Doğum Yeri:</label
             >
             <div class="form-group">
               <input
@@ -294,14 +288,14 @@
                 id="birthPlace"
                 formControlName="birthPlace"
                 class="form-control"
-                placeholder="birthPlace"
+                placeholder="Doğum Yeri"
               />
             </div>
           </div>
 
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label"
-              >Birth Year:</label
+              >Doğum Yılı:</label
             >
             <div class="form-group">
               <input
@@ -309,42 +303,44 @@
                 id="birthYear"
                 formControlName="birthYear"
                 class="form-control"
-                placeholder="birthYear"
+                placeholder="Doğum Yılı"
               />
             </div>
           </div>
 
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label"
-              >Marital Status:</label
+              >Medeni Hali:</label
             >
             <div class="form-group">
-              <input
-                type="text"
-                id="maritalStatus"
-                formControlName="maritalStatus"
-                class="form-control"
-                placeholder="maritalStatus"
-              />
+              <select formControlName="maritalStatus" id="maritalStatus">
+                <option
+                  *ngFor="let maritalStatus of maritalStatuses; let i = index"
+                  [ngValue]="maritalStatuses[i].maritalStatus"
+                >
+                  {{ maritalStatuses[i].maritalStatus }}
+                </option>
+              </select>
             </div>
           </div>
 
           <div class="mb-3">
-            <label for="recipient-name" class="col-form-label">Gender:</label>
+            <label for="recipient-name" class="col-form-label">Cinsiyet:</label>
             <div class="form-group">
-              <input
-                type="text"
-                id="gender"
-                formControlName="gender"
-                class="form-control"
-                placeholder="gender"
-              />
+              <select formControlName="gender" id="gender">
+                <option
+                  *ngFor="let gender of genders; let i = index"
+                  [ngValue]="genders[i].gender"
+                >
+                  {{ genders[i].gender }}
+                </option>
+              </select>
             </div>
           </div>
 
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label"
-              >Valid Until:</label
+              >Son Geçerlilik Tarihi:</label
             >
             <div class="form-group">
               <input
@@ -352,7 +348,7 @@
                 id="validUntil"
                 formControlName="validUntil"
                 class="form-control"
-                placeholder="validUntil"
+                placeholder="Son Geçerlilik Tarihi"
               />
             </div>
           </div>
@@ -398,7 +394,7 @@
         <form [formGroup]="identityInformationUpdateAndDeleteForm">
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label"
-              >Serial Number:</label
+              >Seri Numarası:</label
             >
             <div class="form-group">
               <input
@@ -407,15 +403,12 @@
                 id="serialNumber"
                 formControlName="serialNumber"
                 class="form-control"
-                placeholder="serialNumber"
               />
             </div>
           </div>
 
           <div class="mb-3">
-            <label for="recipient-name" class="col-form-label"
-              >Father Name:</label
-            >
+            <label for="recipient-name" class="col-form-label">Baba Adı:</label>
             <div class="form-group">
               <input
                 [readonly]="true"
@@ -423,15 +416,12 @@
                 id="fatherName"
                 formControlName="fatherName"
                 class="form-control"
-                placeholder="fatherName"
               />
             </div>
           </div>
 
           <div class="mb-3">
-            <label for="recipient-name" class="col-form-label"
-              >Mother Name:</label
-            >
+            <label for="recipient-name" class="col-form-label">Anne Adı:</label>
             <div class="form-group">
               <input
                 [readonly]="true"
@@ -439,14 +429,13 @@
                 id="motherName"
                 formControlName="motherName"
                 class="form-control"
-                placeholder="motherName"
               />
             </div>
           </div>
 
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label"
-              >Birth Place:</label
+              >Doğum Yeri:</label
             >
             <div class="form-group">
               <input
@@ -455,14 +444,13 @@
                 id="birthPlace"
                 formControlName="birthPlace"
                 class="form-control"
-                placeholder="birthPlace"
               />
             </div>
           </div>
 
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label"
-              >Birth Year:</label
+              >Doğum Yılı:</label
             >
             <div class="form-group">
               <input
@@ -471,44 +459,44 @@
                 id="birthYear"
                 formControlName="birthYear"
                 class="form-control"
-                placeholder="birthYear"
               />
             </div>
           </div>
 
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label"
-              >Marital Status:</label
+              >Medeni Hali:</label
             >
             <div class="form-group">
-              <input
-                [readonly]="true"
-                type="text"
-                id="maritalStatus"
-                formControlName="maritalStatus"
-                class="form-control"
-                placeholder="maritalStatus"
-              />
+              <select formControlName="maritalStatus" id="maritalStatus">
+                <option
+                  disabled
+                  *ngFor="let maritalStatus of maritalStatuses; let i = index"
+                  [ngValue]="maritalStatuses[i].maritalStatus"
+                >
+                  {{ maritalStatuses[i].maritalStatus }}
+                </option>
+              </select>
             </div>
           </div>
 
           <div class="mb-3">
-            <label for="recipient-name" class="col-form-label">Gender:</label>
+            <label for="recipient-name" class="col-form-label">Cinsiyet:</label>
             <div class="form-group">
-              <input
-                [readonly]="true"
-                type="text"
-                id="gender"
-                formControlName="gender"
-                class="form-control"
-                placeholder="gender"
-              />
+              <select formControlName="gender" id="gender">
+                <option disabled
+                  *ngFor="let gender of genders; let i = index"
+                  [ngValue]="genders[i].gender"
+                >
+                  {{ genders[i].gender }}
+                </option>
+              </select>
             </div>
           </div>
 
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label"
-              >Valid Until:</label
+              >Son Geçerlilik Tarihi:</label
             >
             <div class="form-group">
               <input
@@ -517,7 +505,6 @@
                 id="validUntil"
                 formControlName="validUntil"
                 class="form-control"
-                placeholder="validUntil"
               />
             </div>
           </div>

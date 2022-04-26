@@ -31,7 +31,7 @@ export class CarDeleteComponent implements OnInit {
       gearId: [this.car.gearId, Validators.required],
       fuelId: [this.car.fuelId, Validators.required],
       classId: [this.car.classId, Validators.required],
-      bodyId: [this.car.bodyId, Validators.required],
+      caseId: [this.car.caseId, Validators.required],
       modelId: [this.car.modelId, Validators.required],
       carPlate: [this.car.carPlate, Validators.required],
       carStar: [this.car.carStar, Validators.required],

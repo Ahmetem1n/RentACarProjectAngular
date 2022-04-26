@@ -1,7 +1,7 @@
 <table class="table table-striped" *ngIf="dataLoaded == true">
   <thead class="table-dark">
     <tr>
-      <th scope="col">Kullanıcı Adı</th>
+      <th scope="col">Kullanıcı TC</th>
       <th scope="col">Kart Sahibi</th>
       <th scope="col">Kart Numarası</th>
       <th scope="col">Son Kullanma Tarihi</th>
@@ -13,7 +13,7 @@
   <tbody>
     <tr *ngFor="let card of cards">
       <td>
-        {{ card.userId }}
+        {{ getUserNationalityId(card.userId) }}
       </td>
       <td>
         {{ card.fullName }}
@@ -88,22 +88,23 @@
         <form [formGroup]="cardAddForm">
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label"
-              >User Id:</label
+              >Kullanıcı Tc:</label
             >
             <div class="form-group">
-              <input
-                type="number"
-                id="userId"
-                formControlName="userId"
-                class="form-control"
-                placeholder="userId"
-              />
+              <select formControlName="userId" id="userId">
+                <option
+                  *ngFor="let user of users; let i = index"
+                  [ngValue]="users[i].userId"
+                >
+                  {{ users[i].nationalityId }}
+                </option>
+              </select>
             </div>
           </div>
 
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label"
-              >Full Name:</label
+              >Kart Sahibi Adı Soyadı:</label
             >
             <div class="form-group">
               <input
@@ -111,14 +112,14 @@
                 id="fullName"
                 formControlName="fullName"
                 class="form-control"
-                placeholder="fullName"
+                placeholder="Kart Sahibi Adı Soyadı"
               />
             </div>
           </div>
-          
+
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label"
-              >Card No:</label
+              >Kart Numarası:</label
             >
             <div class="form-group">
               <input
@@ -126,14 +127,14 @@
                 id="cardNo"
                 formControlName="cardNo"
                 class="form-control"
-                placeholder="cardNo"
+                placeholder="Kart Numarası"
               />
             </div>
           </div>
-      
+
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label"
-              >Expiry Date:</label
+              >Kart Geçerlilik Tarihi:</label
             >
             <div class="form-group">
               <input
@@ -141,14 +142,14 @@
                 id="expiryDate"
                 formControlName="expiryDate"
                 class="form-control"
-                placeholder="expiryDate"
+                placeholder="Kart Geçerlilik Tarihi"
               />
             </div>
           </div>
 
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label"
-              >Cvv:</label
+              >Cvv Numarası:</label
             >
             <div class="form-group">
               <input
@@ -156,7 +157,7 @@
                 id="cvv"
                 formControlName="cvv"
                 class="form-control"
-                placeholder="cvv"
+                placeholder="Cvv Numarası"
               />
             </div>
           </div>
@@ -202,21 +203,23 @@
         <form [formGroup]="cardUpdateAndDeleteForm">
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label"
-              >User Id:</label
+              >Kullanıcı Tc:</label
             >
             <div class="form-group">
-              <input
-                type="number"
-                id="userId"
-                formControlName="userId"
-                class="form-control"
-              />
+              <select formControlName="userId" id="userId">
+                <option
+                  *ngFor="let user of users; let i = index"
+                  [ngValue]="users[i].userId"
+                >
+                  {{ users[i].nationalityId }}
+                </option>
+              </select>
             </div>
           </div>
 
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label"
-              >Full Name:</label
+              >Kart Sahibi Adı Soyadı:</label
             >
             <div class="form-group">
               <input
@@ -224,13 +227,14 @@
                 id="fullName"
                 formControlName="fullName"
                 class="form-control"
+                placeholder="Kart Sahibi Adı Soyadı"
               />
             </div>
           </div>
-          
+
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label"
-              >Card No:</label
+              >Kart Numarası:</label
             >
             <div class="form-group">
               <input
@@ -238,13 +242,14 @@
                 id="cardNo"
                 formControlName="cardNo"
                 class="form-control"
+                placeholder="Kart Numarası"
               />
             </div>
           </div>
-      
+
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label"
-              >Expiry Date:</label
+              >Kart Geçerlilik Tarihi:</label
             >
             <div class="form-group">
               <input
@@ -252,13 +257,14 @@
                 id="expiryDate"
                 formControlName="expiryDate"
                 class="form-control"
+                placeholder="Kart Geçerlilik Tarihi"
               />
             </div>
           </div>
 
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label"
-              >Cvv:</label
+              >Cvv Numarası:</label
             >
             <div class="form-group">
               <input
@@ -266,6 +272,7 @@
                 id="cvv"
                 formControlName="cvv"
                 class="form-control"
+                placeholder="Cvv Numarası"
               />
             </div>
           </div>
@@ -311,24 +318,28 @@
         <form [formGroup]="cardUpdateAndDeleteForm">
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label"
-              >User Id:</label
+              >Kullanıcı Tc:</label
             >
             <div class="form-group">
-              <input [readonly]="true"
-                type="number"
-                id="userId"
-                formControlName="userId"
-                class="form-control"
-              />
+              <select formControlName="userId" id="userId">
+                <option
+                  disabled
+                  *ngFor="let user of users; let i = index"
+                  [ngValue]="users[i].userId"
+                >
+                  {{ users[i].nationalityId }}
+                </option>
+              </select>
             </div>
           </div>
 
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label"
-              >Full Name:</label
+              >Kart Sahibi Adı Soyadı:</label
             >
             <div class="form-group">
-              <input [readonly]="true"
+              <input
+                [readonly]="true"
                 type="text"
                 id="fullName"
                 formControlName="fullName"
@@ -336,13 +347,14 @@
               />
             </div>
           </div>
-          
+
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label"
-              >Card No:</label
+              >Kart Numarası:</label
             >
             <div class="form-group">
-              <input [readonly]="true"
+              <input
+                [readonly]="true"
                 type="number"
                 id="cardNo"
                 formControlName="cardNo"
@@ -350,13 +362,14 @@
               />
             </div>
           </div>
-      
+
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label"
-              >Expiry Date:</label
+              >Kart Geçerlilik Tarihi:</label
             >
             <div class="form-group">
-              <input [readonly]="true"
+              <input
+                [readonly]="true"
                 type="date"
                 id="expiryDate"
                 formControlName="expiryDate"
@@ -367,10 +380,11 @@
 
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label"
-              >Cvv:</label
+              >Cvv Numarası:</label
             >
             <div class="form-group">
-              <input [readonly]="true"
+              <input
+                [readonly]="true"
                 type="number"
                 id="cvv"
                 formControlName="cvv"
@@ -378,7 +392,7 @@
               />
             </div>
           </div>
-         
+
           <div class="modal-footer">
             <button
               type="button"

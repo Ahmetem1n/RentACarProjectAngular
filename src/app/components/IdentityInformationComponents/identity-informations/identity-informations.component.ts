@@ -14,6 +14,13 @@ export class IdentityInformationsComponent implements OnInit {
   identityInformations: IdentityInformation[] = [];
   identityInformationAddForm: FormGroup;
 
+  genders = [{ gender: 'Erkek' }, { gender: 'Kadın' }, { gender: 'Diğer' }];
+  maritalStatuses = [
+    { maritalStatus: 'Evli' },
+    { maritalStatus: 'Bekar' },
+    { maritalStatus: 'Diğer' },
+  ];
+
   identityInformationUpdateAndDeleteForm: FormGroup;
   identityInformation: IdentityInformation = {
     identityId: 0,
@@ -65,7 +72,7 @@ export class IdentityInformationsComponent implements OnInit {
       identityId: [this.identityInformation.identityId, Validators.required],
       serialNumber: [
         this.identityInformation.serialNumber,
-        Validators.required,
+        Validators.required
       ],
       fatherName: [this.identityInformation.fatherName, Validators.required],
       motherName: [this.identityInformation.motherName, Validators.required],

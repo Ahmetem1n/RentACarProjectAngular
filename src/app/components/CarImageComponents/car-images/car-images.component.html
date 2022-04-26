@@ -1,8 +1,8 @@
 <table class="table table-striped" *ngIf="dataLoaded == true">
   <thead class="table-dark">
     <tr>
-      <th scope="col">Car Id</th>
-      <th scope="col">Image Path</th>
+      <th scope="col">Araç Plaka</th>
+      <th scope="col">Resim Konumu</th>
       <th scope="col">Güncelle</th>
       <th scope="col">Sil</th>
     </tr>
@@ -10,7 +10,7 @@
   <tbody>
     <tr *ngFor="let carImage of carImages">
       <td>
-        {{ carImage.carId }}
+        {{ getCarPlate(carImage.carId) }}
       </td>
       <td>
         {{ carImage.imagePath }}
@@ -76,21 +76,22 @@
       <div class="modal-body">
         <form [formGroup]="carImageAddForm">
           <div class="mb-3">
-            <label for="recipient-name" class="col-form-label">Car Id:</label>
+            <label for="recipient-name" class="col-form-label">Plaka:</label>
             <div class="form-group">
-              <input
-                type="number"
-                id="carId"
-                formControlName="carId"
-                class="form-control"
-                placeholder="carId"
-              />
+              <select formControlName="carId" id="carId">
+                <option
+                  *ngFor="let car of cars; let i = index"
+                  [ngValue]="cars[i].carId"
+                >
+                  {{ cars[i].carPlate }}
+                </option>
+              </select>
             </div>
           </div>
 
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label"
-              >Image Path:</label
+              >Resim Konumu:</label
             >
             <div class="form-group">
               <input
@@ -98,7 +99,7 @@
                 id="imagePath"
                 formControlName="imagePath"
                 class="form-control"
-                placeholder="imagePath"
+                placeholder="Resim Konumu"
               />
             </div>
           </div>
@@ -143,20 +144,22 @@
       <div class="modal-body">
         <form [formGroup]="carImageUpdateAndDeleteForm">
           <div class="mb-3">
-            <label for="recipient-name" class="col-form-label">Car Id:</label>
+            <label for="recipient-name" class="col-form-label">Plaka:</label>
             <div class="form-group">
-              <input
-                type="number"
-                id="carId"
-                formControlName="carId"
-                class="form-control"
-              />
+              <select formControlName="carId" id="carId">
+                <option
+                  *ngFor="let car of cars; let i = index"
+                  [ngValue]="cars[i].carId"
+                >
+                  {{ cars[i].carPlate }}
+                </option>
+              </select>
             </div>
           </div>
 
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label"
-              >Image Path:</label
+              >Resim Konumu:</label
             >
             <div class="form-group">
               <input
@@ -164,6 +167,7 @@
                 id="imagePath"
                 formControlName="imagePath"
                 class="form-control"
+                placeholder="Resim Konumu"
               />
             </div>
           </div>
@@ -208,21 +212,23 @@
       <div class="modal-body">
         <form [formGroup]="carImageUpdateAndDeleteForm">
           <div class="mb-3">
-            <label for="recipient-name" class="col-form-label">Car Id:</label>
+            <label for="recipient-name" class="col-form-label">Plaka:</label>
             <div class="form-group">
-              <input
-                [readonly]="true"
-                type="number"
-                id="carId"
-                formControlName="carId"
-                class="form-control"
-              />
+              <select formControlName="carId" id="carId">
+                <option
+                  disabled
+                  *ngFor="let car of cars; let i = index"
+                  [ngValue]="cars[i].carId"
+                >
+                  {{ cars[i].carPlate }}
+                </option>
+              </select>
             </div>
           </div>
 
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label"
-              >Image Path:</label
+              >Resim Konumu:</label
             >
             <div class="form-group">
               <input

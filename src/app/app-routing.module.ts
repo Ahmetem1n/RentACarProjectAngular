@@ -110,14 +110,12 @@ import { UserOperationClaimUpdateComponent } from './components/UserOperationCla
 import { UserOperationClaimsComponent } from './components/UserOperationClaimComponents/user-operation-claims/user-operation-claims.component';
 import { LoginGuard } from './guards/login.guard';
 
-
-
 const routes: Routes = [
   { path: '', pathMatch: 'full', component: BrandsComponent },
-  { path: 'login',  component: LoginComponent },
+  { path: 'login', component: LoginComponent },
 
   //GETALL COMPONENT PATH
-  { path: 'admins', component: AdminsComponent,canActivate:[LoginGuard] },
+  { path: 'admins', component: AdminsComponent, canActivate: [LoginGuard] },
   { path: 'auths', component: AuthComponent },
   { path: 'branchs', component: BranchsComponent },
   { path: 'brands', component: BrandsComponent },
@@ -156,7 +154,10 @@ const routes: Routes = [
   { path: 'employee/add', component: EmployeeAddComponent },
   { path: 'fuel/add', component: FuelAddComponent },
   { path: 'gear/add', component: GearAddComponent },
-  { path: 'identityInformation/add', component: IdentityInformationAddComponent },
+  {
+    path: 'identityInformation/add',
+    component: IdentityInformationAddComponent,
+  },
   { path: 'model/add', component: ModelAddComponent },
   { path: 'operationClaim/add', component: OperationClaimAddComponent },
   { path: 'phoneNumber/add', component: PhoneNumberAddComponent },
@@ -175,17 +176,26 @@ const routes: Routes = [
   { path: 'class/delete', component: ClassDeleteComponent },
   { path: 'color/delete', component: ColorDeleteComponent },
   { path: 'customer/delete', component: CustomerDeleteComponent },
-  { path: 'drivingInformation/delete', component: DrivingInformationDeleteComponent },
+  {
+    path: 'drivingInformation/delete',
+    component: DrivingInformationDeleteComponent,
+  },
   { path: 'employee/delete', component: EmployeeDeleteComponent },
   { path: 'fuel/delete', component: FuelDeleteComponent },
   { path: 'gear/delete', component: GearDeleteComponent },
-  { path: 'identityInformation/delete', component: IdentityInformationDeleteComponent },
+  {
+    path: 'identityInformation/delete',
+    component: IdentityInformationDeleteComponent,
+  },
   { path: 'model/delete', component: ModelDeleteComponent },
   { path: 'operationClaim/delete', component: OperationClaimDeleteComponent },
   { path: 'phoneNumber/delete', component: PhoneNumberDeleteComponent },
   { path: 'rentalDetail/delete', component: RentalDetailDeleteComponent },
   { path: 'user/delete', component: UserDeleteComponent },
-  { path: 'userOperationClaim/delete', component: UserOperationClaimDeleteComponent },
+  {
+    path: 'userOperationClaim/delete',
+    component: UserOperationClaimDeleteComponent,
+  },
 
   //UPDATE COMPONENT PATH
   { path: 'admin/update/:adminId', component: AdminUpdateComponent },
@@ -198,20 +208,29 @@ const routes: Routes = [
   { path: 'class/update', component: ClassUpdateComponent },
   { path: 'color/update', component: ColorUpdateComponent },
   { path: 'customer/update', component: CustomerUpdateComponent },
-  { path: 'drivingInformation/update', component: DrivingInformationUpdateComponent },
+  {
+    path: 'drivingInformation/update',
+    component: DrivingInformationUpdateComponent,
+  },
   { path: 'employee/update', component: EmployeeUpdateComponent },
   { path: 'fuel/update', component: FuelUpdateComponent },
   { path: 'gear/update', component: GearUpdateComponent },
-  { path: 'identityInformation/update', component: IdentityInformationUpdateComponent },
+  {
+    path: 'identityInformation/update',
+    component: IdentityInformationUpdateComponent,
+  },
   { path: 'model/update', component: ModelUpdateComponent },
   { path: 'operationClaim/update', component: OperationClaimUpdateComponent },
   { path: 'phoneNumber/update', component: PhoneNumberUpdateComponent },
   { path: 'rentalDetail/update', component: RentalDetailUpdateComponent },
   { path: 'user/update', component: UserUpdateComponent },
-  { path: 'userOperationClaim/update', component: UserOperationClaimUpdateComponent },
+  {
+    path: 'userOperationClaim/update',
+    component: UserOperationClaimUpdateComponent,
+  },
 
   //DETAIL COMPONENT PATH
-  { path: 'admin/detail/:adminId', component: AdminDetailComponent },  
+  { path: 'admin/detail/:adminId', component: AdminDetailComponent },
 
   { path: 'car/detail', component: CarDetailComponent },
   { path: 'card/detail', component: CardDetailComponent },
@@ -221,17 +240,26 @@ const routes: Routes = [
   { path: 'class/detail', component: ClassDetailComponent },
   { path: 'color/detail', component: ColorDetailComponent },
   { path: 'customer/detail', component: CustomerDetailComponent },
-  { path: 'drivingInformation/detail', component: DrivingInformationDetailComponent },
+  {
+    path: 'drivingInformation/detail',
+    component: DrivingInformationDetailComponent,
+  },
   { path: 'employee/detail', component: EmployeeDetailComponent },
   { path: 'fuel/detail', component: FuelDetailComponent },
   { path: 'gear/detail', component: GearDetailComponent },
-  { path: 'identityInformation/detail', component: IdentityInformationDetailComponent },
+  {
+    path: 'identityInformation/detail',
+    component: IdentityInformationDetailComponent,
+  },
   { path: 'model/detail', component: ModelDetailComponent },
   { path: 'operationClaim/detail', component: OperationClaimDetailComponent },
   { path: 'phoneNumber/detail', component: PhoneNumberDetailComponent },
   { path: 'rentalDetail/detail', component: RentalDetailDetailComponent },
   { path: 'user/detail/:userId', component: UserDetailComponent },
-  { path: 'userOperationClaim/detail', component: UserOperationClaimDetailComponent },
+  {
+    path: 'userOperationClaim/detail',
+    component: UserOperationClaimDetailComponent,
+  },
 ];
 
 @NgModule({

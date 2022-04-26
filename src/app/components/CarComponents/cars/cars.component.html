@@ -22,14 +22,14 @@
   </thead>
   <tbody>
     <tr *ngFor="let car of cars">
-      <td>{{ car.brandId }}</td>
-      <td>{{ car.colorId }}</td>
-      <td>{{ car.branchId }}</td>
-      <td>{{ car.gearId }}</td>
-      <td>{{ car.fuelId }}</td>
-      <td>{{ car.classId }}</td>
-      <td>{{ car.bodyId }}</td>
-      <td>{{ car.modelId }}</td>
+      <td>{{ getBrandName(car.brandId) }}</td>
+      <td>{{ getColorName(car.colorId) }}</td>
+      <td>{{ getBranchName(car.branchId) }}</td>
+      <td>{{ getGearName(car.gearId) }}</td>
+      <td>{{ getFuelName(car.fuelId) }}</td>
+      <td>{{ getClassName(car.classId) }}</td>
+      <td>{{ getCaseName(car.caseId) }}</td>
+      <td>{{ getModelName(car.modelId) }}</td>
       <td>{{ car.carPlate }}</td>
       <td>{{ car.carStar }}</td>
       <td>{{ car.modelYear }}</td>
@@ -98,142 +98,154 @@
       <div class="modal-body">
         <form [formGroup]="carAddForm">
           <div class="mb-3">
-            <label for="recipient-name" class="col-form-label">Brand Id:</label>
+            <label for="recipient-name" class="col-form-label">Marka:</label>
             <div class="form-group">
-              <input
-                type="number"
-                id="brandId"
-                formControlName="brandId"
-                class="form-control"
-                placeholder="Brand Id"
-              />
+              <select formControlName="brandId" id="brandId">
+                <option
+                  *ngFor="let brand of brands; let i = index"
+                  [ngValue]="brands[i].brandId"
+                >
+                  {{ brands[i].brandName }}
+                </option>
+              </select>
             </div>
           </div>
 
           <div class="mb-3">
-            <label for="recipient-name" class="col-form-label">Color Id:</label>
+            <label for="recipient-name" class="col-form-label">Renk:</label>
             <div class="form-group">
-              <input
-                type="number"
-                id="colorId"
-                formControlName="colorId"
-                class="form-control"
-                placeholder="Color Id"
-              />
+              <select formControlName="colorId" id="colorId">
+                <option
+                  *ngFor="let color of colors; let i = index"
+                  [ngValue]="colors[i].colorId"
+                >
+                  {{ colors[i].colorName }}
+                </option>
+              </select>
             </div>
           </div>
 
           <div class="mb-3">
-            <label for="recipient-name" class="col-form-label"
-              >Branch Id:</label
-            >
+            <label for="recipient-name" class="col-form-label">Şube:</label>
             <div class="form-group">
-              <input
-                type="number"
-                id="branchId"
-                formControlName="branchId"
-                class="form-control"
-                placeholder="Branch Id"
-              />
+              <select formControlName="branchId" id="branchId">
+                <option
+                  *ngFor="let branch of branchs; let i = index"
+                  [ngValue]="branchs[i].branchId"
+                >
+                  {{ branchs[i].branchName }}
+                </option>
+              </select>
             </div>
           </div>
 
           <div class="mb-3">
-            <label for="recipient-name" class="col-form-label">Gear Id:</label>
+            <label for="recipient-name" class="col-form-label">Vites:</label>
             <div class="form-group">
-              <input
-                type="number"
-                id="gearId"
-                formControlName="gearId"
-                class="form-control"
-                placeholder="gearId"
-              />
+              <select formControlName="gearId" id="gearId">
+                <option
+                  *ngFor="let gear of gears; let i = index"
+                  [ngValue]="gears[i].gearId"
+                >
+                  {{ gears[i].gearName }}
+                </option>
+              </select>
             </div>
           </div>
 
           <div class="mb-3">
-            <label for="recipient-name" class="col-form-label">Fuel Id:</label>
+            <label for="recipient-name" class="col-form-label">Yakıt:</label>
             <div class="form-group">
-              <input
-                type="number"
-                id="fuelId"
-                formControlName="fuelId"
-                class="form-control"
-                placeholder="fuelId"
-              />
-            </div>
-          </div>
-
-          <div class="mb-3">
-            <label for="recipient-name" class="col-form-label">Class Id:</label>
-            <div class="form-group">
-              <input
-                type="number"
-                id="classId"
-                formControlName="classId"
-                class="form-control"
-                placeholder="classId"
-              />
-            </div>
-          </div>
-
-          <div class="mb-3">
-            <label for="recipient-name" class="col-form-label">Body Id:</label>
-            <div class="form-group">
-              <input
-                type="number"
-                id="bodyId"
-                formControlName="bodyId"
-                class="form-control"
-                placeholder="bodyId"
-              />
-            </div>
-          </div>
-
-          <div class="mb-3">
-            <label for="recipient-name" class="col-form-label">Model Id:</label>
-            <div class="form-group">
-              <input
-                type="number"
-                id="modelId"
-                formControlName="modelId"
-                class="form-control"
-                placeholder="modelId"
-              />
+              <select formControlName="fuelId" id="fuelId">
+                <option
+                  *ngFor="let fuel of fuels; let i = index"
+                  [ngValue]="fuels[i].fuelId"
+                >
+                  {{ fuels[i].fuelName }}
+                </option>
+              </select>
             </div>
           </div>
 
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label"
-              >Car Plate:</label
+              >Araç Sınıfı:</label
             >
+            <div class="form-group">
+              <select formControlName="classId" id="classId">
+                <option
+                  *ngFor="let class of classes; let i = index"
+                  [ngValue]="classes[i].classId"
+                >
+                  {{ classes[i].className }}
+                </option>
+              </select>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label"
+              >Kasa Tipi:</label
+            >
+            <div class="form-group">
+              <select formControlName="caseId" id="caseId">
+                <option
+                  *ngFor="let case of caseTypes; let i = index"
+                  [ngValue]="caseTypes[i].caseId"
+                >
+                  {{ caseTypes[i].caseName }}
+                </option>
+              </select>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label"
+              >Araç Modeli:</label
+            >
+            <div class="form-group">
+              <select formControlName="modelId" id="modelId">
+                <option
+                  *ngFor="let model of models; let i = index"
+                  [ngValue]="models[i].modelId"
+                >
+                  {{ models[i].modelName }}
+                </option>
+              </select>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Plaka:</label>
             <div class="form-group">
               <input
                 type="text"
                 id="carPlate"
                 formControlName="carPlate"
                 class="form-control"
-                placeholder="carPlate"
-              />
-            </div>
-          </div>
-
-          <div class="mb-3">
-            <label for="recipient-name" class="col-form-label">Car Star:</label>
-            <div class="form-group">
-              <input
-                type="number"
-                id="carStar"
-                formControlName="carStar"
-                class="form-control"
-                placeholder="carStar"
+                placeholder="Plaka"
               />
             </div>
           </div>
 
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label"
-              >Model Year:</label
+              >Yıldız Sayısı:</label
+            >
+            <div class="form-group">
+              <input
+                type="number"
+                id="carStar"
+                formControlName="carStar"
+                class="form-control"
+                placeholder="Yıldız Sayısı"
+              />
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label"
+              >Model Yılı:</label
             >
             <div class="form-group">
               <input
@@ -241,14 +253,14 @@
                 id="modelYear"
                 formControlName="modelYear"
                 class="form-control"
-                placeholder="modelYear"
+                placeholder="Model Yılı"
               />
             </div>
           </div>
 
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label"
-              >Daily Price:</label
+              >Günlük Fiyat:</label
             >
             <div class="form-group">
               <input
@@ -256,29 +268,27 @@
                 id="dailyPrice"
                 formControlName="dailyPrice"
                 class="form-control"
-                placeholder="dailyPrice"
+                placeholder="Günlük Fiyat"
               />
             </div>
           </div>
 
           <div class="mb-3">
-            <label for="recipient-name" class="col-form-label"
-              >Description:</label
-            >
+            <label for="recipient-name" class="col-form-label">Açıklama:</label>
             <div class="form-group">
               <input
                 type="text"
                 id="description"
                 formControlName="description"
                 class="form-control"
-                placeholder="description"
+                placeholder="Açıklama"
               />
             </div>
           </div>
 
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label"
-              >Car Usable:</label
+              >Kullanılabilirlik:</label
             >
             <div class="form-group">
               <input
@@ -287,14 +297,14 @@
                 id="carUsable"
                 formControlName="carUsable"
                 class="form-control"
-                placeholder="carUsable"
+                placeholder="Kullanılabilirlik"
               />
             </div>
           </div>
 
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label"
-              >Car Location:</label
+              >Araç Konumu:</label
             >
             <div class="form-group">
               <input
@@ -302,7 +312,7 @@
                 id="carLocation"
                 formControlName="carLocation"
                 class="form-control"
-                placeholder="carLocation"
+                placeholder="Araç Konumu"
               />
             </div>
           </div>
@@ -347,132 +357,154 @@
       <div class="modal-body">
         <form [formGroup]="carUpdateAndDeleteForm">
           <div class="mb-3">
-            <label for="recipient-name" class="col-form-label">Brand Id:</label>
+            <label for="recipient-name" class="col-form-label">Marka:</label>
             <div class="form-group">
-              <input
-                type="number"
-                id="brandId"
-                formControlName="brandId"
-                class="form-control"
-              />
+              <select formControlName="brandId" id="brandId">
+                <option
+                  *ngFor="let brand of brands; let i = index"
+                  [ngValue]="brands[i].brandId"
+                >
+                  {{ brands[i].brandName }}
+                </option>
+              </select>
             </div>
           </div>
 
           <div class="mb-3">
-            <label for="recipient-name" class="col-form-label">Color Id:</label>
+            <label for="recipient-name" class="col-form-label">Renk:</label>
             <div class="form-group">
-              <input
-                type="number"
-                id="colorId"
-                formControlName="colorId"
-                class="form-control"
-              />
+              <select formControlName="colorId" id="colorId">
+                <option
+                  *ngFor="let color of colors; let i = index"
+                  [ngValue]="colors[i].colorId"
+                >
+                  {{ colors[i].colorName }}
+                </option>
+              </select>
             </div>
           </div>
 
           <div class="mb-3">
-            <label for="recipient-name" class="col-form-label"
-              >Branch Id:</label
-            >
+            <label for="recipient-name" class="col-form-label">Şube:</label>
             <div class="form-group">
-              <input
-                type="number"
-                id="branchId"
-                formControlName="branchId"
-                class="form-control"
-              />
+              <select formControlName="branchId" id="branchId">
+                <option
+                  *ngFor="let branch of branchs; let i = index"
+                  [ngValue]="branchs[i].branchId"
+                >
+                  {{ branchs[i].branchName }}
+                </option>
+              </select>
             </div>
           </div>
 
           <div class="mb-3">
-            <label for="recipient-name" class="col-form-label">Gear Id:</label>
+            <label for="recipient-name" class="col-form-label">Vites:</label>
             <div class="form-group">
-              <input
-                type="number"
-                id="gearId"
-                formControlName="gearId"
-                class="form-control"
-              />
+              <select formControlName="gearId" id="gearId">
+                <option
+                  *ngFor="let gear of gears; let i = index"
+                  [ngValue]="gears[i].gearId"
+                >
+                  {{ gears[i].gearName }}
+                </option>
+              </select>
             </div>
           </div>
 
           <div class="mb-3">
-            <label for="recipient-name" class="col-form-label">Fuel Id:</label>
+            <label for="recipient-name" class="col-form-label">Yakıt:</label>
             <div class="form-group">
-              <input
-                type="number"
-                id="fuelId"
-                formControlName="fuelId"
-                class="form-control"
-              />
-            </div>
-          </div>
-
-          <div class="mb-3">
-            <label for="recipient-name" class="col-form-label">Class Id:</label>
-            <div class="form-group">
-              <input
-                type="number"
-                id="classId"
-                formControlName="classId"
-                class="form-control"
-              />
-            </div>
-          </div>
-
-          <div class="mb-3">
-            <label for="recipient-name" class="col-form-label">Body Id:</label>
-            <div class="form-group">
-              <input
-                type="number"
-                id="bodyId"
-                formControlName="bodyId"
-                class="form-control"
-              />
-            </div>
-          </div>
-
-          <div class="mb-3">
-            <label for="recipient-name" class="col-form-label">Model Id:</label>
-            <div class="form-group">
-              <input
-                type="number"
-                id="modelId"
-                formControlName="modelId"
-                class="form-control"
-              />
+              <select formControlName="fuelId" id="fuelId">
+                <option
+                  *ngFor="let fuel of fuels; let i = index"
+                  [ngValue]="fuels[i].fuelId"
+                >
+                  {{ fuels[i].fuelName }}
+                </option>
+              </select>
             </div>
           </div>
 
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label"
-              >Car Plate:</label
+              >Araç Sınıfı:</label
             >
+            <div class="form-group">
+              <select formControlName="classId" id="classId">
+                <option
+                  *ngFor="let class of classes; let i = index"
+                  [ngValue]="classes[i].classId"
+                >
+                  {{ classes[i].className }}
+                </option>
+              </select>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label"
+              >Kasa Tipi:</label
+            >
+            <div class="form-group">
+              <select formControlName="caseId" id="caseId">
+                <option
+                  *ngFor="let case of caseTypes; let i = index"
+                  [ngValue]="caseTypes[i].caseId"
+                >
+                  {{ caseTypes[i].caseName }}
+                </option>
+              </select>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label"
+              >Araç Modeli:</label
+            >
+            <div class="form-group">
+              <select formControlName="modelId" id="modelId">
+                <option
+                  *ngFor="let model of models; let i = index"
+                  [ngValue]="models[i].modelId"
+                >
+                  {{ models[i].modelName }}
+                </option>
+              </select>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Plaka:</label>
             <div class="form-group">
               <input
                 type="text"
                 id="carPlate"
                 formControlName="carPlate"
                 class="form-control"
-              />
-            </div>
-          </div>
-
-          <div class="mb-3">
-            <label for="recipient-name" class="col-form-label">Car Star:</label>
-            <div class="form-group">
-              <input
-                type="number"
-                id="carStar"
-                formControlName="carStar"
-                class="form-control"
+                placeholder="Plaka"
               />
             </div>
           </div>
 
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label"
-              >Model Year:</label
+              >Yıldız Sayısı:</label
+            >
+            <div class="form-group">
+              <input
+                type="number"
+                id="carStar"
+                formControlName="carStar"
+                class="form-control"
+                placeholder="Yıldız Sayısı"
+              />
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label"
+              >Model Yılı:</label
             >
             <div class="form-group">
               <input
@@ -480,13 +512,14 @@
                 id="modelYear"
                 formControlName="modelYear"
                 class="form-control"
+                placeholder="Model Yılı"
               />
             </div>
           </div>
 
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label"
-              >Daily Price:</label
+              >Günlük Fiyat:</label
             >
             <div class="form-group">
               <input
@@ -494,27 +527,27 @@
                 id="dailyPrice"
                 formControlName="dailyPrice"
                 class="form-control"
+                placeholder="Günlük Fiyat"
               />
             </div>
           </div>
 
           <div class="mb-3">
-            <label for="recipient-name" class="col-form-label"
-              >Description:</label
-            >
+            <label for="recipient-name" class="col-form-label">Açıklama:</label>
             <div class="form-group">
               <input
                 type="text"
                 id="description"
                 formControlName="description"
                 class="form-control"
+                placeholder="Açıklama"
               />
             </div>
           </div>
 
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label"
-              >Car Usable:</label
+              >Kullanılabilirlik:</label
             >
             <div class="form-group">
               <input
@@ -522,13 +555,14 @@
                 id="carUsable"
                 formControlName="carUsable"
                 class="form-control"
+                placeholder="Kullanılabilirlik"
               />
             </div>
           </div>
 
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label"
-              >Car Location:</label
+              >Araç Konumu:</label
             >
             <div class="form-group">
               <input
@@ -536,6 +570,7 @@
                 id="carLocation"
                 formControlName="carLocation"
                 class="form-control"
+                placeholder="Araç Konumu"
               />
             </div>
           </div>
@@ -580,109 +615,136 @@
       <div class="modal-body">
         <form [formGroup]="carUpdateAndDeleteForm">
           <div class="mb-3">
-            <label for="recipient-name" class="col-form-label">Brand Id:</label>
+            <label for="recipient-name" class="col-form-label">Marka:</label>
             <div class="form-group">
-              <input [readonly]="true"
-                type="number"
-                id="brandId"
-                formControlName="brandId"
-                class="form-control"
-              />
+              <select formControlName="brandId" id="brandId">
+                <option
+                  disabled
+                  *ngFor="let brand of brands; let i = index"
+                  [ngValue]="brands[i].brandId"
+                >
+                  {{ brands[i].brandName }}
+                </option>
+              </select>
             </div>
           </div>
 
           <div class="mb-3">
-            <label for="recipient-name" class="col-form-label">Color Id:</label>
+            <label for="recipient-name" class="col-form-label">Renk:</label>
             <div class="form-group">
-              <input [readonly]="true"
-                type="number"
-                id="colorId"
-                formControlName="colorId"
-                class="form-control"
-              />
+              <select formControlName="colorId" id="colorId">
+                <option
+                  disabled
+                  *ngFor="let color of colors; let i = index"
+                  [ngValue]="colors[i].colorId"
+                >
+                  {{ colors[i].colorName }}
+                </option>
+              </select>
             </div>
           </div>
 
           <div class="mb-3">
-            <label for="recipient-name" class="col-form-label"
-              >Branch Id:</label
-            >
+            <label for="recipient-name" class="col-form-label">Şube:</label>
             <div class="form-group">
-              <input [readonly]="true"
-                type="number"
-                id="branchId"
-                formControlName="branchId"
-                class="form-control"
-              />
+              <select formControlName="branchId" id="branchId">
+                <option
+                  disabled
+                  *ngFor="let branch of branchs; let i = index"
+                  [ngValue]="branchs[i].branchId"
+                >
+                  {{ branchs[i].branchName }}
+                </option>
+              </select>
             </div>
           </div>
 
           <div class="mb-3">
-            <label for="recipient-name" class="col-form-label">Gear Id:</label>
+            <label for="recipient-name" class="col-form-label">Vites:</label>
             <div class="form-group">
-              <input [readonly]="true"
-                type="number"
-                id="gearId"
-                formControlName="gearId"
-                class="form-control"
-              />
+              <select formControlName="gearId" id="gearId">
+                <option
+                  disabled
+                  *ngFor="let gear of gears; let i = index"
+                  [ngValue]="gears[i].gearId"
+                >
+                  {{ gears[i].gearName }}
+                </option>
+              </select>
             </div>
           </div>
 
           <div class="mb-3">
-            <label for="recipient-name" class="col-form-label">Fuel Id:</label>
+            <label for="recipient-name" class="col-form-label">Yakıt:</label>
             <div class="form-group">
-              <input [readonly]="true"
-                type="number"
-                id="fuelId"
-                formControlName="fuelId"
-                class="form-control"
-              />
-            </div>
-          </div>
-
-          <div class="mb-3">
-            <label for="recipient-name" class="col-form-label">Class Id:</label>
-            <div class="form-group">
-              <input [readonly]="true"
-                type="number"
-                id="classId"
-                formControlName="classId"
-                class="form-control"
-              />
-            </div>
-          </div>
-
-          <div class="mb-3">
-            <label for="recipient-name" class="col-form-label">Body Id:</label>
-            <div class="form-group">
-              <input [readonly]="true"
-                type="number"
-                id="bodyId"
-                formControlName="bodyId"
-                class="form-control"
-              />
-            </div>
-          </div>
-
-          <div class="mb-3">
-            <label for="recipient-name" class="col-form-label">Model Id:</label>
-            <div class="form-group">
-              <input [readonly]="true"
-                type="number"
-                id="modelId"
-                formControlName="modelId"
-                class="form-control"
-              />
+              <select formControlName="fuelId" id="fuelId">
+                <option
+                  disabled
+                  *ngFor="let fuel of fuels; let i = index"
+                  [ngValue]="fuels[i].fuelId"
+                >
+                  {{ fuels[i].fuelName }}
+                </option>
+              </select>
             </div>
           </div>
 
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label"
-              >Car Plate:</label
+              >Araç Sınıfı:</label
             >
             <div class="form-group">
-              <input [readonly]="true"
+              <select formControlName="classId" id="classId">
+                <option
+                  disabled
+                  *ngFor="let class of classes; let i = index"
+                  [ngValue]="classes[i].classId"
+                >
+                  {{ classes[i].className }}
+                </option>
+              </select>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label"
+              >Kasa Tipi:</label
+            >
+            <div class="form-group">
+              <select formControlName="caseId" id="caseId">
+                <option
+                  disabled
+                  *ngFor="let case of caseTypes; let i = index"
+                  [ngValue]="caseTypes[i].caseId"
+                >
+                  {{ caseTypes[i].caseName }}
+                </option>
+              </select>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label"
+              >Araç Modeli:</label
+            >
+            <div class="form-group">
+              <select formControlName="modelId" id="modelId">
+                <option
+                  disabled
+                  *ngFor="let model of models; let i = index"
+                  [ngValue]="models[i].modelId"
+                >
+                  {{ models[i].modelName }}
+                </option>
+              </select>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Plaka:</label>
+            <div class="form-group">
+              <input
+                [readonly]="true"
                 type="text"
                 id="carPlate"
                 formControlName="carPlate"
@@ -692,9 +754,12 @@
           </div>
 
           <div class="mb-3">
-            <label for="recipient-name" class="col-form-label">Car Star:</label>
+            <label for="recipient-name" class="col-form-label"
+              >Yıldız Sayısı:</label
+            >
             <div class="form-group">
-              <input [readonly]="true"
+              <input
+                [readonly]="true"
                 type="number"
                 id="carStar"
                 formControlName="carStar"
@@ -705,10 +770,11 @@
 
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label"
-              >Model Year:</label
+              >Model Yılı:</label
             >
             <div class="form-group">
-              <input [readonly]="true"
+              <input
+                [readonly]="true"
                 type="number"
                 id="modelYear"
                 formControlName="modelYear"
@@ -719,10 +785,11 @@
 
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label"
-              >Daily Price:</label
+              >Günlük Fiyat:</label
             >
             <div class="form-group">
-              <input [readonly]="true"
+              <input
+                [readonly]="true"
                 type="number"
                 id="dailyPrice"
                 formControlName="dailyPrice"
@@ -732,11 +799,10 @@
           </div>
 
           <div class="mb-3">
-            <label for="recipient-name" class="col-form-label"
-              >Description:</label
-            >
+            <label for="recipient-name" class="col-form-label">Açıklama:</label>
             <div class="form-group">
-              <input [readonly]="true"
+              <input
+                [readonly]="true"
                 type="text"
                 id="description"
                 formControlName="description"
@@ -747,10 +813,11 @@
 
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label"
-              >Car Usable:</label
+              >Kullanılabilirlik:</label
             >
             <div class="form-group">
-              <input [readonly]="true"
+              <input
+                [readonly]="true"
                 type="text"
                 id="carUsable"
                 formControlName="carUsable"
@@ -761,7 +828,7 @@
 
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label"
-              >Car Location:</label
+              >Araç Konumu:</label
             >
             <div class="form-group">
               <input

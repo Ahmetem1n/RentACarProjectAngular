@@ -1,3 +1,5 @@
+import { CityService } from './../../../services/city.service';
+import { City } from './../../../models/city';
 import { ToastrService } from 'ngx-toastr';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
@@ -17,16 +19,20 @@ export class BranchsComponent implements OnInit {
   branchUpdateAndDeleteForm: FormGroup;
   branch: Branch = { branchId: 0, cityId: 0, branchName: '' };
 
+  cities: City[] = [];
+
   dataLoaded = false;
   constructor(
     private formBuilder: FormBuilder,
     private branchService: BranchService,
+    private cityService: CityService,
     private toastrService: ToastrService,
     private activatedRoute: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
     this.getBranchs();
+    this.getCities();
     this.createBranchAddForm();
     this.createBranchUpdateAndDeleteForm();
   }
@@ -36,6 +42,16 @@ export class BranchsComponent implements OnInit {
       this.branchs = response.data;
       this.dataLoaded = true;
     });
+  }
+
+  getCities() {
+    this.cityService.getCities().subscribe((response) => {
+      this.cities = response.data;
+    });
+  }
+  
+  getCityName(cityId: number) {
+    return this.cities.find((c) => c.cityId == cityId).cityName;
   }
 
   createBranchDetail(branch: Branch) {

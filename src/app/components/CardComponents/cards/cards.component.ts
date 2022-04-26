@@ -1,3 +1,5 @@
+import { UserService } from './../../../services/user.service';
+import { User } from './../../../models/user';
 import { ToastrService } from 'ngx-toastr';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
@@ -24,16 +26,20 @@ export class CardsComponent implements OnInit {
     cvv: 0,
   };
 
+  users: User[] = [];
+
   dataLoaded = false;
   constructor(
     private formBuilder: FormBuilder,
     private cardService: CardService,
+    private userService: UserService,
     private toastrService: ToastrService,
     private activatedRoute: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
     this.getCards();
+    this.getUsers();
     this.createCardAddForm();
     this.createCardUpdateAndDeleteForm();
   }
@@ -44,6 +50,16 @@ export class CardsComponent implements OnInit {
       this.dataLoaded = true;
     });
   }
+
+  getUsers() {
+    this.userService.getUsers().subscribe((response) => {
+      this.users = response.data;
+    });
+  }
+
+  getUserNationalityId(userId:number) {
+    return this.users.find(u=>u.userId==userId).nationalityId
+   }
 
   createCardDetail(card: Card) {
     console.log(card);

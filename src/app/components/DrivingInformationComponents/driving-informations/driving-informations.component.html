@@ -1,9 +1,9 @@
 <table class="table table-striped" *ngIf="dataLoaded == true">
   <thead class="table-dark">
     <tr>
-      <th scope="col">Lisans Numarası</th>
+      <th scope="col">Sürücü Sicil Numarası</th>
       <th scope="col">Son Geçerlilik Tarihi</th>
-      <th scope="col">Licence Province</th>
+      <th scope="col">Verildiği İl</th>
       <th scope="col">Kan Grubu</th>
       <th scope="col">Güncelle</th>
       <th scope="col">Sil</th>
@@ -18,7 +18,7 @@
         {{ drivingInformation.expiryDate }}
       </td>
       <td>
-        {{ drivingInformation.licenceProvince }}
+        {{ getCityName(drivingInformation.cityId) }}
       </td>
       <td>
         {{ drivingInformation.bloodGroup }}
@@ -85,7 +85,7 @@
         <form [formGroup]="drivingInformationAddForm">
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label"
-              >Licence Number:</label
+              >Sürücü Sicil Numarası:</label
             >
             <div class="form-group">
               <input
@@ -93,13 +93,13 @@
                 id="licenceNumber"
                 formControlName="licenceNumber"
                 class="form-control"
-                placeholder="licenceNumber"
+                placeholder="Sürücü Sicil Numarası"
               />
             </div>
           </div>
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label"
-              >Expiry Date:</label
+              >Son Geçerlilik Tarihi:</label
             >
             <div class="form-group">
               <input
@@ -107,36 +107,38 @@
                 id="expiryDate"
                 formControlName="expiryDate"
                 class="form-control"
-                placeholder="expiryDate"
+                placeholder="Son Geçerlilik Tarihi"
               />
             </div>
           </div>
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label"
-              >Licence Province:</label
+              >Verildiği İl:</label
             >
             <div class="form-group">
-              <input
-                type="text"
-                id="licenceProvince"
-                formControlName="licenceProvince"
-                class="form-control"
-                placeholder="licenceProvince"
-              />
+              <select formControlName="cityId" id="cityId">
+                <option
+                  *ngFor="let city of cities; let i = index"
+                  [ngValue]="cities[i].cityId"
+                >
+                  {{ cities[i].cityName }}
+                </option>
+              </select>
             </div>
           </div>
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label"
-              >Blood Group:</label
+              >Kan Grubu:</label
             >
             <div class="form-group">
-              <input
-                type="text"
-                id="bloodGroup"
-                formControlName="bloodGroup"
-                class="form-control"
-                placeholder="bloodGroup"
-              />
+              <select formControlName="bloodGroup" id="bloodGroup">
+                <option
+                  *ngFor="let bloodGroup of bloodGroups; let i = index"
+                  [ngValue]="bloodGroups[i].bloodGroup"
+                >
+                  {{ bloodGroups[i].bloodGroup }}
+                </option>
+              </select>
             </div>
           </div>
 
@@ -181,7 +183,7 @@
         <form [formGroup]="drivingInformationUpdateAndDeleteForm">
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label"
-              >Licence Number:</label
+              >Sürücü Sicil Numarası:</label
             >
             <div class="form-group">
               <input
@@ -189,13 +191,13 @@
                 id="licenceNumber"
                 formControlName="licenceNumber"
                 class="form-control"
-                placeholder="licenceNumber"
+                placeholder="Sürücü Sicil Numarası"
               />
             </div>
           </div>
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label"
-              >Expiry Date:</label
+              >Son Geçerlilik Tarihi:</label
             >
             <div class="form-group">
               <input
@@ -203,36 +205,38 @@
                 id="expiryDate"
                 formControlName="expiryDate"
                 class="form-control"
-                placeholder="expiryDate"
+                placeholder="Son Geçerlilik Tarihi"
               />
             </div>
           </div>
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label"
-              >Licence Province:</label
+              >Verildiği İl:</label
             >
             <div class="form-group">
-              <input
-                type="text"
-                id="licenceProvince"
-                formControlName="licenceProvince"
-                class="form-control"
-                placeholder="licenceProvince"
-              />
+              <select formControlName="cityId" id="cityId">
+                <option
+                  *ngFor="let city of cities; let i = index"
+                  [ngValue]="cities[i].cityId"
+                >
+                  {{ cities[i].cityName }}
+                </option>
+              </select>
             </div>
           </div>
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label"
-              >Blood Group:</label
+              >Kan Grubu:</label
             >
             <div class="form-group">
-              <input
-                type="text"
-                id="bloodGroup"
-                formControlName="bloodGroup"
-                class="form-control"
-                placeholder="bloodGroup"
-              />
+              <select formControlName="bloodGroup" id="bloodGroup">
+                <option
+                  *ngFor="let bloodGroup of bloodGroups; let i = index"
+                  [ngValue]="bloodGroups[i].bloodGroup"
+                >
+                  {{ bloodGroups[i].bloodGroup }}
+                </option>
+              </select>
             </div>
           </div>
 
@@ -277,7 +281,7 @@
         <form [formGroup]="drivingInformationUpdateAndDeleteForm">
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label"
-              >Licence Number:</label
+              >Sürücü Sicil Numarası:</label
             >
             <div class="form-group">
               <input
@@ -286,13 +290,12 @@
                 id="licenceNumber"
                 formControlName="licenceNumber"
                 class="form-control"
-                placeholder="licenceNumber"
               />
             </div>
           </div>
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label"
-              >Expiry Date:</label
+              >Son Geçerlilik Tarihi:</label
             >
             <div class="form-group">
               <input
@@ -301,38 +304,39 @@
                 id="expiryDate"
                 formControlName="expiryDate"
                 class="form-control"
-                placeholder="expiryDate"
               />
             </div>
           </div>
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label"
-              >Licence Province:</label
+              >Verildiği İl:</label
             >
             <div class="form-group">
-              <input
-                [readonly]="true"
-                type="text"
-                id="licenceProvince"
-                formControlName="licenceProvince"
-                class="form-control"
-                placeholder="licenceProvince"
-              />
+              <select formControlName="cityId" id="cityId">
+                <option
+                  disabled
+                  *ngFor="let city of cities; let i = index"
+                  [ngValue]="cities[i].cityId"
+                >
+                  {{ cities[i].cityName }}
+                </option>
+              </select>
             </div>
           </div>
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label"
-              >Blood Group:</label
+              >Kan Grubu:</label
             >
             <div class="form-group">
-              <input
-                [readonly]="true"
-                type="text"
-                id="bloodGroup"
-                formControlName="bloodGroup"
-                class="form-control"
-                placeholder="bloodGroup"
-              />
+              <select formControlName="bloodGroup" id="bloodGroup">
+                <option
+                  disabled
+                  *ngFor="let bloodGroup of bloodGroups; let i = index"
+                  [ngValue]="bloodGroups[i].bloodGroup"
+                >
+                  {{ bloodGroups[i].bloodGroup }}
+                </option>
+              </select>
             </div>
           </div>
 

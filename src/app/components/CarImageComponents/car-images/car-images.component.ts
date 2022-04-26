@@ -1,3 +1,5 @@
+import { CarService } from './../../../services/car.service';
+import { Car } from './../../../models/car';
 import { ToastrService } from 'ngx-toastr';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
@@ -15,18 +17,22 @@ export class CarImagesComponent implements OnInit {
   carImageAddForm: FormGroup;
 
   carImageUpdateAndDeleteForm: FormGroup;
-  carImage: CarImage = { imageId: 0, carId: 0,imagePath:"" };
+  carImage: CarImage = { imageId: 0, carId: 0, imagePath: '' };
+
+  cars: Car[] = [];
 
   dataLoaded = false;
   constructor(
     private formBuilder: FormBuilder,
     private carImageService: CarImageService,
+    private carService: CarService,
     private toastrService: ToastrService,
     private activatedRoute: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
     this.getCarImages();
+    this.getCars();
     this.createCarImageAddForm();
     this.createCarImageUpdateAndDeleteForm();
   }
@@ -38,12 +44,24 @@ export class CarImagesComponent implements OnInit {
     });
   }
 
+  getCars() {
+    this.carService.getCars().subscribe((response) => {
+      this.cars = response.data;
+    });
+  }
+
+  getCarPlate(carId: number) {
+    return this.cars.find((c) => c.carId == carId).carPlate;
+  }
+
   createCarImageDetail(carImage: CarImage) {
     console.log(carImage);
-    this.carImageService.detailCarImage(carImage.imageId).subscribe((response) => {
-      this.carImage = response.data;
-      this.createCarImageUpdateAndDeleteForm();
-    });
+    this.carImageService
+      .detailCarImage(carImage.imageId)
+      .subscribe((response) => {
+        this.carImage = response.data;
+        this.createCarImageUpdateAndDeleteForm();
+      });
   }
 
   createCarImageUpdateAndDeleteForm() {
@@ -56,8 +74,8 @@ export class CarImagesComponent implements OnInit {
 
   createCarImageAddForm() {
     this.carImageAddForm = this.formBuilder.group({
-      carId: ["", Validators.required],
-      imagePath: ["", Validators.required],
+      carId: ['', Validators.required],
+      imagePath: ['', Validators.required],
     });
   }
 
@@ -96,7 +114,10 @@ export class CarImagesComponent implements OnInit {
 
   delete() {
     if (this.carImageUpdateAndDeleteForm.valid) {
-      let carImageModel = Object.assign({}, this.carImageUpdateAndDeleteForm.value);
+      let carImageModel = Object.assign(
+        {},
+        this.carImageUpdateAndDeleteForm.value
+      );
       this.carImageService.deleteCarImage(carImageModel).subscribe(
         (response) => {
           this.toastrService.success(response.message, 'Success');
@@ -129,7 +150,10 @@ export class CarImagesComponent implements OnInit {
 
   update() {
     if (this.carImageUpdateAndDeleteForm.valid) {
-      let carImageModel = Object.assign({}, this.carImageUpdateAndDeleteForm.value);
+      let carImageModel = Object.assign(
+        {},
+        this.carImageUpdateAndDeleteForm.value
+      );
       this.carImageService.updateCarImage(carImageModel).subscribe(
         (response) => {
           this.toastrService.success(response.message, 'Success');

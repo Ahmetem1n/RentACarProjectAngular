@@ -28,7 +28,7 @@ export class CarAddComponent implements OnInit {
       gearId: ['', Validators.required],
       fuelId: ['', Validators.required],
       classId: ['', Validators.required],
-      bodyId: ['', Validators.required],
+      caseId: ['', Validators.required],
       modelId: ['', Validators.required],
       carPlate: ['', Validators.required],
       carStar: ['', Validators.required],

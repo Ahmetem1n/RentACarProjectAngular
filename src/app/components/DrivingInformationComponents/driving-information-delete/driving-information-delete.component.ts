@@ -27,8 +27,8 @@ export class DrivingInformationDeleteComponent implements OnInit {
       drivingId: [this.drivingInformation.drivingId, Validators.required],
       licenceNumber: [this.drivingInformation.licenceNumber, Validators.required],
       expiryDate: [this.drivingInformation.expiryDate, Validators.required],
-      licenceProvince: [this.drivingInformation.licenceProvince, Validators.required],
-      bloodGroup: [this.drivingInformation.bloodGroup, Validators.required],
+      cityId: [this.drivingInformation.cityId, Validators.required],
+      bloodGroupId: [this.drivingInformation.bloodGroup, Validators.required],
     });
   }
 
