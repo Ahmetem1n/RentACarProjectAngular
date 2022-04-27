@@ -17,9 +17,4 @@ export class CityService {
     let newPath = this.apiUrl + 'cities/getall';
     return this.httpClient.get<ListResponseModel<City>>(newPath);
   }
-
-  detailCity(city: City) {
-    let newPath = this.apiUrl + 'cities/getById?cityId' + city.cityId;
-    return this.httpClient.get<SingleResponseModel<City>>(newPath);
-  }
 }

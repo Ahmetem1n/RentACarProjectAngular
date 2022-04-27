@@ -13,6 +13,7 @@ import { AdminService } from '../../../services/admin.service';
 export class AdminsComponent implements OnInit {
   admins: Admin[] = [];
   adminAddForm: FormGroup;
+  adminFilter=""
 
   adminUpdateAndDeleteForm: FormGroup;
   admin: Admin = { adminId: 0, userId: 0 };

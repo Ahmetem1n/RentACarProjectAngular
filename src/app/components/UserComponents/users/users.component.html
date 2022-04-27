@@ -1,3 +1,18 @@
+<br />
+<button type="button" class="btn btn-primary" (click)="createUserDetail(user)">
+  Yöneticiler
+</button>
+<button type="button" class="btn btn-primary" (click)="createUserDetail(user)">
+  Çalışanlar
+</button>
+<button type="button" class="btn btn-primary" (click)="createUserDetail(user)">
+  Müşteriler
+</button>
+<button type="button" class="btn btn-primary" (click)="createUserDetail(user)">
+  Tümü
+</button>
+<br /><br />
+
 <table class="table table-striped" *ngIf="dataLoaded == true">
   <thead class="table-dark">
     <tr>
@@ -8,6 +23,7 @@
       <th scope="col">Mail Adresi</th>
       <th scope="col">Fotoğraf</th>
       <th scope="col">Durum</th>
+      <th scope="col">Yetki</th>
       <th scope="col">Güncelle</th>
       <th scope="col">Sil</th>
     </tr>
@@ -21,6 +37,7 @@
       <td>{{ user.email }}</td>
       <td>{{ user.photo }}</td>
       <td>{{ user.status }}</td>
+      <td>{{ getClaimName(user.userId) }}</td>
       <td>
         <button
           type="button"

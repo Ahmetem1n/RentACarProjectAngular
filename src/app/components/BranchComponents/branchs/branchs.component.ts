@@ -19,6 +19,8 @@ export class BranchsComponent implements OnInit {
   branchUpdateAndDeleteForm: FormGroup;
   branch: Branch = { branchId: 0, cityId: 0, branchName: '' };
 
+  branchFilter = '';
+
   cities: City[] = [];
 
   dataLoaded = false;
@@ -49,7 +51,7 @@ export class BranchsComponent implements OnInit {
       this.cities = response.data;
     });
   }
-  
+
   getCityName(cityId: number) {
     return this.cities.find((c) => c.cityId == cityId).cityName;
   }

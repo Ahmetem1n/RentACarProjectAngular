@@ -1,25 +1,23 @@
-import { ModelService } from './../../../services/model.service';
-import { CaseTypeService } from './../../../services/case-type.service';
-import { ClassService } from './../../../services/class.service';
-import { FuelService } from './../../../services/fuel.service';
-import { GearService } from './../../../services/gear.service';
-import { BranchService } from './../../../services/branch.service';
-import { ColorService } from './../../../services/color.service';
-import { BrandService } from './../../../services/brand.service';
-import { Model } from './../../../models/model';
-import { CaseType } from './../../../models/caseType';
-import { Class } from './../../../models/class';
-import { Fuel } from './../../../models/fuel';
-import { Gear } from './../../../models/gear';
-import { Color } from './../../../models/color';
-import { Branch } from './../../../models/branch';
-import { Brand } from './../../../models/brand';
-import { ToastrService } from 'ngx-toastr';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Car } from '../../../models/car';
 import { CarService } from '../../../services/car.service';
+import { Branch } from './../../../models/branch';
+import { Brand } from './../../../models/brand';
+import { CaseType } from './../../../models/caseType';
+import { Class } from './../../../models/class';
+import { Color } from './../../../models/color';
+import { Fuel } from './../../../models/fuel';
+import { Gear } from './../../../models/gear';
+import { BranchService } from './../../../services/branch.service';
+import { BrandService } from './../../../services/brand.service';
+import { CaseTypeService } from './../../../services/case-type.service';
+import { ClassService } from './../../../services/class.service';
+import { ColorService } from './../../../services/color.service';
+import { FuelService } from './../../../services/fuel.service';
+import { GearService } from './../../../services/gear.service';
 
 @Component({
   selector: 'app-cars',
@@ -40,7 +38,6 @@ export class CarsComponent implements OnInit {
     fuelId: 0,
     classId: 0,
     caseId: 0,
-    modelId: 0,
     carPlate: '',
     carStar: 0,
     modelYear: 0,
@@ -57,7 +54,6 @@ export class CarsComponent implements OnInit {
   fuels: Fuel[] = [];
   classes: Class[] = [];
   caseTypes: CaseType[] = [];
-  models: Model[] = [];
 
   dataLoaded = false;
   constructor(
@@ -70,7 +66,6 @@ export class CarsComponent implements OnInit {
     private fuelService: FuelService,
     private classService: ClassService,
     private caseTypeService: CaseTypeService,
-    private modelService: ModelService,
     private toastrService: ToastrService,
     private activatedRoute: ActivatedRoute
   ) {}
@@ -84,7 +79,6 @@ export class CarsComponent implements OnInit {
     this.getFuels();
     this.getClasses();
     this.getCaseTypes();
-    this.getModels();
     this.createCarAddForm();
     this.createCarUpdateAndDeleteForm();
   }
@@ -166,16 +160,6 @@ export class CarsComponent implements OnInit {
     return this.caseTypes.find((c) => c.caseId == caseId).caseName;
   }
 
-  getModels() {
-    this.modelService.getModels().subscribe((response) => {
-      this.models = response.data;
-    });
-  }
-
-  getModelName(modelId: number) {
-    return this.models.find((m) => m.modelId == modelId).modelName;
-  }
-
   createCarDetail(car: Car) {
     console.log(car);
     this.carService.detailCar(car.carId).subscribe((response) => {
@@ -194,7 +178,6 @@ export class CarsComponent implements OnInit {
       fuelId: [this.car.fuelId, Validators.required],
       classId: [this.car.classId, Validators.required],
       caseId: [this.car.caseId, Validators.required],
-      modelId: [this.car.modelId, Validators.required],
       carPlate: [this.car.carPlate, Validators.required],
       carStar: [this.car.carStar, Validators.required],
       modelYear: [this.car.modelYear, Validators.required],
@@ -214,7 +197,6 @@ export class CarsComponent implements OnInit {
       fuelId: ['', Validators.required],
       classId: ['', Validators.required],
       caseId: ['', Validators.required],
-      modelId: ['', Validators.required],
       carPlate: ['', Validators.required],
       carStar: ['', Validators.required],
       modelYear: ['', Validators.required],

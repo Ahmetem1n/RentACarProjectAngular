@@ -7,7 +7,6 @@ export interface Car {
   fuelId: number;
   classId: number;
   caseId: number;
-  modelId: number;
   carPlate: string;
   carStar: number;
   modelYear: number;

@@ -8,7 +8,6 @@
       <th scope="col">Yakıt</th>
       <th scope="col">Sınıf</th>
       <th scope="col">Kasa</th>
-      <th scope="col">Model</th>
       <th scope="col">Plaka</th>
       <th scope="col">Yıldız</th>
       <th scope="col">Yıl</th>
@@ -29,7 +28,6 @@
       <td>{{ getFuelName(car.fuelId) }}</td>
       <td>{{ getClassName(car.classId) }}</td>
       <td>{{ getCaseName(car.caseId) }}</td>
-      <td>{{ getModelName(car.modelId) }}</td>
       <td>{{ car.carPlate }}</td>
       <td>{{ car.carStar }}</td>
       <td>{{ car.modelYear }}</td>
@@ -194,22 +192,6 @@
                   [ngValue]="caseTypes[i].caseId"
                 >
                   {{ caseTypes[i].caseName }}
-                </option>
-              </select>
-            </div>
-          </div>
-
-          <div class="mb-3">
-            <label for="recipient-name" class="col-form-label"
-              >Araç Modeli:</label
-            >
-            <div class="form-group">
-              <select formControlName="modelId" id="modelId">
-                <option
-                  *ngFor="let model of models; let i = index"
-                  [ngValue]="models[i].modelId"
-                >
-                  {{ models[i].modelName }}
                 </option>
               </select>
             </div>
@@ -459,22 +441,6 @@
           </div>
 
           <div class="mb-3">
-            <label for="recipient-name" class="col-form-label"
-              >Araç Modeli:</label
-            >
-            <div class="form-group">
-              <select formControlName="modelId" id="modelId">
-                <option
-                  *ngFor="let model of models; let i = index"
-                  [ngValue]="models[i].modelId"
-                >
-                  {{ models[i].modelName }}
-                </option>
-              </select>
-            </div>
-          </div>
-
-          <div class="mb-3">
             <label for="recipient-name" class="col-form-label">Plaka:</label>
             <div class="form-group">
               <input
@@ -718,23 +684,6 @@
                   [ngValue]="caseTypes[i].caseId"
                 >
                   {{ caseTypes[i].caseName }}
-                </option>
-              </select>
-            </div>
-          </div>
-
-          <div class="mb-3">
-            <label for="recipient-name" class="col-form-label"
-              >Araç Modeli:</label
-            >
-            <div class="form-group">
-              <select formControlName="modelId" id="modelId">
-                <option
-                  disabled
-                  *ngFor="let model of models; let i = index"
-                  [ngValue]="models[i].modelId"
-                >
-                  {{ models[i].modelName }}
                 </option>
               </select>
             </div>

@@ -1,9 +1,13 @@
-import { ToastrService } from 'ngx-toastr';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { UserOperationClaim } from './../../../models/userOperationClaim';
+import { UserOperationClaimService } from './../../../services/user-operation-claim.service';
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { User } from '../../../models/user';
 import { UserService } from '../../../services/user.service';
+import { OperationClaim } from './../../../models/operationClaim';
+import { OperationClaimService } from './../../../services/operation-claim.service';
 
 @Component({
   selector: 'app-users',
@@ -15,18 +19,35 @@ export class UsersComponent implements OnInit {
   userAddForm: FormGroup;
 
   userUpdateAndDeleteForm: FormGroup;
-  user: User = { userId: 0, firstName: '',lastName:"",nationalityId:"",birthYear:0,email:"",photo:"",status:false };
+  user: User = {
+    userId: 0,
+    firstName: '',
+    lastName: '',
+    nationalityId: '',
+    birthYear: 0,
+    email: '',
+    photo: '',
+    status: false,
+  };
+
+  userOperationClaims: UserOperationClaim[] = [];
+  operationClaims: OperationClaim[] = [];
+
 
   dataLoaded = false;
   constructor(
     private formBuilder: FormBuilder,
     private userService: UserService,
+    private operationClaimService: OperationClaimService,
+    private userOperationClaimService: UserOperationClaimService,
     private toastrService: ToastrService,
     private activatedRoute: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
     this.getUsers();
+    this.getUserOperationClaims();
+    this.getOperationClaims();
     this.createUserAddForm();
     this.createUserUpdateAndDeleteForm();
   }
@@ -36,6 +57,31 @@ export class UsersComponent implements OnInit {
       this.users = response.data;
       this.dataLoaded = true;
     });
+  }
+
+  getUserOperationClaims() {
+    this.userOperationClaimService.getUserOperationClaims().subscribe((response) => {
+      this.userOperationClaims = response.data;
+    });
+  }
+
+  getOperationClaims() {
+    this.operationClaimService.getOperationClaims().subscribe((response) => {
+      this.operationClaims = response.data;
+    });
+  }
+
+  getClaimName(userId: number) {
+    if(this.operationClaims.find(o=>o.claimId==this.userOperationClaims.find((o) => o.userId == userId).claimId).claimName==="admin"){
+      return "Yönetici"
+    }
+    if(this.operationClaims.find(o=>o.claimId==this.userOperationClaims.find((o) => o.userId == userId).claimId).claimName==="employee"){
+      return "Çalışan"
+    }
+    if(this.operationClaims.find(o=>o.claimId==this.userOperationClaims.find((o) => o.userId == userId).claimId).claimName==="customer"){
+      return "Müşteri"
+    }
+    return "deneme"
   }
 
   createUserDetail(user: User) {
@@ -61,13 +107,13 @@ export class UsersComponent implements OnInit {
 
   createUserAddForm() {
     this.userAddForm = this.formBuilder.group({
-      firstName: ["", Validators.required],
-      lastName: ["", Validators.required],
-      nationalityId: ["", Validators.required],
-      birthYear: ["", Validators.required],
-      email: ["", Validators.required],
-      photo: ["", Validators.required],
-      status: ["", Validators.required],
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      nationalityId: ['', Validators.required],
+      birthYear: ['', Validators.required],
+      email: ['', Validators.required],
+      photo: ['', Validators.required],
+      status: ['', Validators.required],
     });
   }
 
