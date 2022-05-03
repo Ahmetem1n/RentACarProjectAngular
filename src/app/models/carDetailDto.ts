@@ -1,12 +1,13 @@
-export interface Car {
+export interface CarDetailDto {
   carId: number;
-  brandId: number;
-  colorId: number;
   branchId: number;
-  gearId: number;
-  fuelId: number;
-  classId: number;
-  caseId: number;
+  brandName: string;
+  colorName: string;
+  branchName: string;
+  gearName: string;
+  fuelName: string;
+  className: string;
+  caseName: string;
   carPlate: string;
   carStar: number;
   modelYear: number;

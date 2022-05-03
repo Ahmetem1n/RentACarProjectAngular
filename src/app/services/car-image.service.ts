@@ -1,3 +1,4 @@
+import { CarImageDetailDto } from './../models/carImageDetailDto';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -17,6 +18,11 @@ export class CarImageService {
   getCarImages(): Observable<ListResponseModel<CarImage>> {
     let newPath = this.apiUrl + 'carImages/getall';
     return this.httpClient.get<ListResponseModel<CarImage>>(newPath);
+  }
+
+  getCarImageDetailDtos(): Observable<ListResponseModel<CarImageDetailDto>> {
+    let newPath = this.apiUrl + 'carImages/getcarimagedetails';
+    return this.httpClient.get<ListResponseModel<CarImageDetailDto>>(newPath);
   }
 
   addCarImage(carImage: CarImage): Observable<ResponseModel> {

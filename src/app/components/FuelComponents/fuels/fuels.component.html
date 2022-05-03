@@ -1,3 +1,15 @@
+<div class="mb-3">
+  <label for="fuelFilter" class="form-label">Yakıt Filtreleme</label>
+  <input
+    type="text"
+    [(ngModel)]="fuelFilter"
+    class="form-control"
+    id="fuelFilter"
+    placeholder="Filtre"
+  />
+</div>
+
+
 <table class="table table-striped" *ngIf="dataLoaded == true">
   <thead class="table-dark">
     <tr>
@@ -7,7 +19,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let fuel of fuels">
+    <tr *ngFor="let fuel of fuels | fuelsFilter:fuelFilter">
       <td>
         {{ fuel.fuelName }}
       </td>

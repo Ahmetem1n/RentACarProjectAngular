@@ -1,3 +1,4 @@
+import { CardDetailDto } from './../models/cardDetailDto';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -17,6 +18,11 @@ export class CardService {
   getCards(): Observable<ListResponseModel<Card>> {
     let newPath = this.apiUrl + 'cards/getall';
     return this.httpClient.get<ListResponseModel<Card>>(newPath);
+  }
+
+  getCardDetailDtos(): Observable<ListResponseModel<CardDetailDto>> {
+    let newPath = this.apiUrl + 'cards/getcarddetails';
+    return this.httpClient.get<ListResponseModel<CardDetailDto>>(newPath);
   }
 
   addCard(card: Card): Observable<ResponseModel> {

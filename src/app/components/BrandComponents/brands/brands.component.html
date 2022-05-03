@@ -1,3 +1,14 @@
+<div class="mb-3">
+  <label for="brandFilter" class="form-label">Marka Filtreleme</label>
+  <input
+    type="text"
+    [(ngModel)]="brandFilter"
+    class="form-control"
+    id="brandFilter"
+    placeholder="Filtre"
+  />
+</div>
+
 <table class="table table-striped" *ngIf="dataLoaded == true">
   <thead class="table-dark">
     <tr>
@@ -7,7 +18,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let brand of brands">
+    <tr *ngFor="let brand of brands | brandsFilter:brandFilter">
       <td>
         {{ brand.brandName }}
       </td>

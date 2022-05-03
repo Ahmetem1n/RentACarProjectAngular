@@ -1,3 +1,14 @@
+<div class="mb-3">
+  <label for="classFilter" class="form-label">Araç Sınıfı Filtreleme</label>
+  <input
+    type="text"
+    [(ngModel)]="classFilter"
+    class="form-control"
+    id="classFilter"
+    placeholder="Filtre"
+  />
+</div>
+
 <table class="table table-striped" *ngIf="dataLoaded == true">
   <thead class="table-dark">
     <tr>
@@ -7,7 +18,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let class of classes">
+    <tr *ngFor="let class of classes | classesFilter:classFilter">
       <td>
         {{ class.className }}
       </td>

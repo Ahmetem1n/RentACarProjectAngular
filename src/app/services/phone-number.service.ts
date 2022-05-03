@@ -1,3 +1,4 @@
+import { PhoneNumberDetailDto } from './../models/phoneNumberDetailDto';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -17,6 +18,11 @@ export class PhoneNumberService {
   getPhoneNumbers(): Observable<ListResponseModel<PhoneNumber>> {
     let newPath = this.apiUrl + 'phoneNumbers/getall';
     return this.httpClient.get<ListResponseModel<PhoneNumber>>(newPath);
+  }
+
+  getPhoneNumberDetailDtos(): Observable<ListResponseModel<PhoneNumberDetailDto>> {
+    let newPath = this.apiUrl + 'phoneNumbers/getphonenumberdetails';
+    return this.httpClient.get<ListResponseModel<PhoneNumberDetailDto>>(newPath);
   }
 
   addPhoneNumber(phoneNumber: PhoneNumber): Observable<ResponseModel> {

@@ -1,3 +1,16 @@
+<div class="mb-3">
+  <label for="identityInformationFilter" class="form-label"
+    >Kimlik Bilgileri Filtreleme</label
+  >
+  <input
+    type="text"
+    [(ngModel)]="identityInformationFilter"
+    class="form-control"
+    id="identityInformationFilter"
+    placeholder="Filtre"
+  />
+</div>
+
 <table class="table table-striped" *ngIf="dataLoaded == true">
   <thead class="table-dark">
     <tr>
@@ -14,7 +27,12 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let identityInformation of identityInformations">
+    <tr
+      *ngFor="
+        let identityInformation of identityInformations
+          | identityInformationsFilter: identityInformationFilter
+      "
+    >
       <td>{{ identityInformation.serialNumber }}</td>
       <td>{{ identityInformation.fatherName }}</td>
       <td>{{ identityInformation.motherName }}</td>
@@ -128,13 +146,14 @@
               >Doğum Yeri:</label
             >
             <div class="form-group">
-              <input
-                type="text"
-                id="birthPlace"
-                formControlName="birthPlace"
-                class="form-control"
-                placeholder="Doğum Yeri"
-              />
+              <select formControlName="birthPlace" id="birthPlace">
+                <option
+                  *ngFor="let city of cities; let i = index"
+                  [ngValue]="cities[i].cityName"
+                >
+                  {{ cities[i].cityName }}
+                </option>
+              </select>
             </div>
           </div>
 
@@ -143,13 +162,14 @@
               >Doğum Yılı:</label
             >
             <div class="form-group">
-              <input
-                type="number"
-                id="birthYear"
-                formControlName="birthYear"
-                class="form-control"
-                placeholder="Doğum Yılı"
-              />
+              <select formControlName="birthYear" id="birthYear">
+                <option
+                  *ngFor="let birthYear of birthYears; let i = index"
+                  [ngValue]="birthYears[i]"
+                >
+                  {{ birthYears[i] }}
+                </option>
+              </select>
             </div>
           </div>
 
@@ -283,13 +303,14 @@
               >Doğum Yeri:</label
             >
             <div class="form-group">
-              <input
-                type="text"
-                id="birthPlace"
-                formControlName="birthPlace"
-                class="form-control"
-                placeholder="Doğum Yeri"
-              />
+              <select formControlName="birthPlace" id="birthPlace">
+                <option
+                  *ngFor="let city of cities; let i = index"
+                  [ngValue]="cities[i].cityName"
+                >
+                  {{ cities[i].cityName }}
+                </option>
+              </select>
             </div>
           </div>
 
@@ -298,13 +319,14 @@
               >Doğum Yılı:</label
             >
             <div class="form-group">
-              <input
-                type="number"
-                id="birthYear"
-                formControlName="birthYear"
-                class="form-control"
-                placeholder="Doğum Yılı"
-              />
+              <select formControlName="birthYear" id="birthYear">
+                <option
+                  *ngFor="let birthYear of birthYears; let i = index"
+                  [ngValue]="birthYears[i]"
+                >
+                  {{ birthYears[i] }}
+                </option>
+              </select>
             </div>
           </div>
 
@@ -438,13 +460,15 @@
               >Doğum Yeri:</label
             >
             <div class="form-group">
-              <input
-                [readonly]="true"
-                type="text"
-                id="birthPlace"
-                formControlName="birthPlace"
-                class="form-control"
-              />
+              <select formControlName="birthPlace" id="birthPlace">
+                <option
+                  disabled
+                  *ngFor="let city of cities; let i = index"
+                  [ngValue]="cities[i].cityName"
+                >
+                  {{ cities[i].cityName }}
+                </option>
+              </select>
             </div>
           </div>
 
@@ -453,13 +477,15 @@
               >Doğum Yılı:</label
             >
             <div class="form-group">
-              <input
-                [readonly]="true"
-                type="number"
-                id="birthYear"
-                formControlName="birthYear"
-                class="form-control"
-              />
+              <select formControlName="birthYear" id="birthYear">
+                <option
+                  disabled
+                  *ngFor="let birthYear of birthYears; let i = index"
+                  [ngValue]="birthYears[i]"
+                >
+                  {{ birthYears[i] }}
+                </option>
+              </select>
             </div>
           </div>
 
@@ -484,7 +510,8 @@
             <label for="recipient-name" class="col-form-label">Cinsiyet:</label>
             <div class="form-group">
               <select formControlName="gender" id="gender">
-                <option disabled
+                <option
+                  disabled
                   *ngFor="let gender of genders; let i = index"
                   [ngValue]="genders[i].gender"
                 >

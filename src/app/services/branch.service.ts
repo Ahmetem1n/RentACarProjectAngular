@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Branch } from '../models/branch';
+import { BranchDetailDto } from '../models/branchDetailDto';
 import { ListResponseModel } from '../models/listResponseModel';
 import { ResponseModel } from './../models/responseModel';
 import { SingleResponseModel } from './../models/singleResponseModel';
@@ -17,6 +18,11 @@ export class BranchService {
   getBranchs(): Observable<ListResponseModel<Branch>> {
     let newPath = this.apiUrl + 'branchs/getall';
     return this.httpClient.get<ListResponseModel<Branch>>(newPath);
+  }
+
+  getBranchDetailDtos(): Observable<ListResponseModel<BranchDetailDto>> {
+    let newPath = this.apiUrl + 'branchs/getbranchdetails';
+    return this.httpClient.get<ListResponseModel<BranchDetailDto>>(newPath);
   }
 
   addBranch(branch: Branch): Observable<ResponseModel> {

@@ -1,3 +1,16 @@
+<div class="mb-3">
+  <label for="rentalDetailFilter" class="form-label"
+    >Kiralama Detayı Filtreleme</label
+  >
+  <input
+    type="text"
+    [(ngModel)]="rentalDetailFilter"
+    class="form-control"
+    id="rentalDetailFilter"
+    placeholder="Filtre"
+  />
+</div>
+
 <table class="table table-striped" *ngIf="dataLoaded == true">
   <thead class="table-dark">
     <tr>
@@ -12,24 +25,33 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let rentalDetail of rentalDetails">
+    <tr
+      *ngFor="
+        let rentalDetailDto of rentalDetailDtos
+          | rentalDetailsFilter: rentalDetailFilter
+      "
+    >
       <td>
-        {{ getUserNationalityId(rentalDetail.userId) }}
+        <a routerLink="/user/detail/{{ rentalDetailDto.userId }}">{{
+          rentalDetailDto.nationalityId
+        }}</a>
       </td>
       <td>
-        {{ getCarPlate(rentalDetail.carId) }}
+        <a routerLink="/car/detail/{{ rentalDetailDto.carId }}">
+          {{ rentalDetailDto.carPlate }}</a
+        >
       </td>
       <td>
-        {{ rentalDetail.rentDate }}
+        {{ rentalDetailDto.rentDate }}
       </td>
       <td>
-        {{ rentalDetail.returnDate }}
+        {{ rentalDetailDto.returnDate }}
       </td>
       <td>
-        {{ rentalDetail.firstMileage }}
+        {{ rentalDetailDto.firstMileage }}
       </td>
       <td>
-        {{ rentalDetail.lastMileage }}
+        {{ rentalDetailDto.lastMileage }}
       </td>
 
       <td>
@@ -39,7 +61,7 @@
           data-bs-toggle="modal"
           data-bs-target="#update"
           data-bs-whatever="@mdo"
-          (click)="createRentalDetail(rentalDetail)"
+          (click)="createRentalDetail(rentalDetailDto.rentalId)"
         >
           Güncelle
         </button>
@@ -51,7 +73,7 @@
           data-bs-toggle="modal"
           data-bs-target="#delete"
           data-bs-whatever="@mdo"
-          (click)="createRentalDetail(rentalDetail)"
+          (click)="createRentalDetail(rentalDetailDto.rentalId)"
         >
           Sil
         </button>
@@ -247,7 +269,7 @@
             >
             <div class="form-group">
               <input
-                type="date"
+                type="datetime-local"
                 id="rentDate"
                 formControlName="rentDate"
                 class="form-control"

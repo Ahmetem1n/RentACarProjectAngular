@@ -1,3 +1,14 @@
+<div class="mb-3">
+  <label for="cardFilter" class="form-label">Kart Filtreleme</label>
+  <input
+    type="text"
+    [(ngModel)]="cardFilter"
+    class="form-control"
+    id="cardFilter"
+    placeholder="Filtre"
+  />
+</div>
+
 <table class="table table-striped" *ngIf="dataLoaded == true">
   <thead class="table-dark">
     <tr>
@@ -11,21 +22,23 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let card of cards">
+    <tr *ngFor="let cardDetailDto of cardDetailDtos | cardsFilter: cardFilter">
       <td>
-        {{ getUserNationalityId(card.userId) }}
+        <a routerLink="/user/detail/{{ cardDetailDto.userId }}">
+          {{ cardDetailDto.nationalityId }}</a
+        >
       </td>
       <td>
-        {{ card.fullName }}
+        {{ cardDetailDto.fullName }}
       </td>
       <td>
-        {{ card.cardNo }}
+        {{ cardDetailDto.cardNo }}
       </td>
       <td>
-        {{ card.expiryDate }}
+        {{ cardDetailDto.expiryDate }}
       </td>
       <td>
-        {{ card.cvv }}
+        {{ cardDetailDto.cvv }}
       </td>
       <td>
         <button
@@ -34,7 +47,7 @@
           data-bs-toggle="modal"
           data-bs-target="#update"
           data-bs-whatever="@mdo"
-          (click)="createCardDetail(card)"
+          (click)="createCardDetail(cardDetailDto.cardId)"
         >
           Güncelle
         </button>
@@ -46,7 +59,7 @@
           data-bs-toggle="modal"
           data-bs-target="#delete"
           data-bs-whatever="@mdo"
-          (click)="createCardDetail(card)"
+          (click)="createCardDetail(cardDetailDto.cardId)"
         >
           Sil
         </button>

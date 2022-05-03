@@ -17,6 +17,8 @@ export class BrandsComponent implements OnInit {
   brandUpdateAndDeleteForm: FormGroup;
   brand: Brand = { brandId: 0, brandName: '' };
 
+  brandFilter = '';
+
   dataLoaded = false;
   constructor(
     private formBuilder: FormBuilder,

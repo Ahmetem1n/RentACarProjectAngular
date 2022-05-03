@@ -1,11 +1,11 @@
 <div class="mb-3">
-  <label for="branchFilter" class="form-label">Search Branch</label>
+  <label for="branchFilter" class="form-label">Şube Filtreleme</label>
   <input
     type="text"
     [(ngModel)]="branchFilter"
     class="form-control"
     id="branchFilter"
-    placeholder="Search"
+    placeholder="Filtre"
   />
 </div>
 
@@ -19,12 +19,12 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let branch of branchs | branchsFilter:branchFilter">
+    <tr *ngFor="let branchDetailDto of branchDetailDtos | branchsFilter:branchFilter">
       <td>
-        {{ getCityName(branch.cityId) }}
+        {{ branchDetailDto.cityName }}
       </td>
       <td>
-        {{ branch.branchName }}
+        {{ branchDetailDto.branchName }}
       </td>
 
       <td>
@@ -34,7 +34,7 @@
           data-bs-toggle="modal"
           data-bs-target="#update"
           data-bs-whatever="@mdo"
-          (click)="createBranchDetail(branch)"
+          (click)="createBranchDetail(branchDetailDto.branchId)"
         >
           Güncelle
         </button>
@@ -46,7 +46,7 @@
           data-bs-toggle="modal"
           data-bs-target="#delete"
           data-bs-whatever="@mdo"
-          (click)="createBranchDetail(branch)"
+          (click)="createBranchDetail(branchDetailDto.branchId)"
         >
           Sil
         </button>

@@ -1,3 +1,14 @@
+<div class="mb-3">
+  <label for="caseTypeFilter" class="form-label">Kasa Tipi Filtreleme</label>
+  <input
+    type="text"
+    [(ngModel)]="caseTypeFilter"
+    class="form-control"
+    id="caseTypeFilter"
+    placeholder="Filtre"
+  />
+</div>
+
 <table class="table table-striped" *ngIf="dataLoaded == true">
   <thead class="table-dark">
     <tr>
@@ -7,7 +18,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let caseType of caseTypes">
+    <tr *ngFor="let caseType of caseTypes | caseTypesFilter:caseTypeFilter">
       <td>
         {{ caseType.caseName }}
       </td>

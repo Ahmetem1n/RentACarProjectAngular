@@ -1,3 +1,4 @@
+import { UserDetailDto } from './../../../models/userDetailDto';
 import { UserOperationClaim } from './../../../models/userOperationClaim';
 import { UserOperationClaimService } from './../../../services/user-operation-claim.service';
 import { Component, OnInit } from '@angular/core';
@@ -15,7 +16,7 @@ import { OperationClaimService } from './../../../services/operation-claim.servi
   styleUrls: ['./users.component.css'],
 })
 export class UsersComponent implements OnInit {
-  users: User[] = [];
+  userDetailDtos: UserDetailDto[] = [];
   userAddForm: FormGroup;
 
   userUpdateAndDeleteForm: FormGroup;
@@ -27,12 +28,22 @@ export class UsersComponent implements OnInit {
     birthYear: 0,
     email: '',
     photo: '',
-    status: false,
+    status: "",
   };
+
+  statuses = ['Aktif', 'Pasif'];
+
+  birthYears = [1960];
+  birthYearsCreate() {
+    for (let i = 1961; i <= 2005; i++) {
+      this.birthYears.push(i);
+    }
+  }
 
   userOperationClaims: UserOperationClaim[] = [];
   operationClaims: OperationClaim[] = [];
 
+  userFilter = '';
 
   dataLoaded = false;
   constructor(
@@ -45,24 +56,27 @@ export class UsersComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getUsers();
+    this.getUserDetailDtos();
     this.getUserOperationClaims();
+    this.birthYearsCreate();
     this.getOperationClaims();
     this.createUserAddForm();
     this.createUserUpdateAndDeleteForm();
   }
 
-  getUsers() {
-    this.userService.getUsers().subscribe((response) => {
-      this.users = response.data;
+  getUserDetailDtos() {
+    this.userService.getUserDetailDtos().subscribe((response) => {
+      this.userDetailDtos = response.data;
       this.dataLoaded = true;
     });
   }
 
   getUserOperationClaims() {
-    this.userOperationClaimService.getUserOperationClaims().subscribe((response) => {
-      this.userOperationClaims = response.data;
-    });
+    this.userOperationClaimService
+      .getUserOperationClaims()
+      .subscribe((response) => {
+        this.userOperationClaims = response.data;
+      });
   }
 
   getOperationClaims() {
@@ -72,21 +86,38 @@ export class UsersComponent implements OnInit {
   }
 
   getClaimName(userId: number) {
-    if(this.operationClaims.find(o=>o.claimId==this.userOperationClaims.find((o) => o.userId == userId).claimId).claimName==="admin"){
-      return "Yönetici"
+    if (
+      this.operationClaims.find(
+        (o) =>
+          o.claimId ==
+          this.userOperationClaims.find((o) => o.userId == userId).claimId
+      ).claimName === 'admin'
+    ) {
+      return 'Yönetici';
     }
-    if(this.operationClaims.find(o=>o.claimId==this.userOperationClaims.find((o) => o.userId == userId).claimId).claimName==="employee"){
-      return "Çalışan"
+    if (
+      this.operationClaims.find(
+        (o) =>
+          o.claimId ==
+          this.userOperationClaims.find((o) => o.userId == userId).claimId
+      ).claimName === 'employee'
+    ) {
+      return 'Çalışan';
     }
-    if(this.operationClaims.find(o=>o.claimId==this.userOperationClaims.find((o) => o.userId == userId).claimId).claimName==="customer"){
-      return "Müşteri"
+    if (
+      this.operationClaims.find(
+        (o) =>
+          o.claimId ==
+          this.userOperationClaims.find((o) => o.userId == userId).claimId
+      ).claimName === 'customer'
+    ) {
+      return 'Müşteri';
     }
-    return "deneme"
+    return 'deneme';
   }
 
-  createUserDetail(user: User) {
-    console.log(user);
-    this.userService.detailUser(user.userId).subscribe((response) => {
+  createUserDetail(userId: number) {
+    this.userService.detailUser(userId).subscribe((response) => {
       this.user = response.data;
       this.createUserUpdateAndDeleteForm();
     });

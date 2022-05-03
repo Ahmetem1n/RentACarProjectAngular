@@ -17,6 +17,8 @@ export class GearsComponent implements OnInit {
   gearUpdateAndDeleteForm: FormGroup;
   gear: Gear = { gearId: 0, gearName: '' };
 
+  gearFilter = '';
+
   dataLoaded = false;
   constructor(
     private formBuilder: FormBuilder,

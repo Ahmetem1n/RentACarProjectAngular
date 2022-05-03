@@ -1,3 +1,4 @@
+import { CarImageDetailDto } from './../../../models/carImageDetailDto';
 import { CarService } from './../../../services/car.service';
 import { Car } from './../../../models/car';
 import { ToastrService } from 'ngx-toastr';
@@ -13,7 +14,7 @@ import { CarImageService } from '../../../services/car-image.service';
   styleUrls: ['./car-images.component.css'],
 })
 export class CarImagesComponent implements OnInit {
-  carImages: CarImage[] = [];
+  carImageDetailDtos: CarImageDetailDto[] = [];
   carImageAddForm: FormGroup;
 
   carImageUpdateAndDeleteForm: FormGroup;
@@ -30,16 +31,18 @@ export class CarImagesComponent implements OnInit {
     private activatedRoute: ActivatedRoute
   ) {}
 
+  carImageFilter = '';
+
   ngOnInit(): void {
-    this.getCarImages();
+    this.getCarImageDetailDtos();
     this.getCars();
     this.createCarImageAddForm();
     this.createCarImageUpdateAndDeleteForm();
   }
 
-  getCarImages() {
-    this.carImageService.getCarImages().subscribe((response) => {
-      this.carImages = response.data;
+  getCarImageDetailDtos() {
+    this.carImageService.getCarImageDetailDtos().subscribe((response) => {
+      this.carImageDetailDtos = response.data;
       this.dataLoaded = true;
     });
   }
@@ -50,23 +53,16 @@ export class CarImagesComponent implements OnInit {
     });
   }
 
-  getCarPlate(carId: number) {
-    return this.cars.find((c) => c.carId == carId).carPlate;
-  }
-
-  createCarImageDetail(carImage: CarImage) {
-    console.log(carImage);
-    this.carImageService
-      .detailCarImage(carImage.imageId)
-      .subscribe((response) => {
-        this.carImage = response.data;
-        this.createCarImageUpdateAndDeleteForm();
-      });
+  createCarImageDetail(imageId: number) {
+    this.carImageService.detailCarImage(imageId).subscribe((response) => {
+      this.carImage = response.data;
+      this.createCarImageUpdateAndDeleteForm();
+    });
   }
 
   createCarImageUpdateAndDeleteForm() {
     this.carImageUpdateAndDeleteForm = this.formBuilder.group({
-      carImageId: [this.carImage.imageId, Validators.required],
+      imageId: [this.carImage.imageId, Validators.required],
       carId: [this.carImage.carId, Validators.required],
       imagePath: [this.carImage.imagePath, Validators.required],
     });

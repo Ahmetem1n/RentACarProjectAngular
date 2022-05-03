@@ -1,3 +1,4 @@
+import { PhoneNumberDetailDto } from './../../../models/phoneNumberDetailDto';
 import { User } from './../../../models/user';
 import { UserService } from './../../../services/user.service';
 import { ToastrService } from 'ngx-toastr';
@@ -13,7 +14,7 @@ import { PhoneNumberService } from '../../../services/phone-number.service';
   styleUrls: ['./phone-numbers.component.css'],
 })
 export class PhoneNumbersComponent implements OnInit {
-  phoneNumbers: PhoneNumber[] = [];
+  phoneNumberDetailDtos: PhoneNumberDetailDto[] = [];
   phoneNumberAddForm: FormGroup;
 
   phoneNumberUpdateAndDeleteForm: FormGroup;
@@ -30,16 +31,18 @@ export class PhoneNumbersComponent implements OnInit {
     private activatedRoute: ActivatedRoute
   ) {}
 
+  phoneNumberFilter = '';
+
   ngOnInit(): void {
-    this.getPhoneNumbers();
+    this.getPhoneNumberDetailDtos();
     this.getUsers();
     this.createPhoneNumberAddForm();
     this.createPhoneNumberUpdateAndDeleteForm();
   }
 
-  getPhoneNumbers() {
-    this.phoneNumberService.getPhoneNumbers().subscribe((response) => {
-      this.phoneNumbers = response.data;
+  getPhoneNumberDetailDtos() {
+    this.phoneNumberService.getPhoneNumberDetailDtos().subscribe((response) => {
+      this.phoneNumberDetailDtos = response.data;
       this.dataLoaded = true;
     });
   }
@@ -50,18 +53,12 @@ export class PhoneNumbersComponent implements OnInit {
     });
   }
 
-  getUserNationalityId(userId:number) {
-    return this.users.find(u=>u.userId==userId).nationalityId
-   }
-
-  createPhoneNumberDetail(phoneNumber: PhoneNumber) {
-    console.log(phoneNumber);
-    this.phoneNumberService
-      .detailPhoneNumber(phoneNumber.phoneId)
-      .subscribe((response) => {
-        this.phoneNumber = response.data;
-        this.createPhoneNumberUpdateAndDeleteForm();
-      });
+  createPhoneNumberDetail(phoneId: number) {
+    console.log(phoneId);
+    this.phoneNumberService.detailPhoneNumber(phoneId).subscribe((response) => {
+      this.phoneNumber = response.data;
+      this.createPhoneNumberUpdateAndDeleteForm();
+    });
   }
 
   createPhoneNumberUpdateAndDeleteForm() {

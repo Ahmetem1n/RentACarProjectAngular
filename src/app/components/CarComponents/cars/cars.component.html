@@ -1,3 +1,14 @@
+<div class="mb-3">
+  <label for="carFilter" class="form-label">Araba Filtreleme</label>
+  <input
+    type="text"
+    [(ngModel)]="carFilter"
+    class="form-control"
+    id="carFilter"
+    placeholder="Filtre"
+  />
+</div>
+
 <table class="table table-striped" *ngIf="dataLoaded == true">
   <thead class="table-dark">
     <tr>
@@ -20,21 +31,29 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let car of cars">
-      <td>{{ getBrandName(car.brandId) }}</td>
-      <td>{{ getColorName(car.colorId) }}</td>
-      <td>{{ getBranchName(car.branchId) }}</td>
-      <td>{{ getGearName(car.gearId) }}</td>
-      <td>{{ getFuelName(car.fuelId) }}</td>
-      <td>{{ getClassName(car.classId) }}</td>
-      <td>{{ getCaseName(car.caseId) }}</td>
-      <td>{{ car.carPlate }}</td>
-      <td>{{ car.carStar }}</td>
-      <td>{{ car.modelYear }}</td>
-      <td>{{ car.dailyPrice }}</td>
-      <td>{{ car.description }}</td>
-      <td>{{ car.carUsable }}</td>
-      <td>{{ car.carLocation }}</td>
+    <tr *ngFor="let carDetailDto of carDetailDtos | carsFilter: carFilter">
+      <td>{{ carDetailDto.brandName }}</td>
+      <td>{{ carDetailDto.colorName }}</td>
+      <td>
+        <a routerLink="/branch/detail/{{ carDetailDto.branchId }}">{{
+          carDetailDto.branchName
+        }}</a>
+      </td>
+      <td>{{ carDetailDto.gearName }}</td>
+      <td>{{ carDetailDto.fuelName }}</td>
+      <td>{{ carDetailDto.className }}</td>
+      <td>{{ carDetailDto.caseName }}</td>
+      <td>{{ carDetailDto.carPlate }}</td>
+      <td>{{ carDetailDto.carStar }}</td>
+      <td>{{ carDetailDto.modelYear }}</td>
+      <td>{{ carDetailDto.dailyPrice }}</td>
+      <td>{{ carDetailDto.description }}</td>
+      <td>{{ carDetailDto.carUsable }}</td>
+      <td>
+        <a routerLink="/konum/detail/{{ carDetailDto.carLocation }}">{{
+          carDetailDto.carLocation
+        }}</a>
+      </td>
 
       <td>
         <button
@@ -43,7 +62,7 @@
           data-bs-toggle="modal"
           data-bs-target="#update"
           data-bs-whatever="@mdo"
-          (click)="createCarDetail(car)"
+          (click)="createCarDetail(carDetailDto.carId)"
         >
           Güncelle
         </button>
@@ -55,7 +74,7 @@
           data-bs-toggle="modal"
           data-bs-target="#delete"
           data-bs-whatever="@mdo"
-          (click)="createCarDetail(car)"
+          (click)="createCarDetail(carDetailDto.carId)"
         >
           Sil
         </button>
@@ -215,13 +234,14 @@
               >Yıldız Sayısı:</label
             >
             <div class="form-group">
-              <input
-                type="number"
-                id="carStar"
-                formControlName="carStar"
-                class="form-control"
-                placeholder="Yıldız Sayısı"
-              />
+              <select formControlName="carStar" id="carStar">
+                <option
+                  *ngFor="let carStar of carStars; let i = index"
+                  [ngValue]="carStars[i]"
+                >
+                  {{ carStars[i] }}
+                </option>
+              </select>
             </div>
           </div>
 
@@ -230,13 +250,14 @@
               >Model Yılı:</label
             >
             <div class="form-group">
-              <input
-                type="number"
-                id="modelYear"
-                formControlName="modelYear"
-                class="form-control"
-                placeholder="Model Yılı"
-              />
+              <select formControlName="modelYear" id="modelYear">
+                <option
+                  *ngFor="let modelYear of modelYears; let i = index"
+                  [ngValue]="modelYears[i]"
+                >
+                  {{ modelYears[i] }}
+                </option>
+              </select>
             </div>
           </div>
 
@@ -273,14 +294,14 @@
               >Kullanılabilirlik:</label
             >
             <div class="form-group">
-              <input
-                type="checkbox"
-                checked
-                id="carUsable"
-                formControlName="carUsable"
-                class="form-control"
-                placeholder="Kullanılabilirlik"
-              />
+              <select formControlName="carUsable" id="carUsable">
+                <option
+                  *ngFor="let carUsable of carUsables; let i = index"
+                  [ngValue]="carUsables[i]"
+                >
+                  {{ carUsables[i] }}
+                </option>
+              </select>
             </div>
           </div>
 
@@ -458,13 +479,14 @@
               >Yıldız Sayısı:</label
             >
             <div class="form-group">
-              <input
-                type="number"
-                id="carStar"
-                formControlName="carStar"
-                class="form-control"
-                placeholder="Yıldız Sayısı"
-              />
+              <select formControlName="carStar" id="carStar">
+                <option
+                  *ngFor="let carStar of carStars; let i = index"
+                  [ngValue]="carStars[i]"
+                >
+                  {{ carStars[i] }}
+                </option>
+              </select>
             </div>
           </div>
 
@@ -473,13 +495,14 @@
               >Model Yılı:</label
             >
             <div class="form-group">
-              <input
-                type="number"
-                id="modelYear"
-                formControlName="modelYear"
-                class="form-control"
-                placeholder="Model Yılı"
-              />
+              <select formControlName="modelYear" id="modelYear">
+                <option
+                  *ngFor="let modelYear of modelYears; let i = index"
+                  [ngValue]="modelYears[i]"
+                >
+                  {{ modelYears[i] }}
+                </option>
+              </select>
             </div>
           </div>
 
@@ -516,13 +539,14 @@
               >Kullanılabilirlik:</label
             >
             <div class="form-group">
-              <input
-                type="checkbox"
-                id="carUsable"
-                formControlName="carUsable"
-                class="form-control"
-                placeholder="Kullanılabilirlik"
-              />
+              <select formControlName="carUsable" id="carUsable">
+                <option
+                  *ngFor="let carUsable of carUsables; let i = index"
+                  [ngValue]="carUsables[i]"
+                >
+                  {{ carUsables[i] }}
+                </option>
+              </select>
             </div>
           </div>
 
@@ -707,13 +731,15 @@
               >Yıldız Sayısı:</label
             >
             <div class="form-group">
-              <input
-                [readonly]="true"
-                type="number"
-                id="carStar"
-                formControlName="carStar"
-                class="form-control"
-              />
+              <select formControlName="carStar" id="carStar">
+                <option
+                  disabled
+                  *ngFor="let carStar of carStars; let i = index"
+                  [ngValue]="carStars[i]"
+                >
+                  {{ carStars[i] }}
+                </option>
+              </select>
             </div>
           </div>
 
@@ -722,13 +748,15 @@
               >Model Yılı:</label
             >
             <div class="form-group">
-              <input
-                [readonly]="true"
-                type="number"
-                id="modelYear"
-                formControlName="modelYear"
-                class="form-control"
-              />
+              <select formControlName="modelYear" id="modelYear">
+                <option
+                  disabled
+                  *ngFor="let modelYear of modelYears; let i = index"
+                  [ngValue]="modelYears[i]"
+                >
+                  {{ modelYears[i] }}
+                </option>
+              </select>
             </div>
           </div>
 
@@ -765,13 +793,15 @@
               >Kullanılabilirlik:</label
             >
             <div class="form-group">
-              <input
-                [readonly]="true"
-                type="text"
-                id="carUsable"
-                formControlName="carUsable"
-                class="form-control"
-              />
+              <select formControlName="carUsable" id="carUsable">
+                <option
+                  disabled
+                  *ngFor="let carUsable of carUsables; let i = index"
+                  [ngValue]="carUsables[i]"
+                >
+                  {{ carUsables[i] }}
+                </option>
+              </select>
             </div>
           </div>
 

@@ -2,7 +2,7 @@ import { Class } from './../models/class';
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'classsFilter',
+  name: 'classesFilter',
 })
 export class ClassesFilterPipe implements PipeTransform {
   transform(value: Class[], classFilter: string): Class[] {

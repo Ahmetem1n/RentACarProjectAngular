@@ -1,3 +1,14 @@
+<div class="mb-3">
+  <label for="colorFilter" class="form-label">Renk Filtreleme</label>
+  <input
+    type="text"
+    [(ngModel)]="colorFilter"
+    class="form-control"
+    id="colorFilter"
+    placeholder="Filtre"
+  />
+</div>
+
 <table class="table table-striped" *ngIf="dataLoaded == true">
   <thead class="table-dark">
     <tr>
@@ -7,7 +18,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let color of colors">
+    <tr *ngFor="let color of colors | colorsFilter:colorFilter">
       <td>
         {{ color.colorName }}
       </td>

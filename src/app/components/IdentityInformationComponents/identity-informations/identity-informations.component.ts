@@ -1,3 +1,5 @@
+import { CityService } from './../../../services/city.service';
+import { City } from './../../../models/city';
 import { ToastrService } from 'ngx-toastr';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
@@ -21,6 +23,15 @@ export class IdentityInformationsComponent implements OnInit {
     { maritalStatus: 'Diğer' },
   ];
 
+  cities: City[] = [];
+
+  birthYears = [1960];
+  birthYearsCreate() {
+    for (let i = 1961; i <= 2005; i++) {
+      this.birthYears.push(i);
+    }
+  }
+
   identityInformationUpdateAndDeleteForm: FormGroup;
   identityInformation: IdentityInformation = {
     identityId: 0,
@@ -34,18 +45,29 @@ export class IdentityInformationsComponent implements OnInit {
     validUntil: undefined,
   };
 
+  identityInformationFilter = '';
+
   dataLoaded = false;
   constructor(
     private formBuilder: FormBuilder,
     private identityInformationService: IdentityInformationService,
+    private cityService: CityService,
     private toastrService: ToastrService,
     private activatedRoute: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
     this.getIdentityInformations();
+    this.birthYearsCreate();
+    this.getCities();
     this.createIdentityInformationAddForm();
     this.createIdentityInformationUpdateAndDeleteForm();
+  }
+
+  getCities() {
+    this.cityService.getCities().subscribe((response) => {
+      this.cities = response.data;
+    });
   }
 
   getIdentityInformations() {
@@ -72,7 +94,7 @@ export class IdentityInformationsComponent implements OnInit {
       identityId: [this.identityInformation.identityId, Validators.required],
       serialNumber: [
         this.identityInformation.serialNumber,
-        Validators.required
+        Validators.required,
       ],
       fatherName: [this.identityInformation.fatherName, Validators.required],
       motherName: [this.identityInformation.motherName, Validators.required],

@@ -1,3 +1,14 @@
+<div class="mb-3">
+  <label for="gearFilter" class="form-label">Vites Filtreleme</label>
+  <input
+    type="text"
+    [(ngModel)]="gearFilter"
+    class="form-control"
+    id="gearFilter"
+    placeholder="Filtre"
+  />
+</div>
+
 <table class="table table-striped" *ngIf="dataLoaded == true">
   <thead class="table-dark">
     <tr>
@@ -7,7 +18,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let gear of gears">
+    <tr *ngFor="let gear of gears | gearsFilter:gearFilter">
       <td>
         {{ gear.gearName }}
       </td>

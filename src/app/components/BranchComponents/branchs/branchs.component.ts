@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Branch } from '../../../models/branch';
 import { BranchService } from '../../../services/branch.service';
+import { BranchDetailDto } from 'src/app/models/branchDetailDto';
 
 @Component({
   selector: 'app-branchs',
@@ -13,7 +14,7 @@ import { BranchService } from '../../../services/branch.service';
   styleUrls: ['./branchs.component.css'],
 })
 export class BranchsComponent implements OnInit {
-  branchs: Branch[] = [];
+  branchDetailDtos: BranchDetailDto[] = [];
   branchAddForm: FormGroup;
 
   branchUpdateAndDeleteForm: FormGroup;
@@ -33,15 +34,15 @@ export class BranchsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getBranchs();
+    this.getBranchDetailDtos();
     this.getCities();
     this.createBranchAddForm();
     this.createBranchUpdateAndDeleteForm();
   }
 
-  getBranchs() {
-    this.branchService.getBranchs().subscribe((response) => {
-      this.branchs = response.data;
+  getBranchDetailDtos() {
+    this.branchService.getBranchDetailDtos().subscribe((response) => {
+      this.branchDetailDtos = response.data;
       this.dataLoaded = true;
     });
   }
@@ -52,13 +53,8 @@ export class BranchsComponent implements OnInit {
     });
   }
 
-  getCityName(cityId: number) {
-    return this.cities.find((c) => c.cityId == cityId).cityName;
-  }
-
-  createBranchDetail(branch: Branch) {
-    console.log(branch);
-    this.branchService.detailBranch(branch.branchId).subscribe((response) => {
+  createBranchDetail(branchId: number) {
+    this.branchService.detailBranch(branchId).subscribe((response) => {
       this.branch = response.data;
       this.createBranchUpdateAndDeleteForm();
     });

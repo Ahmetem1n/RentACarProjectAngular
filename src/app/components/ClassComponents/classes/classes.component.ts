@@ -17,6 +17,8 @@ export class ClassesComponent implements OnInit {
   classUpdateAndDeleteForm: FormGroup;
   class: Class = { classId: 0, className: '' };
 
+  classFilter = '';
+
   dataLoaded = false;
   constructor(
     private formBuilder: FormBuilder,

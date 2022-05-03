@@ -8,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { RentalDetail } from '../../../models/rentalDetail';
 import { RentalDetailService } from '../../../services/rental-detail.service';
+import { RentalDetailDto } from 'src/app/models/rentalDetailDto';
 
 @Component({
   selector: 'app-rental-details',
@@ -15,7 +16,7 @@ import { RentalDetailService } from '../../../services/rental-detail.service';
   styleUrls: ['./rental-details.component.css'],
 })
 export class RentalDetailsComponent implements OnInit {
-  rentalDetails: RentalDetail[] = [];
+  rentalDetailDtos: RentalDetailDto[] = [];
   rentalDetailAddForm: FormGroup;
 
   rentalDetailUpdateAndDeleteForm: FormGroup;
@@ -32,6 +33,8 @@ export class RentalDetailsComponent implements OnInit {
   users: User[] = [];
   cars: Car[] = [];
 
+  rentalDetailFilter = '';
+
   dataLoaded = false;
   constructor(
     private formBuilder: FormBuilder,
@@ -43,16 +46,16 @@ export class RentalDetailsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getRentalDetails();
+    this.getRentalDetailDtos();
     this.getUsers();
     this.getCars();
     this.createRentalDetailAddForm();
     this.createRentalDetailUpdateAndDeleteForm();
   }
 
-  getRentalDetails() {
-    this.rentalDetailService.getRentalDetails().subscribe((response) => {
-      this.rentalDetails = response.data;
+  getRentalDetailDtos() {
+    this.rentalDetailService.getRentalDetailDtos().subscribe((response) => {
+      this.rentalDetailDtos = response.data;
       this.dataLoaded = true;
     });
   }
@@ -77,10 +80,9 @@ export class RentalDetailsComponent implements OnInit {
     return this.cars.find((c) => c.carId == carId).carPlate;
   }
 
-  createRentalDetail(rentalDetail: RentalDetail) {
-    console.log(rentalDetail);
+  createRentalDetail(rentalId: number) {
     this.rentalDetailService
-      .detailRentalDetail(rentalDetail.rentalId)
+      .detailRentalDetail(rentalId)
       .subscribe((response) => {
         this.rentalDetail = response.data;
         this.createRentalDetailUpdateAndDeleteForm();

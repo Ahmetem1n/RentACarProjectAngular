@@ -1,17 +1,13 @@
-<br />
-<button type="button" class="btn btn-primary" (click)="createUserDetail(user)">
-  Yöneticiler
-</button>
-<button type="button" class="btn btn-primary" (click)="createUserDetail(user)">
-  Çalışanlar
-</button>
-<button type="button" class="btn btn-primary" (click)="createUserDetail(user)">
-  Müşteriler
-</button>
-<button type="button" class="btn btn-primary" (click)="createUserDetail(user)">
-  Tümü
-</button>
-<br /><br />
+<div class="mb-3">
+  <label for="userFilter" class="form-label">Kullanıcı Filtreleme</label>
+  <input
+    type="text"
+    [(ngModel)]="userFilter"
+    class="form-control"
+    id="userFilter"
+    placeholder="Filtre"
+  />
+</div>
 
 <table class="table table-striped" *ngIf="dataLoaded == true">
   <thead class="table-dark">
@@ -29,15 +25,15 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let user of users">
-      <td>{{ user.firstName }}</td>
-      <td>{{ user.lastName }}</td>
-      <td>{{ user.nationalityId }}</td>
-      <td>{{ user.birthYear }}</td>
-      <td>{{ user.email }}</td>
-      <td>{{ user.photo }}</td>
-      <td>{{ user.status }}</td>
-      <td>{{ getClaimName(user.userId) }}</td>
+    <tr *ngFor="let userDetailDto of userDetailDtos | usersFilter: userFilter">
+      <td>{{ userDetailDto.firstName }}</td>
+      <td>{{ userDetailDto.lastName }}</td>
+      <td>{{ userDetailDto.nationalityId }}</td>
+      <td>{{ userDetailDto.birthYear }}</td>
+      <td>{{ userDetailDto.email }}</td>
+      <td>{{ userDetailDto.photo }}</td>
+      <td>{{ userDetailDto.status }}</td>
+      <td>{{ userDetailDto.claimName }}</td>
       <td>
         <button
           type="button"
@@ -45,7 +41,7 @@
           data-bs-toggle="modal"
           data-bs-target="#update"
           data-bs-whatever="@mdo"
-          (click)="createUserDetail(user)"
+          (click)="createUserDetail(userDetailDto.userId)"
         >
           Güncelle
         </button>
@@ -57,7 +53,7 @@
           data-bs-toggle="modal"
           data-bs-target="#delete"
           data-bs-whatever="@mdo"
-          (click)="createUserDetail(user)"
+          (click)="createUserDetail(userDetailDto.userId)"
         >
           Sil
         </button>
@@ -138,13 +134,14 @@
               >Doğum Yılı:</label
             >
             <div class="form-group">
-              <input
-                type="number"
-                id="birthYear"
-                formControlName="birthYear"
-                class="form-control"
-                placeholder="Doğum Yılı"
-              />
+              <select formControlName="birthYear" id="birthYear">
+                <option
+                  *ngFor="let birthYear of birthYears; let i = index"
+                  [ngValue]="birthYears[i]"
+                >
+                  {{ birthYears[i] }}
+                </option>
+              </select>
             </div>
           </div>
           <div class="mb-3">
@@ -176,14 +173,14 @@
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label">Durum:</label>
             <div class="form-group">
-              <input
-                type="checkbox"
-                checked
-                id="status"
-                formControlName="status"
-                class="form-control"
-                placeholder="Durum"
-              />
+              <select formControlName="status" id="status">
+                <option
+                  *ngFor="let status of statuses; let i = index"
+                  [ngValue]="statuses[i]"
+                >
+                  {{ statuses[i] }}
+                </option>
+              </select>
             </div>
           </div>
 
@@ -267,13 +264,14 @@
               >Doğum Yılı:</label
             >
             <div class="form-group">
-              <input
-                type="number"
-                id="birthYear"
-                formControlName="birthYear"
-                class="form-control"
-                placeholder="Doğum Yılı"
-              />
+              <select formControlName="birthYear" id="birthYear">
+                <option
+                  *ngFor="let birthYear of birthYears; let i = index"
+                  [ngValue]="birthYears[i]"
+                >
+                  {{ birthYears[i] }}
+                </option>
+              </select>
             </div>
           </div>
           <div class="mb-3">
@@ -305,13 +303,14 @@
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label">Durum:</label>
             <div class="form-group">
-              <input
-                type="checkbox"
-                id="status"
-                formControlName="status"
-                class="form-control"
-                placeholder="Durum"
-              />
+              <select formControlName="status" id="status">
+                <option
+                  *ngFor="let status of statuses; let i = index"
+                  [ngValue]="statuses[i]"
+                >
+                  {{ statuses[i] }}
+                </option>
+              </select>
             </div>
           </div>
 
@@ -395,13 +394,15 @@
               >Doğum Yılı:</label
             >
             <div class="form-group">
-              <input
-                [readonly]="true"
-                type="number"
-                id="birthYear"
-                formControlName="birthYear"
-                class="form-control"
-              />
+              <select formControlName="birthYear" id="birthYear">
+                <option
+                  disabled
+                  *ngFor="let birthYear of birthYears; let i = index"
+                  [ngValue]="birthYears[i]"
+                >
+                  {{ birthYears[i] }}
+                </option>
+              </select>
             </div>
           </div>
           <div class="mb-3">
@@ -433,13 +434,15 @@
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label">Durum:</label>
             <div class="form-group">
-              <input
-                [readonly]="true"
-                type="checkbox"
-                id="status"
-                formControlName="status"
-                class="form-control"
-              />
+              <select formControlName="status" id="status">
+                <option
+                  disabled
+                  *ngFor="let status of statuses; let i = index"
+                  [ngValue]="statuses[i]"
+                >
+                  {{ statuses[i] }}
+                </option>
+              </select>
             </div>
           </div>
 

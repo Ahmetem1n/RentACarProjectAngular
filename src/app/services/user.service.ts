@@ -1,3 +1,4 @@
+import { UserDetailDto } from './../models/userDetailDto';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -17,6 +18,11 @@ export class UserService {
   getUsers(): Observable<ListResponseModel<User>> {
     let newPath = this.apiUrl + 'users/getall';
     return this.httpClient.get<ListResponseModel<User>>(newPath);
+  }
+
+  getUserDetailDtos(): Observable<ListResponseModel<UserDetailDto>> {
+    let newPath = this.apiUrl + 'users/getuserdetails';
+    return this.httpClient.get<ListResponseModel<UserDetailDto>>(newPath);
   }
 
   addUser(user: User): Observable<ResponseModel> {

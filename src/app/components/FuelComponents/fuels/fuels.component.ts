@@ -17,6 +17,8 @@ export class FuelsComponent implements OnInit {
   fuelUpdateAndDeleteForm: FormGroup;
   fuel: Fuel = { fuelId: 0, fuelName: '' };
 
+  fuelFilter = '';
+
   dataLoaded = false;
   constructor(
     private formBuilder: FormBuilder,

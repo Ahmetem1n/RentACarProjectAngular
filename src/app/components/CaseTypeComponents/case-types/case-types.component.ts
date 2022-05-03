@@ -17,6 +17,8 @@ export class CaseTypesComponent implements OnInit {
   caseTypeUpdateAndDeleteForm: FormGroup;
   caseType: CaseType = { caseId: 0, caseName: '' };
 
+  caseTypeFilter = '';
+
   dataLoaded = false;
   constructor(
     private formBuilder: FormBuilder,
@@ -40,10 +42,12 @@ export class CaseTypesComponent implements OnInit {
 
   createCaseTypeDetail(caseType: CaseType) {
     console.log(caseType);
-    this.caseTypeService.detailCaseType(caseType.caseId).subscribe((response) => {
-      this.caseType = response.data;
-      this.createCaseTypeUpdateAndDeleteForm();
-    });
+    this.caseTypeService
+      .detailCaseType(caseType.caseId)
+      .subscribe((response) => {
+        this.caseType = response.data;
+        this.createCaseTypeUpdateAndDeleteForm();
+      });
   }
 
   createCaseTypeUpdateAndDeleteForm() {
@@ -94,7 +98,10 @@ export class CaseTypesComponent implements OnInit {
 
   delete() {
     if (this.caseTypeUpdateAndDeleteForm.valid) {
-      let caseTypeModel = Object.assign({}, this.caseTypeUpdateAndDeleteForm.value);
+      let caseTypeModel = Object.assign(
+        {},
+        this.caseTypeUpdateAndDeleteForm.value
+      );
       this.caseTypeService.deleteCaseType(caseTypeModel).subscribe(
         (response) => {
           this.toastrService.success(response.message, 'Success');
@@ -127,7 +134,10 @@ export class CaseTypesComponent implements OnInit {
 
   update() {
     if (this.caseTypeUpdateAndDeleteForm.valid) {
-      let caseTypeModel = Object.assign({}, this.caseTypeUpdateAndDeleteForm.value);
+      let caseTypeModel = Object.assign(
+        {},
+        this.caseTypeUpdateAndDeleteForm.value
+      );
       this.caseTypeService.updateCaseType(caseTypeModel).subscribe(
         (response) => {
           this.toastrService.success(response.message, 'Success');

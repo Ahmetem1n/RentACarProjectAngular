@@ -1,3 +1,4 @@
+import { BranchDetailDto } from 'src/app/models/branchDetailDto';
 import { CityService } from './../services/city.service';
 import { City } from './../models/city';
 import { Branch } from './../models/branch';
@@ -21,14 +22,14 @@ export class BranchsFilterPipe implements PipeTransform {
     this.getCities();
   }
 
-  transform(value: Branch[], branchFilter: string): Branch[] {
+  transform(value: BranchDetailDto[], branchFilter: string): BranchDetailDto[] {
     branchFilter = branchFilter ? branchFilter.toLocaleLowerCase() : '';
     console.log(branchFilter);
     return branchFilter
       ? value.filter(
-          (b: Branch) =>
+          (b: BranchDetailDto) =>
             b.branchName.toLocaleLowerCase().indexOf(branchFilter) !== -1 ||
-            String(b.cityId).toLocaleLowerCase().indexOf(branchFilter) !== -1
+            b.cityName.toLocaleLowerCase().indexOf(branchFilter) !== -1 
         )
       : value;
   }

@@ -1,3 +1,4 @@
+import { CarDetailDto } from './../../../models/carDetailDto';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -25,10 +26,27 @@ import { GearService } from './../../../services/gear.service';
   styleUrls: ['./cars.component.css'],
 })
 export class CarsComponent implements OnInit {
-  cars: Car[] = [];
+  carDetailDtos: CarDetailDto[] = [];
   carAddForm: FormGroup;
 
   carUpdateAndDeleteForm: FormGroup;
+
+  carUsables = ['Aktif', 'Pasif'];
+
+  carStars = [0.5];
+  carStarsCreate() {
+    for (let i = 1; i <= 5; i += 0.5) {
+      this.carStars.push(i);
+    }
+  }
+
+  modelYears = [1980];
+  modelYearsCreate() {
+    for (let i = 1981; i <= 2022; i++) {
+      this.modelYears.push(i);
+    }
+  }
+
   car: Car = {
     carId: 0,
     brandId: 0,
@@ -43,7 +61,7 @@ export class CarsComponent implements OnInit {
     modelYear: 0,
     dailyPrice: 0,
     description: '',
-    carUsable: false,
+    carUsable: '',
     carLocation: '',
   };
 
@@ -54,6 +72,8 @@ export class CarsComponent implements OnInit {
   fuels: Fuel[] = [];
   classes: Class[] = [];
   caseTypes: CaseType[] = [];
+
+  carFilter = '';
 
   dataLoaded = false;
   constructor(
@@ -71,7 +91,9 @@ export class CarsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getCars();
+    this.getCarDetailDtos();
+    this.modelYearsCreate();
+    this.carStarsCreate();
     this.getBrands();
     this.getColors();
     this.getBranchs();
@@ -83,9 +105,9 @@ export class CarsComponent implements OnInit {
     this.createCarUpdateAndDeleteForm();
   }
 
-  getCars() {
-    this.carService.getCars().subscribe((response) => {
-      this.cars = response.data;
+  getCarDetailDtos() {
+    this.carService.getCarDetailDtos().subscribe((response) => {
+      this.carDetailDtos = response.data;
       this.dataLoaded = true;
     });
   }
@@ -96,18 +118,10 @@ export class CarsComponent implements OnInit {
     });
   }
 
-  getBrandName(brandId: number) {
-    return this.brands.find((b) => b.brandId == brandId).brandName;
-  }
-
   getColors() {
     this.colorService.getColors().subscribe((response) => {
       this.colors = response.data;
     });
-  }
-
-  getColorName(colorId: number) {
-    return this.colors.find((c) => c.colorId == colorId).colorName;
   }
 
   getBranchs() {
@@ -116,8 +130,10 @@ export class CarsComponent implements OnInit {
     });
   }
 
-  getBranchName(branchId: number) {
-    return this.branchs.find((b) => b.branchId == branchId).branchName;
+  getBranchId() {
+    this.branchService.getBranchs().subscribe((response) => {
+      this.branchs = response.data;
+    });
   }
 
   getGears() {
@@ -126,18 +142,10 @@ export class CarsComponent implements OnInit {
     });
   }
 
-  getGearName(gearId: number) {
-    return this.gears.find((g) => g.gearId == gearId).gearName;
-  }
-
   getFuels() {
     this.fuelService.getFuels().subscribe((response) => {
       this.fuels = response.data;
     });
-  }
-
-  getFuelName(fuelId: number) {
-    return this.fuels.find((f) => f.fuelId == fuelId).fuelName;
   }
 
   getClasses() {
@@ -146,23 +154,14 @@ export class CarsComponent implements OnInit {
     });
   }
 
-  getClassName(classId: number) {
-    return this.classes.find((c) => c.classId == classId).className;
-  }
-
   getCaseTypes() {
     this.caseTypeService.getCaseTypes().subscribe((response) => {
       this.caseTypes = response.data;
     });
   }
 
-  getCaseName(caseId: number) {
-    return this.caseTypes.find((c) => c.caseId == caseId).caseName;
-  }
-
-  createCarDetail(car: Car) {
-    console.log(car);
-    this.carService.detailCar(car.carId).subscribe((response) => {
+  createCarDetail(carId: number) {
+    this.carService.detailCar(carId).subscribe((response) => {
       this.car = response.data;
       this.createCarUpdateAndDeleteForm();
     });

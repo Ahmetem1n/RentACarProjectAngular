@@ -1,3 +1,4 @@
+import { CarDetailDto } from './../models/carDetailDto';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -17,6 +18,11 @@ export class CarService {
   getCars(): Observable<ListResponseModel<Car>> {
     let newPath = this.apiUrl + 'cars/getall';
     return this.httpClient.get<ListResponseModel<Car>>(newPath);
+  }
+
+  getCarDetailDtos(): Observable<ListResponseModel<CarDetailDto>> {
+    let newPath = this.apiUrl + 'cars/getcardetails';
+    return this.httpClient.get<ListResponseModel<CarDetailDto>>(newPath);
   }
 
   addCar(car: Car): Observable<ResponseModel> {

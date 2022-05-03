@@ -1,3 +1,4 @@
+import { CardDetailDto } from './../../../models/cardDetailDto';
 import { UserService } from './../../../services/user.service';
 import { User } from './../../../models/user';
 import { ToastrService } from 'ngx-toastr';
@@ -13,7 +14,7 @@ import { CardService } from '../../../services/card.service';
   styleUrls: ['./cards.component.css'],
 })
 export class CardsComponent implements OnInit {
-  cards: Card[] = [];
+  cardDetailDtos: CardDetailDto[] = [];
   cardAddForm: FormGroup;
 
   cardUpdateAndDeleteForm: FormGroup;
@@ -37,16 +38,18 @@ export class CardsComponent implements OnInit {
     private activatedRoute: ActivatedRoute
   ) {}
 
+  cardFilter = '';
+
   ngOnInit(): void {
-    this.getCards();
+    this.getCardDetailDtos();
     this.getUsers();
     this.createCardAddForm();
     this.createCardUpdateAndDeleteForm();
   }
 
-  getCards() {
-    this.cardService.getCards().subscribe((response) => {
-      this.cards = response.data;
+  getCardDetailDtos() {
+    this.cardService.getCardDetailDtos().subscribe((response) => {
+      this.cardDetailDtos = response.data;
       this.dataLoaded = true;
     });
   }
@@ -57,13 +60,8 @@ export class CardsComponent implements OnInit {
     });
   }
 
-  getUserNationalityId(userId:number) {
-    return this.users.find(u=>u.userId==userId).nationalityId
-   }
-
-  createCardDetail(card: Card) {
-    console.log(card);
-    this.cardService.detailCard(card.cardId).subscribe((response) => {
+  createCardDetail(cardId: number) {
+    this.cardService.detailCard(cardId).subscribe((response) => {
       this.card = response.data;
       this.createCardUpdateAndDeleteForm();
     });

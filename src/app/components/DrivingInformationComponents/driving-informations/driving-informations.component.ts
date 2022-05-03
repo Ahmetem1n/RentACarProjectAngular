@@ -19,10 +19,10 @@ export class DrivingInformationsComponent implements OnInit {
   drivingInformationUpdateAndDeleteForm: FormGroup;
   drivingInformation: DrivingInformation = {
     drivingId: 0,
-    cityId: 0,
     licenceNumber: '',
     expiryDate: undefined,
     bloodGroup: '',
+    licenceProvince: '',
   };
 
   cities: City[] = [];
@@ -36,6 +36,8 @@ export class DrivingInformationsComponent implements OnInit {
     { bloodGroup: '0 Rh+' },
     { bloodGroup: '0 Rh-' },
   ];
+
+  drivingInformationFilter = '';
 
   dataLoaded = false;
   constructor(
@@ -85,7 +87,10 @@ export class DrivingInformationsComponent implements OnInit {
   createDrivingInformationUpdateAndDeleteForm() {
     this.drivingInformationUpdateAndDeleteForm = this.formBuilder.group({
       drivingId: [this.drivingInformation.drivingId, Validators.required],
-      cityId: [this.drivingInformation.cityId, Validators.required],
+      licenceProvince: [
+        this.drivingInformation.licenceProvince,
+        Validators.required,
+      ],
       licenceNumber: [
         this.drivingInformation.licenceNumber,
         Validators.required,
@@ -97,7 +102,7 @@ export class DrivingInformationsComponent implements OnInit {
 
   createDrivingInformationAddForm() {
     this.drivingInformationAddForm = this.formBuilder.group({
-      cityId: ['', Validators.required],
+      licenceProvince: ['', Validators.required],
       licenceNumber: ['', Validators.required],
       expiryDate: ['', Validators.required],
       bloodGroup: ['', Validators.required],

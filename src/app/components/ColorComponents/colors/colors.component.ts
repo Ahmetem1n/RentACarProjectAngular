@@ -17,6 +17,8 @@ export class ColorsComponent implements OnInit {
   colorUpdateAndDeleteForm: FormGroup;
   color: Color = { colorId: 0, colorName: '' };
 
+  colorFilter = '';
+
   dataLoaded = false;
   constructor(
     private formBuilder: FormBuilder,

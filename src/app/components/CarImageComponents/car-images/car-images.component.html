@@ -1,3 +1,13 @@
+<div class="mb-3">
+  <label for="carImageFilter" class="form-label">Araba Resmi Filtreleme</label>
+  <input
+    type="text"
+    [(ngModel)]="carImageFilter"
+    class="form-control"
+    id="carImageFilter"
+    placeholder="Filtre"
+  />
+</div>
 <table class="table table-striped" *ngIf="dataLoaded == true">
   <thead class="table-dark">
     <tr>
@@ -8,12 +18,19 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let carImage of carImages">
+    <tr
+      *ngFor="
+        let carImageDetailDto of carImageDetailDtos
+          | carImagesFilter: carImageFilter
+      "
+    >
       <td>
-        {{ getCarPlate(carImage.carId) }}
+        <a routerLink="/car/detail/{{ carImageDetailDto.carId }}">{{
+          carImageDetailDto.carPlate
+        }}</a>
       </td>
       <td>
-        {{ carImage.imagePath }}
+        {{ carImageDetailDto.imagePath }}
       </td>
 
       <td>
@@ -23,7 +40,7 @@
           data-bs-toggle="modal"
           data-bs-target="#update"
           data-bs-whatever="@mdo"
-          (click)="createCarImageDetail(carImage)"
+          (click)="createCarImageDetail(carImageDetailDto.imageId)"
         >
           Güncelle
         </button>
@@ -35,7 +52,7 @@
           data-bs-toggle="modal"
           data-bs-target="#delete"
           data-bs-whatever="@mdo"
-          (click)="createCarImageDetail(carImage)"
+          (click)="createCarImageDetail(carImageDetailDto.imageId)"
         >
           Sil
         </button>
