@@ -1,0 +1,206 @@
+<!-- <mat-card>
+  <mat-form-field>
+    <mat-label>Select a country</mat-label>
+    <mat-select #countrySelect>
+      <mat-select-trigger>{{countrySelect.value}}</mat-select-trigger>
+      <mat-option>
+        <lib-mat-select-search
+          [list]="countries"
+          [searchProperties]="['dialCode', 'name']"
+          (filtered)="filteredCountries = $event">
+        </lib-mat-select-search>
+      </mat-option>
+
+      <mat-option *ngFor="let country of filteredCountries" [value]="country">
+        <div class="country-container">
+          <span>{{country}}</span><span>{{country}}</span>
+        </div>
+      </mat-option>
+
+    </mat-select>
+  </mat-form-field>
+</mat-card> -->
+
+<body class="text-center">
+  <main class="form-signin">
+    <form [formGroup]="getByUsable">
+      <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+
+      <div class="form-floating">
+        <input
+          formControlName="rentDate"
+          type="date"
+          class="form-control"
+          id="rentDate"
+        />
+        <label for="floatingInput">Rent Date</label>
+      </div>
+
+      <div class="form-floating">
+        <input
+          formControlName="returnDate"
+          type="date"
+          class="form-control"
+          id="returnDate"
+        />
+        <label for="floatingInput">Return Date</label>
+      </div>
+      <div class="form-floating">
+        <select formControlName="branchId" id="branchId">
+          <option
+            *ngFor="let branch of branchs; let i = index"
+            [ngValue]="branchs[i].branchId"
+          >
+            {{ branchs[i].branchName }}
+          </option>
+        </select>
+        <label for="floatingInput">Şube Adı</label>
+      </div>
+      <br />
+      <button
+        class="w-100 btn btn-lg btn-primary"
+        type="submit"
+        (click)="deneme()"
+      >
+        Sign in
+      </button>
+      <p class="mt-5 mb-3 text-muted">&copy; 2017–2021</p>
+    </form>
+  </main>
+</body>
+
+<div class="mb-3" *ngIf="dataLoaded == true">
+  <label for="brandFilter" class="form-label">Marka Filtreleme</label>
+  <select id="brandFilter" [(ngModel)]="brandFilter">
+    <option
+      *ngFor="let brand of brands; let i = index"
+      [ngValue]="brands[i].value"
+    >
+      {{ brands[i].name }}
+    </option>
+  </select>
+</div>
+
+<div class="mb-3" *ngIf="dataLoaded == true">
+  <label for="colorFilter" class="form-label">Renk Filtreleme</label>
+  <select id="colorFilter" [(ngModel)]="colorFilter">
+    <option
+      *ngFor="let color of colors; let i = index"
+      [ngValue]="colors[i].value"
+    >
+      {{ colors[i].name }}
+    </option>
+  </select>
+</div>
+
+<div class="mb-3" *ngIf="dataLoaded == true">
+  <label for="gearFilter" class="form-label">Vites Filtreleme</label>
+  <select id="gearFilter" [(ngModel)]="gearFilter">
+    <option
+      *ngFor="let gear of gears; let i = index"
+      [ngValue]="gears[i].value"
+    >
+      {{ gears[i].name }}
+    </option>
+  </select>
+</div>
+
+<div class="mb-3" *ngIf="dataLoaded == true">
+  <label for="fuelFilter" class="form-label">Yakıt Filtreleme</label>
+  <select id="fuelFilter" [(ngModel)]="fuelFilter">
+    <option
+      *ngFor="let fuel of fuels; let i = index"
+      [ngValue]="fuels[i].value"
+    >
+      {{ fuels[i].name }}
+    </option>
+  </select>
+</div>
+
+<div class="mb-3" *ngIf="dataLoaded == true">
+  <label for="classFilter" class="form-label">Sınıf Filtreleme</label>
+  <select id="classFilter" [(ngModel)]="classFilter">
+    <option
+      *ngFor="let class of classes; let i = index"
+      [ngValue]="classes[i].value"
+    >
+      {{ classes[i].name }}
+    </option>
+  </select>
+</div>
+
+<div class="mb-3" *ngIf="dataLoaded == true">
+  <label for="caseTypeFilter" class="form-label">Kasa Tipi Filtreleme</label>
+  <select id="caseTypeFilter" [(ngModel)]="caseTypeFilter">
+    <option
+      *ngFor="let caseType of caseTypes; let i = index"
+      [ngValue]="caseTypes[i].value"
+    >
+      {{ caseTypes[i].name }}
+    </option>
+  </select>
+</div>
+
+<br />
+
+<table class="table table-striped" *ngIf="dataLoaded == true">
+  <thead class="table-dark">
+    <tr>
+      <th scope="col">Marka</th>
+      <th scope="col">Renk</th>
+      <th scope="col">Şube</th>
+      <th scope="col">Vites</th>
+      <th scope="col">Yakıt</th>
+      <th scope="col">Sınıf</th>
+      <th scope="col">Kasa</th>
+      <th scope="col">Plaka</th>
+      <th scope="col">Yıldız</th>
+      <th scope="col">Yıl</th>
+      <th scope="col">Günlük Fiyat</th>
+      <th scope="col">Açıklama</th>
+      <th scope="col">Kullanılabilirlik</th>
+      <th scope="col">Konum</th>
+      <th scope="col">Güncelle</th>
+      <th scope="col">Sil</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr
+      *ngFor="
+        let carDetailDto of carDetailDtos
+          | rentalBrandFilter: brandFilter
+          | rentalColorFilter: colorFilter
+          | rentalGearFilter: gearFilter
+          | rentalFuelFilter: fuelFilter
+          | rentalClassFilter: classFilter
+          | rentalCaseTypeFilter: caseTypeFilter
+      "
+    >
+      <td>{{ carDetailDto.brandName }}</td>
+      <td>{{ carDetailDto.colorName }}</td>
+      <td>
+        <a routerLink="/branch/detail/{{ carDetailDto.branchId }}">{{
+          carDetailDto.branchName
+        }}</a>
+      </td>
+      <td>{{ carDetailDto.gearName }}</td>
+      <td>{{ carDetailDto.fuelName }}</td>
+      <td>{{ carDetailDto.className }}</td>
+      <td>{{ carDetailDto.caseName }}</td>
+      <td>{{ carDetailDto.carPlate }}</td>
+      <td>{{ carDetailDto.carStar }}</td>
+      <td>{{ carDetailDto.modelYear }}</td>
+      <td>{{ carDetailDto.dailyPrice }}</td>
+      <td>{{ carDetailDto.description }}</td>
+      <td>{{ carDetailDto.carUsable }}</td>
+      <td>
+        <a routerLink="/konum/detail/{{ carDetailDto.carLocation }}">{{
+          carDetailDto.carLocation
+        }}</a>
+      </td>
+
+      <td></td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>

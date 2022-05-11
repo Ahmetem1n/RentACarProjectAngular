@@ -1,3 +1,4 @@
+import { RegisterModel } from './../models/registerModel';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { LoginModel } from './../models/loginModel';
@@ -18,6 +19,14 @@ export class AuthService {
       loginModel
     );
   }
+
+  register(registerModel: RegisterModel) {
+    return this.httpClient.post<SingleResponseModel<TokenModel>>(
+      this.apiUrl + 'register',
+      registerModel
+    );
+  }
+
   isAuthenticated() {
     if (localStorage.getItem('token')) {
       return true;

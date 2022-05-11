@@ -20,6 +20,11 @@ export class CarService {
     return this.httpClient.get<ListResponseModel<Car>>(newPath);
   }
 
+  getByUsable(rentDate:Date,returnDate:Date,branchId:number): Observable<ListResponseModel<CarDetailDto>> {
+    let newPath = this.apiUrl + 'cars/getbyusable?rentDate=' + rentDate+"&returnDate="+returnDate +"&branchId="+branchId;
+    return this.httpClient.get<ListResponseModel<CarDetailDto>>(newPath);
+  }
+
   getCarDetailDtos(): Observable<ListResponseModel<CarDetailDto>> {
     let newPath = this.apiUrl + 'cars/getcardetails';
     return this.httpClient.get<ListResponseModel<CarDetailDto>>(newPath);
