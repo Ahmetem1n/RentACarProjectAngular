@@ -1,14 +1,8 @@
 <div>
   <app-navi></app-navi>
   <div class="row">
-    <div class="col-md-2" *ngIf="isAdmin">
+    <div class="col-md-2">
       <app-menu></app-menu>
-    </div>
-    <div class="col-md-2" *ngIf="isCustomer">
-      <app-customer-menu></app-customer-menu>
-    </div>
-    <div class="col-md-2" *ngIf="isEmployee">
-      <app-employee-menu></app-employee-menu>
     </div>
     <div class="col-md-10">
       <router-outlet></router-outlet>

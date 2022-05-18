@@ -1,0 +1,10 @@
+.carousel-control-prev-icon, .carousel-control-next-icon {
+    height: 60px;
+    width: 60px;
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+}
+img{
+    height: 300px;
+    width: 450px;
+}
