@@ -22,12 +22,13 @@ export class AdminGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    if (this.authService.isAdmin()) {
+    // if (this.authService.isAdmin()) {
+      if (this.authService.getRole()=="Yönetici") {
       return true;
     } else {
       this.router.navigate(['login']);
       this.toastrService.info('you must login to the system');
-      return true;
+      return false;
     }
   }
   

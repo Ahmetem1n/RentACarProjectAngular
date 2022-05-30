@@ -1,0 +1,101 @@
+<div class="card border-info mb-3" style="max-width: 18rem;" *ngIf="carDetailDto">
+    <div class="card-header"><b>Araba Bilgisi</b></div>
+    <div class="card-body">
+      <td>
+        <tr><b>Marka:</b></tr>
+        <tr><b>Renk:</b></tr>
+        <tr><b>Şube:</b></tr>
+        <tr><b>Vites:</b></tr>
+        <tr><b>Yakıt:</b></tr>
+        <tr><b>Sınıf:</b></tr>
+        <tr><b>Kasa:</b></tr>
+        <tr><b>Plaka:</b></tr>
+        <tr><b>Yıldız:</b></tr>
+        <tr><b>Yıl:</b></tr>
+        <tr><b>Günlük Fiyat:</b></tr>
+        <tr><b>Açıklama:</b></tr>
+        <tr><b>Kullanılabilirlik:</b></tr>
+        <tr><b>Konum:</b></tr>
+      </td>
+      <td></td>
+      <td class="padding">
+        <tr>{{ carDetailDto.brandName }}</tr>
+        <tr>{{ carDetailDto.colorName }}</tr>
+        <tr>{{ carDetailDto.branchName }}</tr>
+        <tr>{{ carDetailDto.gearName }}</tr>
+        <tr>{{ carDetailDto.fuelName}}</tr>
+        <tr>{{ carDetailDto.className }}</tr>
+        <tr>{{ carDetailDto.caseName }}</tr>
+        <tr>{{ carDetailDto.carPlate }}</tr>
+        <tr>{{ carDetailDto.carStar }}</tr>
+        <tr>{{ carDetailDto.modelYear }}</tr>
+        <tr>{{ carDetailDto.dailyPrice }}</tr>
+        <tr>{{ carDetailDto.description }}</tr>
+        <tr>{{ carDetailDto.carUsable }}</tr>
+        <tr>{{ carDetailDto.carLocation }}</tr>
+      </td>
+    </div>
+  </div>
+  
+<div class="anaDiv" *ngIf="carDetailDto">
+  <div class="col" *ngFor="let carImage of carImages">
+    <div class="card">
+      <button
+        class="close"
+        *ngIf="carImage"
+        (click)="imageDelete(carImage)"
+      >
+        X
+      </button>
+      <img
+        *ngIf="carImage"
+        src="{{ carImage.imagePath }}"
+        class="card-img-top"
+        alt="..."
+      />
+      <div class="modal-body" *ngIf="!carImage">
+        <form [formGroup]="imageForm">
+          <label for="recipient-name" class="col-form-label"
+            >Resim Linki:</label
+          >
+          <div class="form-group">
+            <input
+              type="text"
+              id="imagePath"
+              formControlName="imagePath"
+              class="form-control"
+              placeholder="Resim Linki"
+            />
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" (click)="imageAdd()">
+              Kaydet
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <div class="modal-body">
+  <form [formGroup]="imageForm">
+      <label for="recipient-name" class="col-form-label">Resim Linki:</label>
+      <div class="form-group">
+        <input
+          type="text"
+          id="imagePath"
+          formControlName="imagePath"
+          class="form-control"
+          placeholder="Resim Linki"
+        />
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button type="button" class="btn btn-primary" (click)="add()">
+        Kaydet
+      </button>
+    </div>
+  </form>
+</div> -->

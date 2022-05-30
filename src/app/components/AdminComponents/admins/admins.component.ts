@@ -1,3 +1,4 @@
+import { AuthService } from 'src/app/services/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
@@ -18,10 +19,15 @@ export class AdminsComponent implements OnInit {
   adminUpdateAndDeleteForm: FormGroup;
   admin: Admin = { adminId: 0, userId: 0 };
   
+  isAdmin = false;
+  isEmployee = false;
+  isCustomer = false;
+
   dataLoaded = false;
   constructor(
     private formBuilder: FormBuilder,
     private adminService: AdminService,
+    private authService: AuthService,
     private toastrService: ToastrService,
     private activatedRoute: ActivatedRoute
   ) {}
@@ -30,6 +36,24 @@ export class AdminsComponent implements OnInit {
     this.getAdmins();
     this.createAdminAddForm();
     this.createAdminUpdateAndDeleteForm();
+    this.getRole();
+  }
+
+  getRole() {
+    var result = this.authService.getRole();
+    if (result == 'Yönetici') {
+      this.isAdmin = true;
+      this.isEmployee = false;
+      this.isCustomer = false;
+    } else if (result == 'Çalışan') {
+      this.isAdmin = false;
+      this.isEmployee = true;
+      this.isCustomer = false;
+    } else if (result == 'Müşteri') {
+      this.isAdmin = false;
+      this.isEmployee = false;
+      this.isCustomer = true;
+    }
   }
 
   getAdmins() {

@@ -63,10 +63,7 @@
         <button
           type="button"
           class="btn btn-primary"
-          data-bs-toggle="modal"
-          data-bs-target="#images"
-          data-bs-whatever="@mdo"
-          (click)="createCarImage(carDetailDto.carId)"
+          routerLink="/carImages/{{ carDetailDto.carId }}"
         >
           Görüntüle
         </button>
@@ -880,33 +877,61 @@
       </div>
       <div class="modal-body">
         <form [formGroup]="carUpdateAndDeleteForm">
-          <div
-            class="row row-cols-1 row-cols-md-2 g-4"
-          >
-            <div class="col">
+          <div class="row row-cols-1 row-cols-md-2 g-4">
+            <div class="col" *ngFor="let carImage of carImages">
               <div class="card h-100">
-                <img src="{{carImages[0]?.imagePath}}" class="card-img-top" alt="..." />
-              </div>
-            </div>
-            <div class="col">
-              <div class="card h-100">
-                <img src="{{carImages[1]?.imagePath}}" class="card-img-top" alt="..." />
-              </div>
-            </div>
-            <div class="col">
-              <div class="card h-100">
-                <img src="{{carImages[2]?.imagePath}}" class="card-img-top" alt="..."> <button>Ekle</button><img/>
-              </div>
-            </div>
-            <div class="col">
-              <div class="card h-100">
+                <button
+                  class="close"
+                  *ngIf="carImage"
+                  (click)="resimSilme(carImage)"
+                >
+                  X
+                </button>
                 <img
-                  src="{{carImages[3]?.imagePath}}"
+                  *ngIf="carImage"
+                  src="{{ carImage?.imagePath }}"
                   class="card-img-top"
                   alt="..."
                 />
+                <input
+                  *ngIf="!carImage && currentCarId"
+                  id="{{ carImage }}"
+                  #imagePath
+                  type="text"
+                  placeholder="Fotoğraf Linkini Buraya Yapıştırın --- carId: {{
+                    currentCarId
+                  }}"
+                  class="form-control"
+                />
+                <button
+                  *ngIf="!carImage"
+                  (click)="addCarImage(currentCarId, currentCarId.toString())"
+                >
+                  Ekle
+                </button>
               </div>
             </div>
+            <!-- <div class="col">
+              <div class="card h-100">
+                <button class="close" *ngIf="carImages[1]" (click)="resimSilme(carImages[1])">X</button>
+                <img *ngIf="carImages[1]" src="{{carImages[1]?.imagePath}}" class="card-img-top" alt="..." />
+                <button *ngIf="!carImages[1]">Ekle</button>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card h-100">
+                <button class="close" *ngIf="carImages[2]" (click)="resimSilme(carImages[2])">X</button>
+                <img *ngIf="carImages[2]" src="{{carImages[2]?.imagePath}}" class="card-img-top" alt="..."/>
+                <button *ngIf="!carImages[2]">Ekle</button>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card h-100">
+                <button class="close" *ngIf="carImages[3]" (click)="resimSilme(carImages[3])">X</button>
+                <img *ngIf="carImages[3]" src="{{carImages[3]?.imagePath}}" class="card-img-top" alt="..." />
+                <button *ngIf="!carImages[3]">Ekle</button>
+              </div>
+            </div>-->
           </div>
 
           <div class="modal-footer">

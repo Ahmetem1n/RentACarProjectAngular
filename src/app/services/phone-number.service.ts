@@ -43,4 +43,9 @@ export class PhoneNumberService {
     let newPath = this.apiUrl + 'phoneNumbers/getById?phoneId=' + phoneId;
     return this.httpClient.get<SingleResponseModel<PhoneNumber>>(newPath);
   }
+
+  getByUserPhoneNumbers(userId: number): Observable<ListResponseModel<PhoneNumber>> {
+    let newPath = this.apiUrl + 'phoneNumbers/getByUserPhoneNumbers?userId=' + userId;
+    return this.httpClient.get<ListResponseModel<PhoneNumber>>(newPath);
+  }
 }

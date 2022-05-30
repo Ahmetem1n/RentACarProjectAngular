@@ -25,6 +25,11 @@ export class UserService {
     return this.httpClient.get<ListResponseModel<UserDetailDto>>(newPath);
   }
 
+  getByCustomers(): Observable<ListResponseModel<UserDetailDto>> {
+    let newPath = this.apiUrl + 'users/getbycustomers';
+    return this.httpClient.get<ListResponseModel<UserDetailDto>>(newPath);
+  }
+
   addUser(user: User): Observable<ResponseModel> {
     let newPath = this.apiUrl + 'users/add';
     return this.httpClient.post<ResponseModel>(newPath, user);

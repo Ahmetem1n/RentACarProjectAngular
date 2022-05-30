@@ -19,6 +19,7 @@ export class DrivingInformationsComponent implements OnInit {
   drivingInformationUpdateAndDeleteForm: FormGroup;
   drivingInformation: DrivingInformation = {
     drivingId: 0,
+    userId:0,
     licenceNumber: '',
     expiryDate: undefined,
     bloodGroup: '',
@@ -68,10 +69,6 @@ export class DrivingInformationsComponent implements OnInit {
     this.cityService.getCities().subscribe((response) => {
       this.cities = response.data;
     });
-  }
-
-  getCityName(cityId: number) {
-    return this.cities.find((c) => c.cityId == cityId).cityName;
   }
 
   createDrivingInformationDetail(drivingInformation: DrivingInformation) {

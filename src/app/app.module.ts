@@ -1,12 +1,8 @@
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatCardModule } from '@angular/material/card';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatSelectModule } from '@angular/material/select';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatSelectSearchModule } from 'mat-select-search';
 import { ToastrModule } from 'ngx-toastr';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -20,17 +16,16 @@ import { BranchDetailComponent } from './components/BranchComponents/branch-deta
 import { BranchsComponent } from './components/BranchComponents/branchs/branchs.component';
 import { BrandsComponent } from './components/BrandComponents/brands/brands.component';
 import { CarDetailComponent } from './components/CarComponents/car-detail/car-detail.component';
+import { CarImagesComponent } from './components/CarComponents/car-images/car-images.component';
 import { CarsComponent } from './components/CarComponents/cars/cars.component';
 import { GetByUsableComponent } from './components/CarComponents/get-by-usable/get-by-usable.component';
 import { CardDetailComponent } from './components/CardComponents/card-detail/card-detail.component';
 import { CardsComponent } from './components/CardComponents/cards/cards.component';
 import { CarImageDetailComponent } from './components/CarImageComponents/car-image-detail/car-image-detail.component';
-import { CarImagesComponent } from './components/CarImageComponents/car-images/car-images.component';
 import { CaseTypesComponent } from './components/CaseTypeComponents/case-types/case-types.component';
 import { ClassesComponent } from './components/ClassComponents/classes/classes.component';
 import { ColorsComponent } from './components/ColorComponents/colors/colors.component';
 import { CustomerDetailComponent } from './components/CustomerComponents/customer-detail/customer-detail.component';
-import { CustomersComponent } from './components/CustomerComponents/customers/customers.component';
 import { DrivingInformationDetailComponent } from './components/DrivingInformationComponents/driving-information-detail/driving-information-detail.component';
 import { DrivingInformationsComponent } from './components/DrivingInformationComponents/driving-informations/driving-informations.component';
 import { FuelsComponent } from './components/FuelComponents/fuels/fuels.component';
@@ -45,6 +40,7 @@ import { PhoneNumbersComponent } from './components/PhoneNumberComponents/phone-
 import { RegisterComponent } from './components/register/register.component';
 import { RentalDetailDetailComponent } from './components/RentalDetailComponents/rental-detail-detail/rental-detail-detail.component';
 import { RentalDetailsComponent } from './components/RentalDetailComponents/rental-details/rental-details.component';
+import { CustomersComponent } from './components/UserComponents/customers/customers.component';
 import { UserDetailComponent } from './components/UserComponents/user-detail/user-detail.component';
 import { UsersComponent } from './components/UserComponents/users/users.component';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
@@ -147,10 +143,6 @@ import { UsersFilterPipe } from './pipes/users-filter.pipe';
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    MatSelectSearchModule,
-    MatSelectModule,
-    MatCardModule,
-    MatFormFieldModule,
     ToastrModule.forRoot({
       positionClass: 'toast-bottom-right',
     }),

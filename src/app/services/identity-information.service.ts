@@ -37,4 +37,9 @@ export class IdentityInformationService {
     let newPath = this.apiUrl + 'identityInformations/getById?identityId=' + identityId;
     return this.httpClient.get<SingleResponseModel<IdentityInformation>>(newPath);
   }
+
+  getByUserId(userId: number) {
+    let newPath = this.apiUrl + 'identityInformations/getByUserId?userId=' + userId;
+    return this.httpClient.get<SingleResponseModel<IdentityInformation>>(newPath);
+  }
 }

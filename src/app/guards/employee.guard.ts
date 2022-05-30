@@ -22,12 +22,13 @@ export class EmployeeGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    if (this.authService.isEmployee()) {
+    // if (this.authService.isEmployee()) {
+      if (this.authService.getRole()=="Çalışan") {
       return true;
     } else {
       this.router.navigate(['login']);
       this.toastrService.info('you must login to the system');
-      return true;
+      return false;
     }
   }
   

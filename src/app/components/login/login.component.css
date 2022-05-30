@@ -50,3 +50,11 @@ body {
     font-size: 3.5rem;
   }
 }
+
+.form-floating,.btn-primary{
+  width: 400px;
+}
+.asd{
+  margin-top: 250px;
+  margin-left: 470px;
+}

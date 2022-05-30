@@ -93,22 +93,6 @@
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label">Şehir:</label>
             <div class="form-group">
-              <!-- <mat-select formControlName="cityId" id="cityId">          
-                <mat-option>
-                  <lib-mat-select-search
-                    [list]="cities"
-                    [searchProperties]="['dialCode', 'name']"
-                    (filtered)="filteredCities = $event">
-                  </lib-mat-select-search>
-                </mat-option>
-          
-                <mat-option *ngFor="let city of filteredCities;let i =index" [value]="cities[i].cityId">
-                  <div class="city-container">
-                    <span>{{cities[i].cityName}}</span>
-                  </div>
-                </mat-option>
-          
-              </mat-select> -->
               <select formControlName="cityId" id="cityId">
                 <option
                   *ngFor="let city of cities; let i = index"

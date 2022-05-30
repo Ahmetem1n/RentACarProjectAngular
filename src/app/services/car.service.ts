@@ -1,3 +1,4 @@
+import { RentModel } from './../models/rentModel';
 import { CarDetailDto } from './../models/carDetailDto';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -20,8 +21,17 @@ export class CarService {
     return this.httpClient.get<ListResponseModel<Car>>(newPath);
   }
 
-  getByUsable(rentDate:Date,returnDate:Date,branchId:number): Observable<ListResponseModel<CarDetailDto>> {
-    let newPath = this.apiUrl + 'cars/getbyusable?rentDate=' + rentDate+"&returnDate="+returnDate +"&branchId="+branchId;
+  getByUsable(
+    rentModel: RentModel
+  ): Observable<ListResponseModel<CarDetailDto>> {
+    let newPath =
+      this.apiUrl +
+      'cars/getbyusable?rentDate=' +
+      rentModel.rentDate +
+      '&returnDate=' +
+      rentModel.returnDate +
+      '&branchId=' +
+      rentModel.branchId;
     return this.httpClient.get<ListResponseModel<CarDetailDto>>(newPath);
   }
 

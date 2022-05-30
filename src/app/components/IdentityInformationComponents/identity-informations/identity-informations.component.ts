@@ -35,6 +35,7 @@ export class IdentityInformationsComponent implements OnInit {
   identityInformationUpdateAndDeleteForm: FormGroup;
   identityInformation: IdentityInformation = {
     identityId: 0,
+    userId:0,
     serialNumber: '',
     fatherName: '',
     motherName: '',

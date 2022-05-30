@@ -1,3 +1,5 @@
+import { AuthService } from './services/auth.service';
+import { EmployeeGuard } from './guards/employee.guard';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminAddComponent } from './components/AdminComponents/admin-add/admin-add.component';
@@ -10,17 +12,16 @@ import { BranchDetailComponent } from './components/BranchComponents/branch-deta
 import { BranchsComponent } from './components/BranchComponents/branchs/branchs.component';
 import { BrandsComponent } from './components/BrandComponents/brands/brands.component';
 import { CarDetailComponent } from './components/CarComponents/car-detail/car-detail.component';
+import { CarImagesComponent } from './components/CarComponents/car-images/car-images.component';
 import { CarsComponent } from './components/CarComponents/cars/cars.component';
 import { GetByUsableComponent } from './components/CarComponents/get-by-usable/get-by-usable.component';
 import { CardDetailComponent } from './components/CardComponents/card-detail/card-detail.component';
 import { CardsComponent } from './components/CardComponents/cards/cards.component';
 import { CarImageDetailComponent } from './components/CarImageComponents/car-image-detail/car-image-detail.component';
-import { CarImagesComponent } from './components/CarImageComponents/car-images/car-images.component';
 import { CaseTypesComponent } from './components/CaseTypeComponents/case-types/case-types.component';
 import { ClassesComponent } from './components/ClassComponents/classes/classes.component';
 import { ColorsComponent } from './components/ColorComponents/colors/colors.component';
 import { CustomerDetailComponent } from './components/CustomerComponents/customer-detail/customer-detail.component';
-import { CustomersComponent } from './components/CustomerComponents/customers/customers.component';
 import { DrivingInformationDetailComponent } from './components/DrivingInformationComponents/driving-information-detail/driving-information-detail.component';
 import { DrivingInformationsComponent } from './components/DrivingInformationComponents/driving-informations/driving-informations.component';
 import { FuelsComponent } from './components/FuelComponents/fuels/fuels.component';
@@ -33,28 +34,29 @@ import { PhoneNumbersComponent } from './components/PhoneNumberComponents/phone-
 import { RegisterComponent } from './components/register/register.component';
 import { RentalDetailDetailComponent } from './components/RentalDetailComponents/rental-detail-detail/rental-detail-detail.component';
 import { RentalDetailsComponent } from './components/RentalDetailComponents/rental-details/rental-details.component';
+import { CustomersComponent } from './components/UserComponents/customers/customers.component';
 import { UserDetailComponent } from './components/UserComponents/user-detail/user-detail.component';
 import { UsersComponent } from './components/UserComponents/users/users.component';
 import { AdminGuard } from './guards/admin.guard';
 
 const routes: Routes = [
-  { path: '', pathMatch: 'full', component: BrandsComponent },
+  { path: '', pathMatch: 'full', component: GetByUsableComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'deneme', component: GetByUsableComponent },
 
   //GETALL COMPONENT PATH
-  { path: 'admins', component: AdminsComponent, canActivate: [AdminGuard]},
+  { path: 'admins', component: AdminsComponent, canActivate: [AdminGuard] },
   { path: 'auths', component: AuthComponent },
   { path: 'branchs', component: BranchsComponent },
   { path: 'brands', component: BrandsComponent },
   { path: 'cars', component: CarsComponent },
   { path: 'cards', component: CardsComponent },
-  { path: 'carImages', component: CarImagesComponent },
+  { path: 'carImages/:carId', component: CarImagesComponent },
   { path: 'caseTypes', component: CaseTypesComponent },
   { path: 'classes', component: ClassesComponent },
   { path: 'colors', component: ColorsComponent },
-  { path: 'customers', component: CustomersComponent },
+  //{ path: 'customers', component: CustomersComponent },
   { path: 'drivingInformations', component: DrivingInformationsComponent },
   { path: 'fuels', component: FuelsComponent },
   { path: 'gears', component: GearsComponent },
@@ -62,6 +64,7 @@ const routes: Routes = [
   { path: 'phoneNumbers', component: PhoneNumbersComponent },
   { path: 'rentalDetails', component: RentalDetailsComponent },
   { path: 'users', component: UsersComponent },
+  { path: 'customers', component: CustomersComponent },
 
   //ADD COMPONENT PATH
   { path: 'admin/add', component: AdminAddComponent },
@@ -75,6 +78,7 @@ const routes: Routes = [
   //DETAIL COMPONENT PATH
   { path: 'admin/detail/:adminId', component: AdminDetailComponent },
   { path: 'car/detail/:carId', component: CarDetailComponent },
+  { path: 'customer/detail/:userId', component: CustomerDetailComponent },
   { path: 'branch/detail/:branchId', component: BranchDetailComponent },
   { path: 'card/detail', component: CardDetailComponent },
   { path: 'carImage/detail', component: CarImageDetailComponent },
@@ -92,8 +96,19 @@ const routes: Routes = [
   { path: 'user/detail/:userId', component: UserDetailComponent },
 ];
 
+let authService: AuthService;
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [
+    RouterModule.forRoot(
+      authService.getRole() == 'Yönetici'
+        ? routes
+        : authService.getRole() == 'Çalışan'
+        ? routes
+        : authService.getRole() == 'Müşteri'
+        ? routes
+        : routes
+    ),
+  ],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}

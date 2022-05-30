@@ -28,6 +28,7 @@ export class DrivingInformationService {
     let newPath = this.apiUrl + 'drivingInformations/update';
     return this.httpClient.post<ResponseModel>(newPath, drivingInformation);
   }
+
   deleteDrivingInformation(drivingInformation: DrivingInformation): Observable<ResponseModel> {
     let newPath = this.apiUrl + 'drivingInformations/delete';
     return this.httpClient.post<ResponseModel>(newPath, drivingInformation);
@@ -35,6 +36,11 @@ export class DrivingInformationService {
 
   detailDrivingInformation(drivingId: number) {
     let newPath = this.apiUrl + 'drivingInformations/getById?drivingId=' + drivingId;
+    return this.httpClient.get<SingleResponseModel<DrivingInformation>>(newPath);
+  }
+
+  getByUserId(userId: number) {
+    let newPath = this.apiUrl + 'drivingInformations/getByUserId?userId=' + userId;
     return this.httpClient.get<SingleResponseModel<DrivingInformation>>(newPath);
   }
 }

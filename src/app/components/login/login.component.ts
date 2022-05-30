@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
@@ -13,7 +14,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
-    private toastrService: ToastrService
+    private toastrService: ToastrService,private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -35,6 +36,7 @@ export class LoginComponent implements OnInit {
           this.toastrService.info(response.message);
           console.log(response.data);
           localStorage.setItem('token', response.data.token);
+          this.router.navigate(['']);
         },
         (responseError) => {
           console.log(responseError);

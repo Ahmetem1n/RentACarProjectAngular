@@ -1,23 +1,23 @@
-import { IdentityInformationService } from 'src/app/services/identity-information.service';
-import { IdentityInformation } from 'src/app/models/identityInformation';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { IdentityInformation } from 'src/app/models/identityInformation';
 import { OperationClaim } from 'src/app/models/operationClaim';
 import { User } from 'src/app/models/user';
 import { UserDetailDto } from 'src/app/models/userDetailDto';
 import { UserOperationClaim } from 'src/app/models/userOperationClaim';
+import { IdentityInformationService } from 'src/app/services/identity-information.service';
 import { OperationClaimService } from 'src/app/services/operation-claim.service';
 import { UserOperationClaimService } from 'src/app/services/user-operation-claim.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
-  selector: 'app-users',
-  templateUrl: './users.component.html',
-  styleUrls: ['./users.component.css'],
+  selector: 'app-customers',
+  templateUrl: './customers.component.html',
+  styleUrls: ['./customers.component.css']
 })
-export class UsersComponent implements OnInit {
+export class CustomersComponent implements OnInit {
   userDetailDtos: UserDetailDto[] = [];
   userAddForm: FormGroup;
 
@@ -68,7 +68,7 @@ export class UsersComponent implements OnInit {
   }
 
   getUserDetailDtos() {
-    this.userService.getUserDetailDtos().subscribe((response) => {
+    this.userService.getByCustomers().subscribe((response) => {
       this.userDetailDtos = response.data;
       this.dataLoaded = true;
     });

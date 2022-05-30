@@ -28,13 +28,14 @@ export class RegisterComponent implements OnInit {
       nationalityId: ['', Validators.required],
       birthYear: ['', Validators.required],
       password: ['', Validators.required],
-      photo: [''],
+      photo: ['', Validators.required],
     });
   }
 
   register() {
     if (this.registerForm.valid) {
       let registerModel = Object.assign({}, this.registerForm.value);
+      console.log(registerModel)
       this.authService.register(registerModel).subscribe(
         (response) => {
           this.toastrService.info(response.message);

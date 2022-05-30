@@ -1,0 +1,24 @@
+img {
+    height: 160px;
+    width: 335px;
+    border:3px solid rgb(215, 14, 71);
+
+  } 
+  .col {   
+    border:3px solid rgb(214, 211, 24);
+    margin-bottom: 50px;
+    
+  }
+  .anaDiv{
+    margin-top: 30px;
+    margin-bottom: 40px;
+    margin-right: 70px;
+    padding-left: 10px;
+    padding-top: 10px;
+    border:3px solid rgb(128, 40, 40);
+    flex-direction: column;
+  }
+
+  .card{
+    border:3px solid rgb(89, 19, 160);
+}

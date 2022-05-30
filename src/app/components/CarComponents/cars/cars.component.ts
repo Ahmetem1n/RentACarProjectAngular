@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -170,12 +170,48 @@ export class CarsComponent implements OnInit {
     });
   }
 
-  carImages:CarImage[]=[]
-
+  carImages: CarImage[] = [];
+  currentCarId:number
   createCarImage(carId: number) {
     this.carImageService.getByCarId(carId).subscribe((response) => {
       this.carImages = response.data;
-    });
+      this.carImages.length=4
+      this.currentCarId=carId
+    });    
+  }
+
+  resimSilme(carImage: CarImage) {
+    console.log(carImage.imageId);
+    this.carImageService.deleteCarImage(carImage).subscribe(
+      (response) => {
+        this.toastrService.success(response.message, 'Success');
+        // window.location.reload();
+      },
+      (responseError) => {
+        if (
+          responseError.error.ValidationErrors &&
+          responseError.error.ValidationErrors.length > 0
+        ) {
+          for (
+            let i = 0;
+            i < responseError.error.ValidationErrors.length;
+            i++
+          ) {
+            this.toastrService.error(
+              responseError.error.ValidationErrors[i].ErrorMessage,
+              'Validation Error'
+            );
+          }
+        } else {
+          this.toastrService.error(responseError.error.message, 'Error');
+        }
+      }
+    );
+  }
+
+  @ViewChild('imagePath') imagePath: ElementRef;
+  addCarImage(carId:number,imagePath:string){
+    console.log(carId,this.imagePath.nativeElement.value)
   }
 
   createCarUpdateAndDeleteForm() {

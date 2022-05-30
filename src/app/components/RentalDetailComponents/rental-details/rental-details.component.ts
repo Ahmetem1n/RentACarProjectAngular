@@ -90,6 +90,7 @@ export class RentalDetailsComponent implements OnInit {
   }
 
   createRentalDetailUpdateAndDeleteForm() {
+    
     this.rentalDetailUpdateAndDeleteForm = this.formBuilder.group({
       rentalId: [this.rentalDetail.rentalId, Validators.required],
       userId: [this.rentalDetail.userId, Validators.required],
@@ -99,6 +100,7 @@ export class RentalDetailsComponent implements OnInit {
       firstMileage: [this.rentalDetail.firstMileage, Validators.required],
       lastMileage: [this.rentalDetail.lastMileage, Validators.required],
     });
+    //console.log(this.rentalDetail.rentDate.toString().substring(0,10))
   }
 
   createRentalDetailAddForm() {
