@@ -1,3 +1,5 @@
+import { Byte } from '@angular/compiler/src/util';
+
 export interface User {
   userId: number;
   firstName: string;
@@ -6,5 +8,5 @@ export interface User {
   birthYear: number;
   email: string;
   photo: string;
-  status: string;
+  status: string
 }

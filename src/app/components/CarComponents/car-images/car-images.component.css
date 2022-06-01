@@ -1,24 +1,27 @@
-img {
-    height: 160px;
-    width: 335px;
+.card-img-top {
+    height: 320px;
+    width: 600px;
     border:3px solid rgb(215, 14, 71);
+    
 
-  } 
+  }
+
+  .anaDiv{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border:3px solid rgb(128, 40, 40);
+    margin: 10px;
+  }
+
   .col {   
     border:3px solid rgb(214, 211, 24);
-    margin-bottom: 50px;
+    margin:10px
     
   }
-  .anaDiv{
-    margin-top: 30px;
-    margin-bottom: 40px;
-    margin-right: 70px;
-    padding-left: 10px;
-    padding-top: 10px;
-    border:3px solid rgb(128, 40, 40);
-    flex-direction: column;
-  }
+  
 
   .card{
+    
     border:3px solid rgb(89, 19, 160);
 }

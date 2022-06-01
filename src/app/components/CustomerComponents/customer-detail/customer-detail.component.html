@@ -319,42 +319,40 @@
 </div>
 
 <!-- Phone Numbers -->
-<div class="çerçeve" *ngIf="customer">
-  <h3><u>Telefon Bilgileri</u></h3>
-  <div class="input-group">
-    <table class="table">
-      <tbody>
-        <tr *ngFor="let phoneNumber of phoneNumbers">
-          <td>{{ phoneNumber?.phoneNo }}</td>
+<div *ngIf="customer">
+  <form [formGroup]="phoneNumberForm">
+    <div class="çerçeve">
+      <h4>Telefon Bilgileri</h4>
+      <div class="input-group">
+        <div class="mb-3">
+          <table class="table">
+            <tbody>
+              <tr *ngFor="let phoneNumber of phoneNumbers">
+                <td>{{ phoneNumber?.phoneNo }}</td>
 
-          <td>
-            <button
-              type="button"
-              class="btn btn-primary"
-              (click)="deletePhoneNumber(phoneNumber)"
-            >
-              Sil
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <form [formGroup]="phoneNumberForm" *ngIf="phoneNumbers.length<5">
-      <div class="çerçeve">
-        <div class="input-group">
-          <div class="mb-3">
-            <div class="form-group">
-              <input
-                type="text"
-                id="phoneNo"
-                formControlName="phoneNo"
-                class="form-control"
-                placeholder="Telefon Numarası"
-              />
-            </div>
-          </div>
+                <td>
+                  <button
+                    type="button"
+                    class="btn btn-primary"
+                    (click)="deletePhoneNumber(phoneNumber)"
+                  >
+                    Sil
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-        <div class="modal-footer">
+        <div class="modal-footer phoneNumber" *ngIf="phoneNumbers.length < 5">
+          <div class="form-group">
+            <input
+              type="text"
+              id="phoneNo"
+              formControlName="phoneNo"
+              class="form-control"
+              placeholder="Telefon Numarası"
+            />
+          </div>
           <button
             type="button"
             class="btn btn-primary"
@@ -364,11 +362,6 @@
           </button>
         </div>
       </div>
-    </form>
-  </div>
+    </div>
+  </form>
 </div>
-<br /><br />
-<button type="button" class="btn btn-primary">
-  KULLANICININ KARTLARI EKLENEBİLİR YA DA SADECE KULLANICI GİRİŞ YAPINCA KENDİ
-  EKRANINDA GÖRÜR
-</button>

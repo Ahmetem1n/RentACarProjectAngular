@@ -1,3 +1,6 @@
+import { Branch } from './../../../models/branch';
+import { BranchService } from './../../../services/branch.service';
+import { AuthService } from 'src/app/services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -17,21 +20,20 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class RentalDetailsComponent implements OnInit {
   rentalDetailDtos: RentalDetailDto[] = [];
-  rentalDetailAddForm: FormGroup;
 
   rentalDetailUpdateAndDeleteForm: FormGroup;
   rentalDetail: RentalDetail = {
     rentalId: 0,
     userId: 0,
     carId: 0,
+    branchId: 0,
     rentDate: undefined,
     returnDate: undefined,
-    firstMileage: 0,
-    lastMileage: 0,
+    rentalPrice: 0,
   };
 
-  users: User[] = [];
   cars: Car[] = [];
+  branchs: Branch[] = [];
 
   rentalDetailFilter = '';
 
@@ -40,34 +42,47 @@ export class RentalDetailsComponent implements OnInit {
     private formBuilder: FormBuilder,
     private rentalDetailService: RentalDetailService,
     private userService: UserService,
+    private authService: AuthService,
     private carService: CarService,
+    private branchService: BranchService,
     private toastrService: ToastrService,
     private activatedRoute: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
     this.getRentalDetailDtos();
-    this.getUsers();
+    this.getCustomers();
     this.getCars();
-    this.createRentalDetailAddForm();
+    this.getBranchs();
     this.createRentalDetailUpdateAndDeleteForm();
   }
 
   getRentalDetailDtos() {
-    this.rentalDetailService.getRentalDetailDtos().subscribe((response) => {
-      this.rentalDetailDtos = response.data;
-      this.dataLoaded = true;
-    });
+    if (this.getRole() == 'Müşteri') {
+      this.rentalDetailService
+        .getRentalDetailDtosByUserId(this.authService.getCurrentUserId)
+        .subscribe((response) => {
+          this.rentalDetailDtos = response.data;
+          this.dataLoaded = true;
+        });
+    } else {
+      this.rentalDetailService.getRentalDetailDtos().subscribe((response) => {
+        this.rentalDetailDtos = response.data;
+        console.log(this.rentalDetailDtos)
+        this.dataLoaded = true;
+      });
+    }
   }
 
-  getUsers() {
-    this.userService.getUsers().subscribe((response) => {
-      this.users = response.data;
-    });
+  getRole() {
+    return this.authService.getRole();
   }
 
-  getUserNationalityId(userId: number) {
-    return this.users.find((u) => u.userId == userId).nationalityId;
+  customers: User[] = [];
+  getCustomers() {
+    this.userService.getByCustomers().subscribe((response) => {
+      this.customers = response.data;
+    });
   }
 
   getCars() {
@@ -76,8 +91,10 @@ export class RentalDetailsComponent implements OnInit {
     });
   }
 
-  getCarPlate(carId: number) {
-    return this.cars.find((c) => c.carId == carId).carPlate;
+  getBranchs() {
+    this.branchService.getBranchs().subscribe((response) => {
+      this.branchs = response.data;
+    });
   }
 
   createRentalDetail(rentalId: number) {
@@ -90,61 +107,16 @@ export class RentalDetailsComponent implements OnInit {
   }
 
   createRentalDetailUpdateAndDeleteForm() {
-    
     this.rentalDetailUpdateAndDeleteForm = this.formBuilder.group({
       rentalId: [this.rentalDetail.rentalId, Validators.required],
       userId: [this.rentalDetail.userId, Validators.required],
       carId: [this.rentalDetail.carId, Validators.required],
+      branchId: [this.rentalDetail.branchId, Validators.required],
       rentDate: [this.rentalDetail.rentDate, Validators.required],
       returnDate: [this.rentalDetail.returnDate, Validators.required],
-      firstMileage: [this.rentalDetail.firstMileage, Validators.required],
-      lastMileage: [this.rentalDetail.lastMileage, Validators.required],
+      rentalPrice: [this.rentalDetail.rentalPrice, Validators.required],
     });
     //console.log(this.rentalDetail.rentDate.toString().substring(0,10))
-  }
-
-  createRentalDetailAddForm() {
-    this.rentalDetailAddForm = this.formBuilder.group({
-      userId: ['', Validators.required],
-      carId: ['', Validators.required],
-      rentDate: ['', Validators.required],
-      returnDate: ['', Validators.required],
-      firstMileage: ['', Validators.required],
-      lastMileage: ['', Validators.required],
-    });
-  }
-
-  add() {
-    if (this.rentalDetailAddForm.valid) {
-      let rentalDetailModel = Object.assign({}, this.rentalDetailAddForm.value);
-      this.rentalDetailService.addRentalDetail(rentalDetailModel).subscribe(
-        (response) => {
-          this.toastrService.success(response.message, 'Success');
-          window.location.reload();
-        },
-        (responseError) => {
-          if (
-            responseError.error.ValidationErrors &&
-            responseError.error.ValidationErrors.length > 0
-          ) {
-            for (
-              let i = 0;
-              i < responseError.error.ValidationErrors.length;
-              i++
-            ) {
-              this.toastrService.error(
-                responseError.error.ValidationErrors[i].ErrorMessage,
-                'Validation Error'
-              );
-            }
-          } else {
-            this.toastrService.error(responseError.error.message, 'Error');
-          }
-        }
-      );
-    } else {
-      this.toastrService.error('Form not completed', 'Warning');
-    }
   }
 
   delete() {

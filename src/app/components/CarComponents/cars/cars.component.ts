@@ -33,7 +33,14 @@ export class CarsComponent implements OnInit {
 
   carUpdateAndDeleteForm: FormGroup;
 
-  carUsables = ['Aktif', 'Pasif'];
+  carUsables = [
+    'Kullanılabilir',
+    'Bakımda',
+    'Kazalı',
+    'Muayenesi Bitmiş',
+    'Trafikten Men Edilmiş',
+    'Kiralamaya Kapalı',
+  ];
 
   carStars = [0.5];
   carStarsCreate() {
@@ -171,13 +178,13 @@ export class CarsComponent implements OnInit {
   }
 
   carImages: CarImage[] = [];
-  currentCarId:number
+  currentCarId: number;
   createCarImage(carId: number) {
     this.carImageService.getByCarId(carId).subscribe((response) => {
       this.carImages = response.data;
-      this.carImages.length=4
-      this.currentCarId=carId
-    });    
+      this.carImages.length = 4;
+      this.currentCarId = carId;
+    });
   }
 
   resimSilme(carImage: CarImage) {
@@ -210,8 +217,8 @@ export class CarsComponent implements OnInit {
   }
 
   @ViewChild('imagePath') imagePath: ElementRef;
-  addCarImage(carId:number,imagePath:string){
-    console.log(carId,this.imagePath.nativeElement.value)
+  addCarImage(carId: number, imagePath: string) {
+    console.log(carId, this.imagePath.nativeElement.value);
   }
 
   createCarUpdateAndDeleteForm() {

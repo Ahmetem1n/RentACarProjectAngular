@@ -14,10 +14,10 @@ export class RentalDetailsFilterPipe implements PipeTransform {
           (r: RentalDetailDto) =>
             r.nationalityId.toLocaleLowerCase().indexOf(rentalDetailFilter)!==-1||
             r.carPlate.toLocaleLowerCase().indexOf(rentalDetailFilter)!==-1||
+            r.branchName.toLocaleLowerCase().indexOf(rentalDetailFilter)!==-1||
             String(r.rentDate).toLocaleLowerCase().indexOf(rentalDetailFilter)!==-1||
             String(r.returnDate).toLocaleLowerCase().indexOf(rentalDetailFilter)!==-1||
-            String(r.firstMileage).toLocaleLowerCase().indexOf(rentalDetailFilter) !== -1||
-            String(r.lastMileage).toLocaleLowerCase().indexOf(rentalDetailFilter) !== -1
+            String(r.rentalPrice).toLocaleLowerCase().indexOf(rentalDetailFilter) !== -1
         )
       : value;
   }

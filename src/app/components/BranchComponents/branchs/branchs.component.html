@@ -92,8 +92,8 @@
         <form [formGroup]="branchAddForm">
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label">Şehir:</label>
-            <div class="form-group">
-              <select formControlName="cityId" id="cityId">
+            <div>
+              <select formControlName="cityId" id="cityId" class="form-group">
                 <option
                   *ngFor="let city of cities; let i = index"
                   [ngValue]="cities[i].cityId"
@@ -157,8 +157,8 @@
         <form [formGroup]="branchUpdateAndDeleteForm">
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label">Şehir:</label>
-            <div class="form-group">
-              <select formControlName="cityId" id="cityId">
+            <div>
+              <select formControlName="cityId" id="cityId" class="form-group">
                 <option
                   *ngFor="let city of cities; let i = index"
                   [ngValue]="cities[i].cityId"
@@ -222,8 +222,8 @@
         <form [formGroup]="branchUpdateAndDeleteForm">
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label">Şehir:</label>
-            <div class="form-group">
-              <select formControlName="cityId" id="cityId" >
+            <div>
+              <select formControlName="cityId" id="cityId" class="form-group">
                 <option
                   disabled
                   *ngFor="let city of cities; let i = index"

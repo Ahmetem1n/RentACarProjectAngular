@@ -14,8 +14,8 @@
  <button class="nav-link" data-bs-toggle="pill" type="button" routerLink="/rentalDetails" *ngIf="getRole()=='Yönetici' || getRole()=='Çalışan'">Kiralama Detayları</button>
  <button class="nav-link" data-bs-toggle="pill" type="button" routerLink="/users" *ngIf="getRole()=='Yönetici'">Kullanıcılar</button>
  <button class="nav-link" data-bs-toggle="pill" type="button" routerLink="/customers" *ngIf="getRole()=='Çalışan'">Müşteriler</button>
- <button class="nav-link" data-bs-toggle="pill" type="button" routerLink="/" *ngIf="getRole()=='Müşteri'">Menü 1</button>
- <button class="nav-link" data-bs-toggle="pill" type="button" routerLink="/" *ngIf="getRole()=='Müşteri'">Menü 2</button>
+ <button class="nav-link" data-bs-toggle="pill" type="button" routerLink="/rentalDetails" *ngIf="getRole()=='Müşteri'">Geçmiş Kiralamalar</button>
+ <button class="nav-link" data-bs-toggle="pill" type="button" routerLink="/" *ngIf="getRole()=='Müşteri'">Kullanıcı Bilgileri</button>
  <button class="nav-link" data-bs-toggle="pill" type="button" routerLink="/" *ngIf="getRole()=='Müşteri'">Menü 3</button>
  <button class="nav-link" data-bs-toggle="pill" type="button" routerLink="/" *ngIf="getRole()=='Müşteri'">Menü 4</button>
  <button class="nav-link" data-bs-toggle="pill" type="button" routerLink="/" ></button>

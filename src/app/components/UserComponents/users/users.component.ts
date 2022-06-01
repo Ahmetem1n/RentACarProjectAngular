@@ -1,16 +1,13 @@
-import { IdentityInformationService } from 'src/app/services/identity-information.service';
-import { IdentityInformation } from 'src/app/models/identityInformation';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { OperationClaim } from 'src/app/models/operationClaim';
-import { User } from 'src/app/models/user';
 import { UserDetailDto } from 'src/app/models/userDetailDto';
-import { UserOperationClaim } from 'src/app/models/userOperationClaim';
-import { OperationClaimService } from 'src/app/services/operation-claim.service';
-import { UserOperationClaimService } from 'src/app/services/user-operation-claim.service';
 import { UserService } from 'src/app/services/user.service';
+import { OperationClaim } from './../../../models/operationClaim';
+import { UserOperationClaim } from './../../../models/userOperationClaim';
+import { OperationClaimService } from './../../../services/operation-claim.service';
+import { UserOperationClaimService } from './../../../services/user-operation-claim.service';
 
 @Component({
   selector: 'app-users',
@@ -22,7 +19,7 @@ export class UsersComponent implements OnInit {
   userAddForm: FormGroup;
 
   userUpdateAndDeleteForm: FormGroup;
-  user: User = {
+  user: UserDetailDto = {
     userId: 0,
     firstName: '',
     lastName: '',
@@ -31,6 +28,8 @@ export class UsersComponent implements OnInit {
     email: '',
     photo: '',
     status: '',
+    claimName:"",
+    claimId:0,
   };
 
   statuses = ['Aktif', 'Pasif'];
@@ -42,27 +41,22 @@ export class UsersComponent implements OnInit {
     }
   }
 
-  userOperationClaims: UserOperationClaim[] = [];
-  operationClaims: OperationClaim[] = [];
-
   userFilter = '';
 
   dataLoaded = false;
   constructor(
     private formBuilder: FormBuilder,
     private userService: UserService,
-    private identityInformationService: IdentityInformationService,
-    private operationClaimService: OperationClaimService,
-    private userOperationClaimService: UserOperationClaimService,
+    private operationClaimService:OperationClaimService,
+    private userOperationClaimService:UserOperationClaimService,
     private toastrService: ToastrService,
     private activatedRoute: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
     this.getUserDetailDtos();
-    this.getUserOperationClaims();
+    this.getClaims();
     this.birthYearsCreate();
-    this.getOperationClaims();
     this.createUserAddForm();
     this.createUserUpdateAndDeleteForm();
   }
@@ -74,53 +68,15 @@ export class UsersComponent implements OnInit {
     });
   }
 
-  getUserOperationClaims() {
-    this.userOperationClaimService
-      .getUserOperationClaims()
-      .subscribe((response) => {
-        this.userOperationClaims = response.data;
-      });
-  }
-
-  getOperationClaims() {
+  claims:OperationClaim[]=[]
+  getClaims() {
     this.operationClaimService.getOperationClaims().subscribe((response) => {
-      this.operationClaims = response.data;
+      this.claims = response.data;
     });
   }
 
-  getClaimName(userId: number) {
-    if (
-      this.operationClaims.find(
-        (o) =>
-          o.claimId ==
-          this.userOperationClaims.find((o) => o.userId == userId).claimId
-      ).claimName === 'admin'
-    ) {
-      return 'Yönetici';
-    }
-    if (
-      this.operationClaims.find(
-        (o) =>
-          o.claimId ==
-          this.userOperationClaims.find((o) => o.userId == userId).claimId
-      ).claimName === 'employee'
-    ) {
-      return 'Çalışan';
-    }
-    if (
-      this.operationClaims.find(
-        (o) =>
-          o.claimId ==
-          this.userOperationClaims.find((o) => o.userId == userId).claimId
-      ).claimName === 'customer'
-    ) {
-      return 'Müşteri';
-    }
-    return 'deneme';
-  }
-
   createUserDetail(userId: number) {
-    this.userService.detailUser(userId).subscribe((response) => {
+    this.userService.getByUserId(userId).subscribe((response) => {
       this.user = response.data;
       this.createUserUpdateAndDeleteForm();
     });
@@ -136,6 +92,7 @@ export class UsersComponent implements OnInit {
       email: [this.user.email, Validators.required],
       photo: [this.user.photo, Validators.required],
       status: [this.user.status, Validators.required],
+      claimId: [this.user.claimId, Validators.required],
     });
   }
 
@@ -148,79 +105,20 @@ export class UsersComponent implements OnInit {
       email: ['', Validators.required],
       photo: ['', Validators.required],
       status: ['', Validators.required],
-    });
-  }  
-
-  currentIdentityInformation:IdentityInformation
-  getCurrentIdentityInformation(userId:number) {
-    this.identityInformationService.getByUserId(userId).subscribe((response) => {
-      this.currentIdentityInformation = response.data;
-      console.log(this.currentIdentityInformation)
-      this.createIdentityInformationForm(userId);
-    });
-    this.createIdentityInformationForm(userId);
-  }
-
-  identityInformationForm:FormGroup
-  createIdentityInformationForm(userId:number) {
-    if(this.currentIdentityInformation){
-      this.identityInformationForm = this.formBuilder.group({
-        identityId: [this.currentIdentityInformation?.identityId, Validators.required],
-        userId: [this.currentIdentityInformation?.userId, Validators.required],
-        serialNumber: [this.currentIdentityInformation?.serialNumber, Validators.required],
-        fatherName: [this.currentIdentityInformation?.fatherName, Validators.required],
-        motherName: [this.currentIdentityInformation?.motherName, Validators.required],
-        birthPlace: [this.currentIdentityInformation?.birthPlace, Validators.required],
-        birthYear: [this.currentIdentityInformation?.birthYear, Validators.required],
-        maritalStatus: [this.currentIdentityInformation?.maritalStatus, Validators.required],
-        gender: [this.currentIdentityInformation?.gender, Validators.required],
-        validUntil: [this.currentIdentityInformation?.validUntil, Validators.required],
-      });
-    }else{
-      this.identityInformationForm.reset();
-      this.identityInformationForm = this.formBuilder.group({
-        userId: [userId, Validators.required],
-        serialNumber: ["", Validators.required],
-        fatherName: ["", Validators.required],
-        motherName: ["", Validators.required],
-        birthPlace: ["", Validators.required],
-        birthYear: ["", Validators.required],
-        maritalStatus: ["", Validators.required],
-        gender: ["", Validators.required],
-        validUntil: ["", Validators.required],
-      });
-    }
-    
-  }
-
-  deneme(){
-    console.log("TEST")
-  }
-
-  currentDrivingInformation:IdentityInformation
-  getCurrentDrivingInformation(userId:number) {
-    this.identityInformationService.getByUserId(userId).subscribe((response) => {
-      this.currentIdentityInformation = response.data;
-    });
-  }
-
-  currentUserCards:IdentityInformation
-  getCurrentUserCards(userId:number) {
-    this.identityInformationService.getByUserId(userId).subscribe((response) => {
-      this.currentIdentityInformation = response.data;
-    });
-  }
-
-  currentUserPhones:IdentityInformation
-  getCurrentUserPhones(userId:number) {
-    this.identityInformationService.getByUserId(userId).subscribe((response) => {
-      this.currentIdentityInformation = response.data;
+      claimId:['', Validators.required],
     });
   }
 
   add() {
     if (this.userAddForm.valid) {
       let userModel = Object.assign({}, this.userAddForm.value);
+      let userOperationClaim:UserOperationClaim
+      this.userOperationClaimService.getUserOperationClaims().subscribe(response=>{
+        userOperationClaim=response.data.find(u=>u.userId==userModel.userId);
+      });
+      console.log(userOperationClaim)
+      userOperationClaim.claimId=userModel.claimId
+      this.userOperationClaimService.updateUserOperationClaim(userOperationClaim).subscribe();
       this.userService.addUser(userModel).subscribe(
         (response) => {
           this.toastrService.success(response.message, 'Success');
@@ -284,9 +182,16 @@ export class UsersComponent implements OnInit {
     }
   }
 
+  userOperationClaim:UserOperationClaim
   update() {
     if (this.userUpdateAndDeleteForm.valid) {
       let userModel = Object.assign({}, this.userUpdateAndDeleteForm.value);
+      this.userOperationClaimService.getUserOperationClaims().subscribe(response=>{
+        this.userOperationClaim=response.data.find(u=>u.userId==userModel.userId);
+        this.userOperationClaim.claimId=userModel.claimId
+        this.userOperationClaimService.updateUserOperationClaim(this.userOperationClaim).subscribe();
+      });
+        
       this.userService.updateUser(userModel).subscribe(
         (response) => {
           this.toastrService.success(response.message, 'Success');

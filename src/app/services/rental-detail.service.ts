@@ -25,6 +25,11 @@ export class RentalDetailService {
     return this.httpClient.get<ListResponseModel<RentalDetailDto>>(newPath);
   }
 
+  getRentalDetailDtosByUserId(userId:number): Observable<ListResponseModel<RentalDetailDto>> {
+    let newPath = this.apiUrl + 'rentalDetails/getrentaldetailsbyuserid?userId='+userId;
+    return this.httpClient.get<ListResponseModel<RentalDetailDto>>(newPath);
+  }
+
   addRentalDetail(rentalDetail: RentalDetail): Observable<ResponseModel> {
     let newPath = this.apiUrl + 'rentalDetails/add';
     return this.httpClient.post<ResponseModel>(newPath, rentalDetail);

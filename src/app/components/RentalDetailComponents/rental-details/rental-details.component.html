@@ -1,4 +1,4 @@
-<div class="mb-3">
+<div class="mb-3" *ngIf="getRole() != 'Müşteri'">
   <label for="rentalDetailFilter" class="form-label"
     >Kiralama Detayı Filtreleme</label
   >
@@ -14,14 +14,14 @@
 <table class="table table-striped" *ngIf="dataLoaded == true">
   <thead class="table-dark">
     <tr>
-      <th scope="col">Kullanıcı TC</th>
+      <th scope="col" *ngIf="getRole() != 'Müşteri'">Müşteri TC</th>
       <th scope="col">Araba Plaka</th>
+      <th scope="col">Alış Şubesi</th>
       <th scope="col">Kiralama Tarihi</th>
       <th scope="col">Teslim Etme Tarihi</th>
-      <th scope="col">Başlangıç Km</th>
-      <th scope="col">Bitiş Km</th>
-      <th scope="col">Güncelle</th>
-      <th scope="col">Sil</th>
+      <th scope="col">Ödenen Ücret</th>
+      <th scope="col" *ngIf="getRole() != 'Müşteri'">Güncelle</th>
+      <th scope="col" *ngIf="getRole() != 'Müşteri'">Sil</th>
     </tr>
   </thead>
   <tbody>
@@ -31,15 +31,26 @@
           | rentalDetailsFilter: rentalDetailFilter
       "
     >
-      <td>
+      <td *ngIf="getRole() != 'Müşteri'">
         <a routerLink="/user/detail/{{ rentalDetailDto.userId }}">{{
           rentalDetailDto.nationalityId
         }}</a>
       </td>
-      <td>
-        <a routerLink="/car/detail/{{ rentalDetailDto.carId }}">
+      <td *ngIf="getRole() != 'Müşteri'">
+        <a routerLink="/car/detail/{{ rentalDetailDto.carId }} ">
           {{ rentalDetailDto.carPlate }}</a
         >
+      </td>
+      <td *ngIf="getRole() == 'Müşteri'">
+        {{ rentalDetailDto.carPlate }}
+      </td>
+      <td *ngIf="getRole() != 'Müşteri'">
+        <a routerLink="/branch/detail/{{ rentalDetailDto.branchId }} ">
+          {{ rentalDetailDto.branchName }}</a
+        >
+      </td>
+      <td *ngIf="getRole() == 'Müşteri'">
+        {{ rentalDetailDto.branchName }}
       </td>
       <td>
         {{ rentalDetailDto.rentDate }}
@@ -48,13 +59,10 @@
         {{ rentalDetailDto.returnDate }}
       </td>
       <td>
-        {{ rentalDetailDto.firstMileage }}
-      </td>
-      <td>
-        {{ rentalDetailDto.lastMileage }}
+        {{ rentalDetailDto.rentalPrice }}
       </td>
 
-      <td>
+      <td *ngIf="getRole() != 'Müşteri'">
         <button
           type="button"
           class="btn btn-primary"
@@ -66,7 +74,7 @@
           Güncelle
         </button>
       </td>
-      <td>
+      <td *ngIf="getRole() != 'Müşteri'">
         <button
           type="button"
           class="btn btn-primary"
@@ -81,138 +89,6 @@
     </tr>
   </tbody>
 </table>
-
-<button
-  type="button"
-  class="btn btn-primary"
-  data-bs-toggle="modal"
-  data-bs-target="#add"
-  data-bs-whatever="@mdo"
->
-  Ekle
-</button>
-
-<!-- RentalDetail Ekleme modal -->
-<div
-  class="modal fade"
-  id="add"
-  tabindex="-1"
-  aria-labelledby="addLabel"
-  aria-hidden="true"
->
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="addLabel">Kiralama Detayı Ekleme</h5>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
-      </div>
-      <div class="modal-body">
-        <form [formGroup]="rentalDetailAddForm">
-          <div class="mb-3">
-            <label for="recipient-name" class="col-form-label"
-              >Kullanıcı TC:</label
-            >
-            <div class="form-group">
-              <select formControlName="userId" id="userId">
-                <option
-                  *ngFor="let user of users; let i = index"
-                  [ngValue]="users[i].userId"
-                >
-                  {{ users[i].nationalityId }}
-                </option>
-              </select>
-            </div>
-          </div>
-          <div class="mb-3">
-            <label for="recipient-name" class="col-form-label">Car Id:</label>
-            <div class="form-group">
-              <select formControlName="carId" id="carId">
-                <option
-                  *ngFor="let car of cars; let i = index"
-                  [ngValue]="cars[i].carId"
-                >
-                  {{ cars[i].carPlate }}
-                </option>
-              </select>
-            </div>
-          </div>
-          <div class="mb-3">
-            <label for="recipient-name" class="col-form-label"
-              >Kiralama Tarihi:</label
-            >
-            <div class="form-group">
-              <input
-                type="date"
-                id="rentDate"
-                formControlName="rentDate"
-                class="form-control"
-                placeholder="Kiralama Tarihi"
-              />
-            </div>
-          </div>
-          <div class="mb-3">
-            <label for="recipient-name" class="col-form-label"
-              >Teslim Etme Tarihi:</label
-            >
-            <div class="form-group">
-              <input
-                type="date"
-                id="returnDate"
-                formControlName="returnDate"
-                class="form-control"
-                placeholder="Teslim Etme Tarihi"
-              />
-            </div>
-          </div>
-          <div class="mb-3">
-            <label for="recipient-name" class="col-form-label"
-              >Başlangıç Km:</label
-            >
-            <div class="form-group">
-              <input
-                type="number"
-                id="firstMileage"
-                formControlName="firstMileage"
-                class="form-control"
-                placeholder="Başlangıç Km"
-              />
-            </div>
-          </div>
-          <div class="mb-3">
-            <label for="recipient-name" class="col-form-label">Bitiş Km:</label>
-            <div class="form-group">
-              <input
-                type="number"
-                id="lastMileage"
-                formControlName="lastMileage"
-                class="form-control"
-                placeholder="Bitiş Km"
-              />
-            </div>
-          </div>
-
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-bs-dismiss="modal"
-            >
-              Kapat
-            </button>
-            <button type="button" class="btn btn-primary" (click)="add()">
-              Kaydet
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
 
 <!-- RentalDetail Güncelleme Modal -->
 <div
@@ -237,23 +113,25 @@
         <form [formGroup]="rentalDetailUpdateAndDeleteForm">
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label"
-              >Kullanıcı TC:</label
+              >Müşteri TC:</label
             >
-            <div class="form-group">
-              <select formControlName="userId" id="userId">
+            <div>
+              <select formControlName="userId" id="userId" class="form-group">
                 <option
-                  *ngFor="let user of users; let i = index"
-                  [ngValue]="users[i].userId"
+                  *ngFor="let customer of customers; let i = index"
+                  [ngValue]="customers[i].userId"
                 >
-                  {{ users[i].nationalityId }}
+                  {{ customers[i].nationalityId }}
                 </option>
               </select>
             </div>
           </div>
           <div class="mb-3">
-            <label for="recipient-name" class="col-form-label">Car Id:</label>
-            <div class="form-group">
-              <select formControlName="carId" id="carId">
+            <label for="recipient-name" class="col-form-label"
+              >Araç Plaka:</label
+            >
+            <div>
+              <select formControlName="carId" id="carId" class="form-group">
                 <option
                   *ngFor="let car of cars; let i = index"
                   [ngValue]="cars[i].carId"
@@ -263,6 +141,25 @@
               </select>
             </div>
           </div>
+
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Şube Adı:</label>
+            <div>
+              <select
+                formControlName="branchId"
+                id="branchId"
+                class="form-group"
+              >
+                <option
+                  *ngFor="let branch of branchs; let i = index"
+                  [ngValue]="branchs[i].branchId"
+                >
+                  {{ branchs[i].branchName }}
+                </option>
+              </select>
+            </div>
+          </div>
+
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label"
               >Kiralama Tarihi:</label
@@ -291,27 +188,15 @@
           </div>
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label"
-              >Başlangıç Km:</label
+              >Ödenen Ücret:</label
             >
             <div class="form-group">
               <input
                 type="number"
-                id="firstMileage"
-                formControlName="firstMileage"
+                id="rentalPrice"
+                formControlName="rentalPrice"
                 class="form-control"
-                placeholder="Başlangıç Km"
-              />
-            </div>
-          </div>
-          <div class="mb-3">
-            <label for="recipient-name" class="col-form-label">Bitiş Km:</label>
-            <div class="form-group">
-              <input
-                type="number"
-                id="lastMileage"
-                formControlName="lastMileage"
-                class="form-control"
-                placeholder="Bitiş Km"
+                placeholder="Ödenen Ücret"
               />
             </div>
           </div>
@@ -357,24 +242,26 @@
         <form [formGroup]="rentalDetailUpdateAndDeleteForm">
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label"
-              >Kullanıcı TC:</label
+              >Müşteri TC:</label
             >
-            <div class="form-group">
-              <select formControlName="userId" id="userId">
+            <div>
+              <select formControlName="userId" id="userId" class="form-group">
                 <option
                   disabled
-                  *ngFor="let user of users; let i = index"
-                  [ngValue]="users[i].userId"
+                  *ngFor="let customer of customers; let i = index"
+                  [ngValue]="customers[i].userId"
                 >
-                  {{ users[i].nationalityId }}
+                  {{ customers[i].nationalityId }}
                 </option>
               </select>
             </div>
           </div>
           <div class="mb-3">
-            <label for="recipient-name" class="col-form-label">Car Id:</label>
-            <div class="form-group">
-              <select formControlName="carId" id="carId">
+            <label for="recipient-name" class="col-form-label"
+              >Araç Plaka:</label
+            >
+            <div>
+              <select formControlName="carId" id="carId" class="form-group">
                 <option
                   disabled
                   *ngFor="let car of cars; let i = index"
@@ -385,6 +272,26 @@
               </select>
             </div>
           </div>
+
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Şube Adı:</label>
+            <div>
+              <select
+                formControlName="branchId"
+                id="branchId"
+                class="form-group"
+              >
+                <option
+                  disabled
+                  *ngFor="let branch of branchs; let i = index"
+                  [ngValue]="branchs[i].branchId"
+                >
+                  {{ branchs[i].branchName }}
+                </option>
+              </select>
+            </div>
+          </div>
+
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label"
               >Kiralama Tarihi:</label
@@ -415,26 +322,14 @@
           </div>
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label"
-              >Başlangıç Km:</label
+              >Ödenen Ücret:</label
             >
             <div class="form-group">
               <input
                 [readonly]="true"
                 type="number"
-                id="firstMileage"
-                formControlName="firstMileage"
-                class="form-control"
-              />
-            </div>
-          </div>
-          <div class="mb-3">
-            <label for="recipient-name" class="col-form-label">Bitiş Km:</label>
-            <div class="form-group">
-              <input
-                [readonly]="true"
-                type="number"
-                id="lastMileage"
-                formControlName="lastMileage"
+                id="rentalPrice"
+                formControlName="rentalPrice"
                 class="form-control"
               />
             </div>

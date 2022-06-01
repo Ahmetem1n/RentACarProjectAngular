@@ -1,5 +1,7 @@
 <div class="mb-3">
-  <label for="phoneNumberFilter" class="form-label">Telefon Numarası Filtreleme</label>
+  <label for="phoneNumberFilter" class="form-label"
+    >Telefon Numarası Filtreleme</label
+  >
   <input
     type="text"
     [(ngModel)]="phoneNumberFilter"
@@ -19,9 +21,16 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let phoneNumberDetailDto of phoneNumberDetailDtos | phoneNumbersFilter:phoneNumberFilter">
-      <td><a routerLink="/user/detail/{{ phoneNumberDetailDto.userId }}">{{ phoneNumberDetailDto.nationalityId }}</a>
-        
+    <tr
+      *ngFor="
+        let phoneNumberDetailDto of phoneNumberDetailDtos
+          | phoneNumbersFilter: phoneNumberFilter
+      "
+    >
+      <td>
+        <a routerLink="/user/detail/{{ phoneNumberDetailDto.userId }}">{{
+          phoneNumberDetailDto.nationalityId
+        }}</a>
       </td>
       <td>{{ phoneNumberDetailDto.phoneNo }}</td>
       <td>
@@ -87,8 +96,8 @@
             <label for="recipient-name" class="col-form-label"
               >Kullanıcı TC:</label
             >
-            <div class="form-group">
-              <select formControlName="userId" id="userId">
+            <div>
+              <select formControlName="userId" id="userId" class="form-group">
                 <option
                   *ngFor="let user of users; let i = index"
                   [ngValue]="users[i].userId"
@@ -158,8 +167,8 @@
             <label for="recipient-name" class="col-form-label"
               >Kullanıcı TC:</label
             >
-            <div class="form-group">
-              <select formControlName="userId" id="userId">
+            <div>
+              <select formControlName="userId" id="userId" class="form-group">
                 <option
                   *ngFor="let user of users; let i = index"
                   [ngValue]="users[i].userId"
@@ -227,8 +236,8 @@
             <label for="recipient-name" class="col-form-label"
               >Kullanıcı TC:</label
             >
-            <div class="form-group">
-              <select formControlName="userId" id="userId">
+            <div>
+              <select formControlName="userId" id="userId" class="form-group">
                 <option
                   disabled
                   *ngFor="let user of users; let i = index"

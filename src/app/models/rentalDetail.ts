@@ -2,8 +2,8 @@ export interface RentalDetail {
   rentalId: number;
   userId: number;
   carId: number;
+  branchId: number;
   rentDate: Date;
   returnDate: Date;
-  firstMileage: number;
-  lastMileage: number;
+  rentalPrice: number;
 }

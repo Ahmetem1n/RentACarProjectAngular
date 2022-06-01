@@ -17,6 +17,23 @@ img{
     margin-top: 150px;
 margin-left: 250px;
 }
-#branchId{
-    margin-bottom: 25px;
+
+.çerçeve{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-top: 50px;
+    border:3px solid rgb(138, 136, 136);
+}
+.mb-3{
+    margin-right: 50px;
+    border:3px solid red   
+}
+.form-group{
+    border:3px solid blue;
+    width: 250px;
+    height: 40px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }

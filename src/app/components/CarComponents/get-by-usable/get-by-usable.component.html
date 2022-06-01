@@ -1,4 +1,96 @@
-<div class="asd">
+<div *ngIf="getByUsable">
+  <form [formGroup]="getByUsable">
+    <div class="çerçeve">
+      <h4>Araç Sorgulama</h4>
+      <div class="input-group">
+        <div class="mb-3">
+          <label for="recipient-name" class="col-form-label">Alış Şubesi:</label>
+          <div>
+            <select formControlName="branchId" id="branchId" class="form-group">
+              <option
+                *ngFor="let branch of branchs; let i = index"
+                [ngValue]="branchs[i].branchId"
+              >
+                {{ branchs[i].branchName }}
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="recipient-name" class="col-form-label"
+            >Alış Tarihi:</label
+          >
+          <div class="form-group">
+            <input
+              formControlName="rentDate"
+              type="date"
+              class="form-control"
+              id="rentDate"
+              min="{{ minRentDate }}"
+              max="{{ maxRentDate }}"
+            />
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="recipient-name" class="col-form-label"
+            >Bırakış Tarihi:</label
+          >
+          <div class="form-group">
+            <input
+              *ngIf="createMinReturnDate()"
+              formControlName="returnDate"
+              type="date"
+              class="form-control"
+              id="returnDate"
+              min="{{ minReturnDate }}"
+              max="{{ maxReturnDate }}"
+            />
+            <input
+              *ngIf="!createMinReturnDate()"
+              class="form-control"
+              disabled
+              type="date"
+            />
+          </div>
+        </div>
+
+        <div
+          class="mb-3"
+          *ngIf="getRole() == 'Yönetici' || getRole() == 'Çalışan'"
+        >
+          <label for="recipient-name" class="col-form-label"
+            >Kiralanacak Kullanıcı TC:</label
+          >
+          <div>
+            <select formControlName="userId" id="userId" class="form-group">
+              <option
+                *ngFor="let customer of customers; let i = index"
+                [ngValue]="customers[i].userId"
+              >
+                {{ customers[i].nationalityId }}
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="recipient-name" class="col-form-label">Araç Bul:</label>
+          <button
+            type="button"
+            class="btn btn-primary form-group"
+            (click)="deneme()"
+          >
+            Araç Bul
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+<!-- 
+<div class="asd" *ngIf="getByUsable">
   <form [formGroup]="getByUsable">
     <h1 class=""><b>Varsa giderin, gel beraber gidelim</b></h1>
     <br />
@@ -75,320 +167,305 @@
       </button>
     </div>
   </form>
-</div>
+</div> -->
 
-<div class="mb-3" *ngIf="dataLoaded == true">
-  <label for="brandFilter" class="form-label">Marka Filtreleme</label>
-  <select id="brandFilter" [(ngModel)]="brandFilter">
-    <option
-      *ngFor="let brand of brands; let i = index"
-      [ngValue]="brands[i].value"
-    >
-      {{ brands[i].name }}
-    </option>
-  </select>
-</div>
-
-<div class="mb-3" *ngIf="dataLoaded == true">
-  <label for="colorFilter" class="form-label">Renk Filtreleme</label>
-  <select id="colorFilter" [(ngModel)]="colorFilter">
-    <option
-      *ngFor="let color of colors; let i = index"
-      [ngValue]="colors[i].value"
-    >
-      {{ colors[i].name }}
-    </option>
-  </select>
-</div>
-
-<div class="mb-3" *ngIf="dataLoaded == true">
-  <label for="gearFilter" class="form-label">Vites Filtreleme</label>
-  <select id="gearFilter" [(ngModel)]="gearFilter">
-    <option
-      *ngFor="let gear of gears; let i = index"
-      [ngValue]="gears[i].value"
-    >
-      {{ gears[i].name }}
-    </option>
-  </select>
-</div>
-
-<div class="mb-3" *ngIf="dataLoaded == true">
-  <label for="fuelFilter" class="form-label">Yakıt Filtreleme</label>
-  <select id="fuelFilter" [(ngModel)]="fuelFilter">
-    <option
-      *ngFor="let fuel of fuels; let i = index"
-      [ngValue]="fuels[i].value"
-    >
-      {{ fuels[i].name }}
-    </option>
-  </select>
-</div>
-
-<div class="mb-3" *ngIf="dataLoaded == true">
-  <label for="classFilter" class="form-label">Sınıf Filtreleme</label>
-  <select id="classFilter" [(ngModel)]="classFilter">
-    <option
-      *ngFor="let class of classes; let i = index"
-      [ngValue]="classes[i].value"
-    >
-      {{ classes[i].name }}
-    </option>
-  </select>
-</div>
-
-<div class="mb-3" *ngIf="dataLoaded == true">
-  <label for="caseTypeFilter" class="form-label">Kasa Tipi Filtreleme</label>
-  <select id="caseTypeFilter" [(ngModel)]="caseTypeFilter">
-    <option
-      *ngFor="let caseType of caseTypes; let i = index"
-      [ngValue]="caseTypes[i].value"
-    >
-      {{ caseTypes[i].name }}
-    </option>
-  </select>
-</div>
-
-<br />
-
-<table class="table table-striped" *ngIf="dataLoaded == true">
-  <thead class="table-dark">
-    <tr>
-      <th scope="col">Marka</th>
-      <th scope="col">Renk</th>
-      <th scope="col">Şube</th>
-      <th scope="col">Vites</th>
-      <th scope="col">Yakıt</th>
-      <th scope="col">Sınıf</th>
-      <th scope="col">Kasa</th>
-      <th scope="col">Plaka</th>
-      <th scope="col">Yıldız</th>
-      <th scope="col">Yıl</th>
-      <th scope="col">Günlük Fiyat</th>
-      <th scope="col">Açıklama</th>
-      <th scope="col">Kullanılabilirlik</th>
-      <th scope="col">Konum</th>
-      <th scope="col">Güncelle</th>
-      <th scope="col">Sil</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr
-      *ngFor="
-        let carDetailDto of carDetailDtos
-          | rentalBrandFilter: brandFilter
-          | rentalColorFilter: colorFilter
-          | rentalGearFilter: gearFilter
-          | rentalFuelFilter: fuelFilter
-          | rentalClassFilter: classFilter
-          | rentalCaseTypeFilter: caseTypeFilter
-      "
-    >
-      <td>{{ carDetailDto.brandName }}</td>
-      <td>{{ carDetailDto.colorName }}</td>
-      <td>
-        <a routerLink="/branch/detail/{{ carDetailDto.branchId }}">{{
-          carDetailDto.branchName
-        }}</a>
-      </td>
-      <td>{{ carDetailDto.gearName }}</td>
-      <td>{{ carDetailDto.fuelName }}</td>
-      <td>{{ carDetailDto.className }}</td>
-      <td>{{ carDetailDto.caseName }}</td>
-      <td>{{ carDetailDto.carPlate }}</td>
-      <td>{{ carDetailDto.carStar }}</td>
-      <td>{{ carDetailDto.modelYear }}</td>
-      <td>{{ carDetailDto.dailyPrice }}</td>
-      <td>{{ carDetailDto.description }}</td>
-      <td>{{ carDetailDto.carUsable }}</td>
-      <td>
-        <a routerLink="/konum/detail/{{ carDetailDto.carLocation }}">{{
-          carDetailDto.carLocation
-        }}</a>
-      </td>
-
-      <td></td>
-      <td></td>
-    </tr>
-  </tbody>
-</table>
-<div
-  class="card mb-3"
-  style="max-width: 750px"
-  *ngFor="
-    let carDetailDto of carDetailDtos
-      | rentalBrandFilter: brandFilter
-      | rentalColorFilter: colorFilter
-      | rentalGearFilter: gearFilter
-      | rentalFuelFilter: fuelFilter
-      | rentalClassFilter: classFilter
-      | rentalCaseTypeFilter: caseTypeFilter
-  "
->
-  <div>
-    <b>{{ carDetailDto.brandName }}</b>
-  </div>
-  <div class="row g-0">
-    <div
-      id="carouselExampleIndicators"
-      class="carousel slide col-md-6"
-      data-bs-ride="carousel"
-    >
-      <div class="carousel-indicators">
-        <button
-          type="button"
-          data-bs-target="#carouselExampleIndicators"
-          data-bs-slide-to="0"
-          class="active"
-          aria-current="true"
-          aria-label="Slide 1"
-        ></button>
-        <button
-          type="button"
-          data-bs-target="#carouselExampleIndicators"
-          data-bs-slide-to="1"
-          aria-label="Slide 2"
-        ></button>
-        <button
-          type="button"
-          data-bs-target="#carouselExampleIndicators"
-          data-bs-slide-to="2"
-          aria-label="Slide 3"
-        ></button>
-        <button
-          type="button"
-          data-bs-target="#carouselExampleIndicators"
-          data-bs-slide-to="3"
-          aria-label="Slide 4"
-        ></button>
-        <button
-          type="button"
-          data-bs-target="#carouselExampleIndicators"
-          data-bs-slide-to="4"
-          aria-label="Slide 5"
-        ></button>
-      </div>
-      <div class="carousel-inner">
-        <div class="carousel-item active">
-          <img src="123" class="d-block w-100" alt="..." />
-        </div>
-        <div class="carousel-item" *ngFor="let carImage of carImages">
-          <img src="{{ carImage }}" class="d-block w-100" alt="..." />
-        </div>
-      </div>
-      <button
-        class="carousel-control-prev"
-        type="button"
-        data-bs-target="#carouselExampleIndicators"
-        data-bs-slide="prev"
+<div *ngIf="dataLoaded">
+  <div class="mb-3" *ngIf="dataLoaded == true">
+    <label for="brandFilter" class="form-label">Marka Filtreleme</label>
+    <select id="brandFilter" [(ngModel)]="brandFilter">
+      <option
+        *ngFor="let brand of brands; let i = index"
+        [ngValue]="brands[i].value"
       >
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-      </button>
-      <button
-        class="carousel-control-next"
-        type="button"
-        data-bs-target="#carouselExampleIndicators"
-        data-bs-slide="next"
-      >
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-      </button>
-    </div>
-    <div class="col-md-6">
-      <div class="card-body">
-        <h5 class="card-title">
-          {{ carDetailDto.description }} ,{{ carDetailDto.modelYear }}
-        </h5>
-        <tr>
-          <td><b>Renk:</b> {{ carDetailDto.colorName }}</td>
-          <td><b>Vites:</b> {{ carDetailDto.gearName }}</td>
-          <td><b>Yakıt:</b> {{ carDetailDto.fuelName }}</td>
-        </tr>
-        <tr>
-          <td><b>Sınıf:</b> {{ carDetailDto.className }}</td>
-          <td><b>Kasa:</b> {{ carDetailDto.caseName }}</td>
-          <td><b>Yıldız:</b> {{ carDetailDto.carStar }}</td>
-        </tr>
-
-        <p *ngIf="fiyatHesapla(carDetailDto.dailyPrice) > 0">
-          Fiyat: {{ fiyatHesapla(carDetailDto.dailyPrice) }}
-          <button class="btn-danger" data-bs-toggle="modal"
-          data-bs-target="#add"
-          data-bs-whatever="@mdo" >
-            Kirala ({{ gunHesapla() }} Gün)
-          </button>
-          <!-- (click)="rentControl(carDetailDto.carId)" ====== Kirala butonun içindeki kod -->
-        </p>
-      </div>
-    </div>
+        {{ brands[i].name }}
+      </option>
+    </select>
   </div>
-</div>
 
-<div
-  class="modal fade"
-  id="add"
-  tabindex="-1"
-  aria-labelledby="addLabel"
-  aria-hidden="true"
->
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="addLabel">Ödeme Bilgileri</h5>
+  <div class="mb-3" *ngIf="dataLoaded == true">
+    <label for="colorFilter" class="form-label">Renk Filtreleme</label>
+    <select id="colorFilter" [(ngModel)]="colorFilter">
+      <option
+        *ngFor="let color of colors; let i = index"
+        [ngValue]="colors[i].value"
+      >
+        {{ colors[i].name }}
+      </option>
+    </select>
+  </div>
+
+  <div class="mb-3" *ngIf="dataLoaded == true">
+    <label for="gearFilter" class="form-label">Vites Filtreleme</label>
+    <select id="gearFilter" [(ngModel)]="gearFilter">
+      <option
+        *ngFor="let gear of gears; let i = index"
+        [ngValue]="gears[i].value"
+      >
+        {{ gears[i].name }}
+      </option>
+    </select>
+  </div>
+
+  <div class="mb-3" *ngIf="dataLoaded == true">
+    <label for="fuelFilter" class="form-label">Yakıt Filtreleme</label>
+    <select id="fuelFilter" [(ngModel)]="fuelFilter">
+      <option
+        *ngFor="let fuel of fuels; let i = index"
+        [ngValue]="fuels[i].value"
+      >
+        {{ fuels[i].name }}
+      </option>
+    </select>
+  </div>
+
+  <div class="mb-3" *ngIf="dataLoaded == true">
+    <label for="classFilter" class="form-label">Sınıf Filtreleme</label>
+    <select id="classFilter" [(ngModel)]="classFilter">
+      <option
+        *ngFor="let class of classes; let i = index"
+        [ngValue]="classes[i].value"
+      >
+        {{ classes[i].name }}
+      </option>
+    </select>
+  </div>
+
+  <div class="mb-3" *ngIf="dataLoaded == true">
+    <label for="caseTypeFilter" class="form-label">Kasa Tipi Filtreleme</label>
+    <select id="caseTypeFilter" [(ngModel)]="caseTypeFilter">
+      <option
+        *ngFor="let caseType of caseTypes; let i = index"
+        [ngValue]="caseTypes[i].value"
+      >
+        {{ caseTypes[i].name }}
+      </option>
+    </select>
+  </div>
+
+  <br />
+
+  <table class="table table-striped" *ngIf="dataLoaded == true">
+    <thead class="table-dark">
+      <tr>
+        <th scope="col">Marka</th>
+        <th scope="col">Renk</th>
+        <th scope="col">Şube</th>
+        <th scope="col">Vites</th>
+        <th scope="col">Yakıt</th>
+        <th scope="col">Sınıf</th>
+        <th scope="col">Kasa</th>
+        <th scope="col">Plaka</th>
+        <th scope="col">Yıldız</th>
+        <th scope="col">Yıl</th>
+        <th scope="col">Günlük Fiyat</th>
+        <th scope="col">Açıklama</th>
+        <th scope="col">Kullanılabilirlik</th>
+        <th scope="col">Konum</th>
+        <th scope="col">Güncelle</th>
+        <th scope="col">Sil</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        *ngFor="
+          let carDetailDto of carDetailDtos
+            | rentalBrandFilter: brandFilter
+            | rentalColorFilter: colorFilter
+            | rentalGearFilter: gearFilter
+            | rentalFuelFilter: fuelFilter
+            | rentalClassFilter: classFilter
+            | rentalCaseTypeFilter: caseTypeFilter
+        "
+      >
+        <td>{{ carDetailDto.brandName }}</td>
+        <td>{{ carDetailDto.colorName }}</td>
+        <td>
+          <a routerLink="/branch/detail/{{ carDetailDto.branchId }}">{{
+            carDetailDto.branchName
+          }}</a>
+        </td>
+        <td>{{ carDetailDto.gearName }}</td>
+        <td>{{ carDetailDto.fuelName }}</td>
+        <td>{{ carDetailDto.className }}</td>
+        <td>{{ carDetailDto.caseName }}</td>
+        <td>{{ carDetailDto.carPlate }}</td>
+        <td>{{ carDetailDto.carStar }}</td>
+        <td>{{ carDetailDto.modelYear }}</td>
+        <td>{{ carDetailDto.dailyPrice }}</td>
+        <td>{{ carDetailDto.description }}</td>
+        <td>{{ carDetailDto.carUsable }}</td>
+        <td>
+          <a routerLink="/konum/detail/{{ carDetailDto.carLocation }}">{{
+            carDetailDto.carLocation
+          }}</a>
+        </td>
+
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <div
+    class="card mb-3"
+    style="max-width: 750px"
+    *ngFor="
+      let carDetailDto of carDetailDtos
+        | rentalBrandFilter: brandFilter
+        | rentalColorFilter: colorFilter
+        | rentalGearFilter: gearFilter
+        | rentalFuelFilter: fuelFilter
+        | rentalClassFilter: classFilter
+        | rentalCaseTypeFilter: caseTypeFilter
+    "
+  >
+    <div>
+      <b>{{ carDetailDto.brandName }}</b>
+    </div>
+    <div class="row g-0">
+      <div
+        id="carouselExampleIndicators"
+        class="carousel slide col-md-6"
+        data-bs-ride="carousel"
+      >
+        <div class="carousel-indicators">
+          <button
+            type="button"
+            data-bs-target="#carouselExampleIndicators"
+            data-bs-slide-to="0"
+            class="active"
+            aria-current="true"
+            aria-label="Slide 1"
+          ></button>
+          <button
+            type="button"
+            data-bs-target="#carouselExampleIndicators"
+            data-bs-slide-to="1"
+            aria-label="Slide 2"
+          ></button>
+          <button
+            type="button"
+            data-bs-target="#carouselExampleIndicators"
+            data-bs-slide-to="2"
+            aria-label="Slide 3"
+          ></button>
+          <button
+            type="button"
+            data-bs-target="#carouselExampleIndicators"
+            data-bs-slide-to="3"
+            aria-label="Slide 4"
+          ></button>
+          <button
+            type="button"
+            data-bs-target="#carouselExampleIndicators"
+            data-bs-slide-to="4"
+            aria-label="Slide 5"
+          ></button>
+        </div>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img src="123" class="d-block w-100" alt="..." />
+          </div>
+          <div class="carousel-item" *ngFor="let carImage of carIm">
+            <img
+              src="{{ carImage.imagePath }}"
+              class="d-block w-100"
+              alt="..."
+            />
+          </div>
+        </div>
         <button
+          class="carousel-control-prev"
           type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
+          data-bs-target="#carouselExampleIndicators"
+          data-bs-slide="prev"
+        >
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button
+          class="carousel-control-next"
+          type="button"
+          data-bs-target="#carouselExampleIndicators"
+          data-bs-slide="next"
+        >
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
       </div>
-      <div class="modal-body">
-        <form >
-          <div class="mb-3">
-            <label for="recipient-name" class="col-form-label">Plaka:</label>
-            <div class="form-group">
-              <select formControlName="carId" id="carId">
-                <option
-                  *ngFor="let car of carIm; let i = index"
-                  [ngValue]="carIm[i].carId"
-                >
-                  {{ carIm[i].imagePath }}
-                </option>
-              </select>
-            </div>
-          </div>
+      <div class="col-md-6">
+        <div class="card-body">
+          <h5 class="card-title">
+            {{ carDetailDto.description }} ,{{ carDetailDto.modelYear }}
+          </h5>
+          <tr>
+            <td><b>Renk:</b> {{ carDetailDto.colorName }}</td>
+            <td><b>Vites:</b> {{ carDetailDto.gearName }}</td>
+            <td><b>Yakıt:</b> {{ carDetailDto.fuelName }}</td>
+          </tr>
+          <tr>
+            <td><b>Sınıf:</b> {{ carDetailDto.className }}</td>
+            <td><b>Kasa:</b> {{ carDetailDto.caseName }}</td>
+            <td><b>Yıldız:</b> {{ carDetailDto.carStar }}</td>
+          </tr>
 
-          <div class="mb-3">
-            <label for="recipient-name" class="col-form-label"
-              >Resim Konumu:</label
-            >
-            <div class="form-group">
-              <input
-                type="text"
-                id="imagePath"
-                formControlName="imagePath"
-                class="form-control"
-                placeholder="Resim Konumu"
-              />
-            </div>
-          </div>
-
-          <div class="modal-footer">
+          <p *ngIf="fiyatHesapla(carDetailDto.dailyPrice) > 0">
+            Fiyat: {{ fiyatHesapla(carDetailDto.dailyPrice) }}
             <button
-              type="button"
-              class="btn btn-secondary"
-              data-bs-dismiss="modal"
+              class="btn-danger"
+              data-bs-toggle="modal"
+              (click)="createPaymentForm(carDetailDto)"
+              data-bs-target="#payment"
+              data-bs-whatever="@mdo"
             >
-              Kapat
+              Kirala ({{ gunHesapla() }} Gün)
             </button>
-            <button type="button" class="btn btn-primary">
-              Kaydet
-            </button>
-          </div>
-        </form>
+            <!-- (click)="rentControl(carDetailDto.carId)" ====== Kirala butonun içindeki kod -->
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div
+    *ngIf="paymentForm"
+    class="modal fade"
+    id="payment"
+    tabindex="-1"
+    aria-labelledby="paymentLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="paymentLabel">Ödeme Bilgileri</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="paymentForm">
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Kapat
+              </button>
+              <button
+                type="button"
+                class="btn btn-primary"
+                (click)="rentControl()"
+              >
+                Kaydet
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   </div>
 </div>
-

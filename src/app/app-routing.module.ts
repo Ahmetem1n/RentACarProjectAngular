@@ -1,5 +1,3 @@
-import { AuthService } from './services/auth.service';
-import { EmployeeGuard } from './guards/employee.guard';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminAddComponent } from './components/AdminComponents/admin-add/admin-add.component';
@@ -38,6 +36,7 @@ import { CustomersComponent } from './components/UserComponents/customers/custom
 import { UserDetailComponent } from './components/UserComponents/user-detail/user-detail.component';
 import { UsersComponent } from './components/UserComponents/users/users.component';
 import { AdminGuard } from './guards/admin.guard';
+import { AuthService } from './services/auth.service';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', component: GetByUsableComponent },
@@ -95,18 +94,20 @@ const routes: Routes = [
   { path: 'rentalDetail/detail', component: RentalDetailDetailComponent },
   { path: 'user/detail/:userId', component: UserDetailComponent },
 ];
+const deneme=[{ path: '', component: UserDetailComponent }]
 
 let authService: AuthService;
+let role="Yönetici"
 @NgModule({
   imports: [
     RouterModule.forRoot(
-      authService.getRole() == 'Yönetici'
+        role == 'Yönetici'
         ? routes
-        : authService.getRole() == 'Çalışan'
+        : role == 'Çalışan'
         ? routes
-        : authService.getRole() == 'Müşteri'
+        : role == 'Müşteri'
         ? routes
-        : routes
+        :deneme
     ),
   ],
   exports: [RouterModule],

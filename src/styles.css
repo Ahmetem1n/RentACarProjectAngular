@@ -7,3 +7,7 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
 }
+.form-group{
+  width: 250px;
+  height: 35px;
+}

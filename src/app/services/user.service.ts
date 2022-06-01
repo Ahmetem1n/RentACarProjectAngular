@@ -25,6 +25,11 @@ export class UserService {
     return this.httpClient.get<ListResponseModel<UserDetailDto>>(newPath);
   }
 
+  getByUserId(userId:number): Observable<SingleResponseModel<UserDetailDto>> {
+    let newPath = this.apiUrl + 'users/getbyuserid?userId='+userId;
+    return this.httpClient.get<SingleResponseModel<UserDetailDto>>(newPath);
+  }
+
   getByCustomers(): Observable<ListResponseModel<UserDetailDto>> {
     let newPath = this.apiUrl + 'users/getbycustomers';
     return this.httpClient.get<ListResponseModel<UserDetailDto>>(newPath);

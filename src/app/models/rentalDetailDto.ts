@@ -2,10 +2,11 @@ export interface RentalDetailDto {
   rentalId: number;
   userId: number;
   carId: number;
+  branchId: number;
   nationalityId: string;
   carPlate: string;
+  branchName: string;
   rentDate: Date;
   returnDate: Date;
-  firstMileage: number;
-  lastMileage: number;
+  rentalPrice: number;
 }

@@ -1,3 +1,4 @@
+import { Byte } from '@angular/compiler/src/util';
 export interface UserDetailDto {
   userId: number;
   firstName: string;
@@ -8,4 +9,5 @@ export interface UserDetailDto {
   photo: string;
   status: string;
   claimName: string;
+  claimId:number
 }

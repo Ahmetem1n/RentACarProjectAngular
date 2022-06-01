@@ -35,12 +35,12 @@
       <td>{{ userDetailDto.photo }}</td>
       <td>{{ userDetailDto.status }}</td>
       <td>{{ userDetailDto.claimName }}</td>
-      
+
       <td>
         <button
           *ngIf="userDetailDto.claimName == 'Müşteri'"
           class="btn btn-primary"
-          routerLink="/customer/detail/{{userDetailDto.userId}}"
+          routerLink="/customer/detail/{{ userDetailDto.userId }}"
         >
           Diğer Detaylar
         </button>
@@ -148,8 +148,12 @@
             <label for="recipient-name" class="col-form-label"
               >Doğum Yılı:</label
             >
-            <div class="form-group">
-              <select formControlName="birthYear" id="birthYear">
+            <div>
+              <select
+                formControlName="birthYear"
+                id="birthYear"
+                class="form-group"
+              >
                 <option
                   *ngFor="let birthYear of birthYears; let i = index"
                   [ngValue]="birthYears[i]"
@@ -187,13 +191,27 @@
           </div>
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label">Durum:</label>
-            <div class="form-group">
-              <select formControlName="status" id="status">
+            <div>
+              <select formControlName="status" id="status" class="form-group">
                 <option
                   *ngFor="let status of statuses; let i = index"
                   [ngValue]="statuses[i]"
                 >
                   {{ statuses[i] }}
+                </option>
+              </select>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Yetki:</label>
+            <div>
+              <select formControlName="claimId" id="claimId" class="form-group">
+                <option
+                  *ngFor="let claim of claims; let i = index"
+                  [ngValue]="claims[i].claimId"
+                >
+                  {{ claims[i].claimName }}
                 </option>
               </select>
             </div>
@@ -278,8 +296,12 @@
             <label for="recipient-name" class="col-form-label"
               >Doğum Yılı:</label
             >
-            <div class="form-group">
-              <select formControlName="birthYear" id="birthYear">
+            <div>
+              <select
+                formControlName="birthYear"
+                id="birthYear"
+                class="form-group"
+              >
                 <option
                   *ngFor="let birthYear of birthYears; let i = index"
                   [ngValue]="birthYears[i]"
@@ -317,13 +339,27 @@
           </div>
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label">Durum:</label>
-            <div class="form-group">
-              <select formControlName="status" id="status">
+            <div>
+              <select formControlName="status" id="status" class="form-group">
                 <option
                   *ngFor="let status of statuses; let i = index"
                   [ngValue]="statuses[i]"
                 >
                   {{ statuses[i] }}
+                </option>
+              </select>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Yetki:</label>
+            <div>
+              <select formControlName="claimId" id="claimId" class="form-group">
+                <option
+                  *ngFor="let claim of claims; let i = index"
+                  [ngValue]="claims[i].claimId"
+                >
+                  {{ claims[i].claimName }}
                 </option>
               </select>
             </div>
@@ -408,8 +444,12 @@
             <label for="recipient-name" class="col-form-label"
               >Doğum Yılı:</label
             >
-            <div class="form-group">
-              <select formControlName="birthYear" id="birthYear">
+            <div>
+              <select
+                formControlName="birthYear"
+                id="birthYear"
+                class="form-group"
+              >
                 <option
                   disabled
                   *ngFor="let birthYear of birthYears; let i = index"
@@ -448,14 +488,29 @@
           </div>
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label">Durum:</label>
-            <div class="form-group">
-              <select formControlName="status" id="status">
+            <div>
+              <select formControlName="status" id="status" class="form-group">
                 <option
                   disabled
                   *ngFor="let status of statuses; let i = index"
                   [ngValue]="statuses[i]"
                 >
                   {{ statuses[i] }}
+                </option>
+              </select>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Yetki:</label>
+            <div>
+              <select formControlName="claimId" id="claimId" class="form-group">
+                <option
+                disabled
+                  *ngFor="let claim of claims; let i = index"
+                  [ngValue]="claims[i].claimId"
+                >
+                  {{ claims[i].claimName }}
                 </option>
               </select>
             </div>
@@ -476,154 +531,6 @@
               (click)="delete()"
             >
               Sil
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Identity Information Modal -->
-<div
-  *ngIf="currentIdentityInformation"
-  class="modal fade"
-  id="identityInformation"
-  tabindex="-1"
-  aria-labelledby="identityInformationLabel"
-  aria-hidden="true"
->
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="updateLabel">Kimlik Bilgisi Güncelleme</h5>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
-      </div>
-      <div class="modal-body">
-        <form [formGroup]="identityInformationForm">
-          <div class="mb-3">
-            <label for="recipient-name" class="col-form-label"
-              >Seri Numarası:</label
-            >
-            <div class="form-group">
-              <input
-                type="text"
-                id="serialNumber"
-                formControlName="serialNumber"
-                class="form-control"
-                placeholder="Seri Numarası"
-              />
-            </div>
-          </div>
-          <div class="mb-3">
-            <label for="recipient-name" class="col-form-label">Baba Adı:</label>
-            <div class="form-group">
-              <input
-                type="text"
-                id="fatherName"
-                formControlName="fatherName"
-                class="form-control"
-                placeholder="Baba Adı"
-              />
-            </div>
-          </div>
-          <div class="mb-3">
-            <label for="recipient-name" class="col-form-label">Anne Adı:</label>
-            <div class="form-group">
-              <input
-                type="text"
-                id="motherName"
-                formControlName="motherName"
-                class="form-control"
-                placeholder="Anne Adı"
-              />
-            </div>
-          </div>
-          <div class="mb-3">
-            <label for="recipient-name" class="col-form-label"
-              >Doğum Yeri:</label
-            >
-            <div class="form-group">
-              <input
-                type="text"
-                id="birthPlace"
-                formControlName="birthPlace"
-                class="form-control"
-                placeholder="Doğum Yeri"
-              />
-            </div>
-          </div>
-          <div class="mb-3">
-            <label for="recipient-name" class="col-form-label"
-              >Doğum Yılı:</label
-            >
-            <div class="form-group">
-              <select formControlName="birthYear" id="birthYear">
-                <option
-                  *ngFor="let birthYear of birthYears; let i = index"
-                  [ngValue]="birthYears[i]"
-                >
-                  {{ birthYears[i] }}
-                </option>
-              </select>
-            </div>
-          </div>
-          <div class="mb-3">
-            <label for="recipient-name" class="col-form-label"
-              >Medeni Hali:</label
-            >
-            <div class="form-group">
-              <input
-                type="text"
-                id="maritalStatus"
-                formControlName="maritalStatus"
-                class="form-control"
-                placeholder="Medeni Hali"
-              />
-            </div>
-          </div>
-          <div class="mb-3">
-            <label for="recipient-name" class="col-form-label">Cinsiyet:</label>
-            <div class="form-group">
-              <input
-                type="text"
-                id="gender"
-                formControlName="gender"
-                class="form-control"
-                placeholder="Cinsiyet"
-              />
-            </div>
-          </div>
-          <div class="mb-3">
-            <label for="recipient-name" class="col-form-label"
-              >Son Geçerlilik Tarihi:</label
-            >
-            <div class="form-group">
-              <input
-                type="date"
-                id="validUntil"
-                formControlName="validUntil"
-                class="form-control"
-                placeholder="Son Geçerlilik Tarihi"
-              />
-            </div>
-          </div>
-
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-bs-dismiss="modal"
-            >
-              Kapat
-            </button>
-            <button type="button" class="btn btn-primary" (click)="deneme()">
-              Güncelle
             </button>
           </div>
         </form>
