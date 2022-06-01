@@ -167,6 +167,7 @@ export class CustomerDetailComponent implements OnInit {
           .addIdentityInformation(identityInformationModel)
           .subscribe();
       }
+      window.location.reload()
     } else {
       console.log('Form tamamlanmadı');
     }
@@ -177,6 +178,7 @@ export class CustomerDetailComponent implements OnInit {
       this.identityInformationService
         .deleteIdentityInformation(this.identityInformation)
         .subscribe();
+        window.location.reload()
     } else {
       console.log('Silinecek Bilgi Yok');
     }
@@ -241,6 +243,7 @@ export class CustomerDetailComponent implements OnInit {
           .addDrivingInformation(drivingInformationModel)
           .subscribe();
       }
+      window.location.reload()
     } else {
       console.log('Form tamamlanmadı');
     }
@@ -251,6 +254,7 @@ export class CustomerDetailComponent implements OnInit {
       this.drivingInformationService
         .deleteDrivingInformation(this.drivingInformation)
         .subscribe();
+        window.location.reload()
     } else {
       console.log('Silinecek Bilgi Yok');
     }

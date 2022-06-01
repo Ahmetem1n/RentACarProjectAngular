@@ -51,15 +51,6 @@
           <a class="nav-link active" aria-current="page" routerLink="users" *ngIf="getRole()=='Çalışan'">Müşteriler</a>
         </li>
       </ul>
-      <form class="d-flex">
-        <input
-          class="form-control me-2"
-          type="search"
-          placeholder="Search"
-          aria-label="Search"
-        />
-        <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
       <button class="btn-primary" routerLink="login" *ngIf="!getRole()">Giriş Yap</button>
       <button class="btn-primary" routerLink="register" *ngIf="!getRole()">Kayıt Ol</button>
       <button class="btn-primary" routerLink="" *ngIf="getRole()">Hesabım</button>

@@ -1,70 +1,78 @@
-<div class="card border-info mb-3" style="max-width: 18rem" *ngIf="customer">
-  <div class="card-header"><b>Kullanıcı Bilgisi</b></div>
-  <div class="card-body">
-    <td>
-      <tr>
-        <b>Adı:</b>
-      </tr>
-      <tr>
-        <b>Soyadı:</b>
-      </tr>
-      <tr>
-        <b>TC:</b>
-      </tr>
-      <tr>
-        <b>Mail Adresi:</b>
-      </tr>
-      <tr>
-        <b>Fotoğraf:</b>
-      </tr>
-      <tr>
-        <b>Durum:</b>
-      </tr>
-      <tr>
-        <b>Doğum Yılı:</b>
-      </tr>
-    </td>
-    <td></td>
-    <td class="padding">
-      <tr>
-        {{
-          customer.firstName
-        }}
-      </tr>
-      <tr>
-        {{
-          customer.lastName
-        }}
-      </tr>
-      <tr>
-        {{
-          customer.nationalityId
-        }}
-      </tr>
-      <tr>
-        {{
-          customer.email
-        }}
-      </tr>
-      <tr>
-        {{
-          customer.photo
-        }}
-      </tr>
-      <tr>
-        {{
-          customer.status
-        }}
-      </tr>
-      <tr>
-        {{
-          customer.birthYear
-        }}
-      </tr>
-    </td>
-  </div>
-</div>
 <div class="anaDiv">
+  <!-- Bilgiler -->
+  <div class="çerçeve">
+    <div
+      class="card border-info mb-3"
+      style="max-width: 18rem"
+      *ngIf="customer"
+    >
+      <div class="card-header"><b>Kullanıcı Bilgisi</b></div>
+      <div class="card-body">
+        <td>
+          <tr>
+            <b>Adı:</b>
+          </tr>
+          <tr>
+            <b>Soyadı:</b>
+          </tr>
+          <tr>
+            <b>TC:</b>
+          </tr>
+          <tr>
+            <b>Mail Adresi:</b>
+          </tr>
+          <tr>
+            <b>Fotoğraf:</b>
+          </tr>
+          <tr>
+            <b>Durum:</b>
+          </tr>
+          <tr>
+            <b>Doğum Yılı:</b>
+          </tr>
+        </td>
+        <td></td>
+        <td class="padding">
+          <tr>
+            {{
+              customer.firstName
+            }}
+          </tr>
+          <tr>
+            {{
+              customer.lastName
+            }}
+          </tr>
+          <tr>
+            {{
+              customer.nationalityId
+            }}
+          </tr>
+          <tr>
+            {{
+              customer.email
+            }}
+          </tr>
+          <tr>
+            {{
+              customer.photo
+            }}
+          </tr>
+          <tr>
+            {{
+              customer.status
+            }}
+          </tr>
+          <tr>
+            {{
+              customer.birthYear
+            }}
+          </tr>
+        </td>
+      </div>
+    </div>
+  </div>
+  
   <!-- Identity Information -->
   <div *ngIf="customer">
     <form [formGroup]="identityInformationForm">
