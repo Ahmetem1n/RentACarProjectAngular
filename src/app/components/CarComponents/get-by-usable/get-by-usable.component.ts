@@ -1,3 +1,4 @@
+import { ToastrService } from 'ngx-toastr';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Branch } from 'src/app/models/branch';
@@ -78,6 +79,7 @@ export class GetByUsableComponent implements OnInit {
     private classService: ClassService,
     private caseTypeService: CaseTypeService,
     private rentalDetailService: RentalDetailService,
+    private toastrService:ToastrService,
     private formBuilder: FormBuilder
   ) {}
 
@@ -92,7 +94,6 @@ export class GetByUsableComponent implements OnInit {
     this.getFuels();
     this.getClasses();
     this.getCaseTypes();
-    console.log(this.maxRentDate);
   }
 
   createGetByUsableForm() {
@@ -243,11 +244,11 @@ export class GetByUsableComponent implements OnInit {
           this.dataLoaded = true;
         } else {
           this.dataLoaded = false;
-          console.log('Seçilen özelliklere uygun araç bulunamadı.');
+          this.toastrService.info("Seçilen özelliklere uygun araç bulunamadı.", 'Hata');
         }
       });
     } else {
-      console.log('Form Tamamlanmadı');
+      this.toastrService.error("Form Tamamlanmadı.", 'Hata');
     }
   }
 
@@ -268,8 +269,8 @@ export class GetByUsableComponent implements OnInit {
     };
     if (!localStorage.getItem('token')) {
       alert(
-        'Araçların Kiralanabilmesi İçin Müşteri Girişi Yapılması Gerekmektedir.' +
-          '\nŞu Anda Müşteri Girişi Yapılmamış.' +
+        'Araçların Kiralanabilmesi Giriş Yapılması Gerekmektedir.' +
+          '\nŞu Anda Giriş Yapılmamış.' +
           '\nGiriş Sayfasına Yönlendirileceksiniz. Onaylıyor Musunuz?'
       );
     } else if (this.getRole() == 'Müşteri') {
@@ -291,12 +292,35 @@ export class GetByUsableComponent implements OnInit {
       this.rentalDetailService
         .addRentalDetail(rentalAddModel)
         .subscribe((response) => {
-          console.log(response.message, 'Kiralama Yapıldı');
+          this.toastrService.success(response.message, 'Başarılı');
+          setTimeout(this.pageRefresh,2000);
+        },
+        (responseError) => {
+          if (
+            responseError.error.ValidationErrors &&
+            responseError.error.ValidationErrors.length > 0
+          ) {
+            for (
+              let i = 0;
+              i < responseError.error.ValidationErrors.length;
+              i++
+            ) {
+              this.toastrService.error(
+                responseError.error.ValidationErrors[i].ErrorMessage,
+                'Doğrulama Hatası'
+              );
+            }
+          } else {
+            this.toastrService.error(responseError.error.message, 'Hata');
+          }
         });
     }else{
-      console.log("Kullanıcı Bilgisi Seçilmedi")
-    }
-    console.log(rentalAddModel);
+      this.toastrService.error("Kullanıcı Bilgisi Seçilmedi.", 'Hata');
+    } 
+  }
+
+  pageRefresh(){
+    window.location.reload()
   }
 
   carImages = [
@@ -310,7 +334,6 @@ export class GetByUsableComponent implements OnInit {
     this.carImageService.getByCarId(carId).subscribe((response) => {
       this.carIm = response.data;
     });
-    console.log('asdf');
     return this.carImages;
   }
 }

@@ -7,7 +7,6 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class DrivingInformationsFilterPipe implements PipeTransform {
   transform(value: DrivingInformation[], drivingInformationFilter: string): DrivingInformation[] {
     drivingInformationFilter = drivingInformationFilter ? drivingInformationFilter.toLocaleLowerCase() : '';
-    console.log(drivingInformationFilter);
     return drivingInformationFilter
       ? value.filter(
           (d: DrivingInformation) =>

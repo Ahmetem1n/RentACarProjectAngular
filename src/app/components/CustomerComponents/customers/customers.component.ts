@@ -45,7 +45,6 @@ export class CustomersComponent implements OnInit {
   }
 
   createCustomerDetail(customer: Customer) {
-    console.log(customer);
     this.customerService
       .detailCustomer(customer.customerId)
       .subscribe((response) => {
@@ -78,8 +77,8 @@ export class CustomersComponent implements OnInit {
       let customerModel = Object.assign({}, this.customerAddForm.value);
       this.customerService.addCustomer(customerModel).subscribe(
         (response) => {
-          this.toastrService.success(response.message, 'Success');
-          window.location.reload();
+          this.toastrService.success(response.message, 'Başarılı');
+          setTimeout(this.pageRefresh,2000);
         },
         (responseError) => {
           if (
@@ -93,16 +92,16 @@ export class CustomersComponent implements OnInit {
             ) {
               this.toastrService.error(
                 responseError.error.ValidationErrors[i].ErrorMessage,
-                'Validation Error'
+                'Doğrulama Hatası'
               );
             }
           } else {
-            this.toastrService.error(responseError.error.message, 'Error');
+            this.toastrService.error(responseError.error.message, 'Hata');
           }
         }
       );
     } else {
-      this.toastrService.error('Form not completed', 'Warning');
+      this.toastrService.error('Form Tamamlanmadı','Hata');
     }
   }
 
@@ -114,8 +113,8 @@ export class CustomersComponent implements OnInit {
       );
       this.customerService.deleteCustomer(customerModel).subscribe(
         (response) => {
-          this.toastrService.success(response.message, 'Success');
-          window.location.reload();
+          this.toastrService.success(response.message, 'Başarılı');
+          setTimeout(this.pageRefresh,2000);
         },
         (responseError) => {
           if (
@@ -129,16 +128,16 @@ export class CustomersComponent implements OnInit {
             ) {
               this.toastrService.error(
                 responseError.error.ValidationErrors[i].ErrorMessage,
-                'Validation Error'
+                'Doğrulama Hatası'
               );
             }
           } else {
-            this.toastrService.error(responseError.error.message, 'Error');
+            this.toastrService.error(responseError.error.message, 'Hata');
           }
         }
       );
     } else {
-      this.toastrService.error('Form not completed', 'Warning');
+      this.toastrService.error('Form Tamamlanmadı','Hata');
     }
   }
 
@@ -150,8 +149,8 @@ export class CustomersComponent implements OnInit {
       );
       this.customerService.updateCustomer(customerModel).subscribe(
         (response) => {
-          this.toastrService.success(response.message, 'Success');
-          window.location.reload();
+          this.toastrService.success(response.message, 'Başarılı');
+          setTimeout(this.pageRefresh,2000);
         },
         (responseError) => {
           if (
@@ -165,16 +164,20 @@ export class CustomersComponent implements OnInit {
             ) {
               this.toastrService.error(
                 responseError.error.ValidationErrors[i].ErrorMessage,
-                'Validation Error'
+                'Doğrulama Hatası'
               );
             }
           } else {
-            this.toastrService.error(responseError.error.message, 'Error');
+            this.toastrService.error(responseError.error.message, 'Hata');
           }
         }
       );
     } else {
-      this.toastrService.error('Form not completed', 'Warning');
+      this.toastrService.error('Form Tamamlanmadı','Hata');
     }
+  }
+
+  pageRefresh(){
+    window.location.reload()
   }
 }

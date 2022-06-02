@@ -27,7 +27,7 @@ export class AdminGuard implements CanActivate {
       return true;
     } else {
       this.router.navigate(['login']);
-      this.toastrService.info('you must login to the system');
+      this.toastrService.info('Sisteme giriş yapmalısınız');
       return false;
     }
   }

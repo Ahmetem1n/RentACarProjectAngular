@@ -1,3 +1,4 @@
+import { AuthService } from 'src/app/services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -28,8 +29,8 @@ export class UsersComponent implements OnInit {
     email: '',
     photo: '',
     status: '',
-    claimName:"",
-    claimId:0,
+    claimName: '',
+    claimId: 0,
   };
 
   statuses = ['Aktif', 'Pasif'];
@@ -46,9 +47,10 @@ export class UsersComponent implements OnInit {
   dataLoaded = false;
   constructor(
     private formBuilder: FormBuilder,
+    private authService: AuthService,
     private userService: UserService,
-    private operationClaimService:OperationClaimService,
-    private userOperationClaimService:UserOperationClaimService,
+    private operationClaimService: OperationClaimService,
+    private userOperationClaimService: UserOperationClaimService,
     private toastrService: ToastrService,
     private activatedRoute: ActivatedRoute
   ) {}
@@ -62,13 +64,23 @@ export class UsersComponent implements OnInit {
   }
 
   getUserDetailDtos() {
-    this.userService.getUserDetailDtos().subscribe((response) => {
-      this.userDetailDtos = response.data;
-      this.dataLoaded = true;
-    });
+    if (this.getRole() == 'Yönetici') {
+      this.userService.getUserDetailDtos().subscribe((response) => {
+        this.userDetailDtos = response.data;
+        this.dataLoaded = true;
+      });
+    } else if (this.getRole() == 'Çalışan') {
+      this.userService.getByCustomers().subscribe((response) => {
+        this.userDetailDtos = response.data;
+        this.dataLoaded = true;
+      });
+    }
   }
 
-  claims:OperationClaim[]=[]
+  getRole() {
+    return this.authService.getRole();
+  }
+  claims: OperationClaim[] = [];
   getClaims() {
     this.operationClaimService.getOperationClaims().subscribe((response) => {
       this.claims = response.data;
@@ -105,47 +117,53 @@ export class UsersComponent implements OnInit {
       email: ['', Validators.required],
       photo: ['', Validators.required],
       status: ['', Validators.required],
-      claimId:['', Validators.required],
+      claimId: ['', Validators.required],
     });
   }
 
   add() {
     if (this.userAddForm.valid) {
       let userModel = Object.assign({}, this.userAddForm.value);
-      let userOperationClaim:UserOperationClaim
-      this.userOperationClaimService.getUserOperationClaims().subscribe(response=>{
-        userOperationClaim=response.data.find(u=>u.userId==userModel.userId);
-      });
-      console.log(userOperationClaim)
-      userOperationClaim.claimId=userModel.claimId
-      this.userOperationClaimService.updateUserOperationClaim(userOperationClaim).subscribe();
-      this.userService.addUser(userModel).subscribe(
-        (response) => {
-          this.toastrService.success(response.message, 'Success');
-          window.location.reload();
-        },
-        (responseError) => {
-          if (
-            responseError.error.ValidationErrors &&
-            responseError.error.ValidationErrors.length > 0
-          ) {
-            for (
-              let i = 0;
-              i < responseError.error.ValidationErrors.length;
-              i++
-            ) {
-              this.toastrService.error(
-                responseError.error.ValidationErrors[i].ErrorMessage,
-                'Validation Error'
-              );
+      let userOperationClaim: UserOperationClaim;
+      this.userOperationClaimService
+        .getUserOperationClaims()
+        .subscribe((response) => {
+          userOperationClaim = response.data.find(
+            (u) => u.userId == userModel.userId
+          );
+        });
+      userOperationClaim.claimId = userModel.claimId;
+      this.userOperationClaimService
+        .updateUserOperationClaim(userOperationClaim)
+        .subscribe((response) => {
+          this.userService.addUser(userModel).subscribe(
+            (response) => {
+              this.toastrService.success(response.message, 'Başarılı');
+              setTimeout(this.pageRefresh, 2000);
+            },
+            (responseError) => {
+              if (
+                responseError.error.ValidationErrors &&
+                responseError.error.ValidationErrors.length > 0
+              ) {
+                for (
+                  let i = 0;
+                  i < responseError.error.ValidationErrors.length;
+                  i++
+                ) {
+                  this.toastrService.error(
+                    responseError.error.ValidationErrors[i].ErrorMessage,
+                    'Doğrulama Hatası'
+                  );
+                }
+              } else {
+                this.toastrService.error(responseError.error.message, 'Hata');
+              }
             }
-          } else {
-            this.toastrService.error(responseError.error.message, 'Error');
-          }
-        }
-      );
+          );
+        });
     } else {
-      this.toastrService.error('Form not completed', 'Warning');
+      this.toastrService.error('Form Tamamlanmadı', 'Hata');
     }
   }
 
@@ -154,8 +172,8 @@ export class UsersComponent implements OnInit {
       let userModel = Object.assign({}, this.userUpdateAndDeleteForm.value);
       this.userService.deleteUser(userModel).subscribe(
         (response) => {
-          this.toastrService.success(response.message, 'Success');
-          window.location.reload();
+          this.toastrService.success(response.message, 'Başarılı');
+          setTimeout(this.pageRefresh, 2000);
         },
         (responseError) => {
           if (
@@ -169,56 +187,69 @@ export class UsersComponent implements OnInit {
             ) {
               this.toastrService.error(
                 responseError.error.ValidationErrors[i].ErrorMessage,
-                'Validation Error'
+                'Doğrulama Hatası'
               );
             }
           } else {
-            this.toastrService.error(responseError.error.message, 'Error');
+            this.toastrService.error(responseError.error.message, 'Hata');
           }
         }
       );
     } else {
-      this.toastrService.error('Form not completed', 'Warning');
+      this.toastrService.error('Form Tamamlanmadı', 'Hata');
     }
   }
 
-  userOperationClaim:UserOperationClaim
+  userOperationClaim: UserOperationClaim;
   update() {
     if (this.userUpdateAndDeleteForm.valid) {
       let userModel = Object.assign({}, this.userUpdateAndDeleteForm.value);
-      this.userOperationClaimService.getUserOperationClaims().subscribe(response=>{
-        this.userOperationClaim=response.data.find(u=>u.userId==userModel.userId);
-        this.userOperationClaim.claimId=userModel.claimId
-        this.userOperationClaimService.updateUserOperationClaim(this.userOperationClaim).subscribe();
-      });
-        
-      this.userService.updateUser(userModel).subscribe(
-        (response) => {
-          this.toastrService.success(response.message, 'Success');
-          window.location.reload();
-        },
-        (responseError) => {
-          if (
-            responseError.error.ValidationErrors &&
-            responseError.error.ValidationErrors.length > 0
-          ) {
-            for (
-              let i = 0;
-              i < responseError.error.ValidationErrors.length;
-              i++
-            ) {
-              this.toastrService.error(
-                responseError.error.ValidationErrors[i].ErrorMessage,
-                'Validation Error'
+      this.userOperationClaimService
+        .getUserOperationClaims()
+        .subscribe((response) => {
+          this.userOperationClaim = response.data.find(
+            (u) => u.userId == userModel.userId
+          );
+          this.userOperationClaim.claimId = userModel.claimId;
+          this.userOperationClaimService
+            .updateUserOperationClaim(this.userOperationClaim)
+            .subscribe((response) => {
+              this.userService.updateUser(userModel).subscribe(
+                (response) => {
+                  this.toastrService.success(response.message, 'Başarılı');
+                  setTimeout(this.pageRefresh, 2000);
+                },
+                (responseError) => {
+                  if (
+                    responseError.error.ValidationErrors &&
+                    responseError.error.ValidationErrors.length > 0
+                  ) {
+                    for (
+                      let i = 0;
+                      i < responseError.error.ValidationErrors.length;
+                      i++
+                    ) {
+                      this.toastrService.error(
+                        responseError.error.ValidationErrors[i].ErrorMessage,
+                        'Doğrulama Hatası'
+                      );
+                    }
+                  } else {
+                    this.toastrService.error(
+                      responseError.error.message,
+                      'Hata'
+                    );
+                  }
+                }
               );
-            }
-          } else {
-            this.toastrService.error(responseError.error.message, 'Error');
-          }
-        }
-      );
+            });
+        });
     } else {
-      this.toastrService.error('Form not completed', 'Warning');
+      this.toastrService.error('Form Tamamlanmadı', 'Hata');
     }
+  }
+
+  pageRefresh() {
+    window.location.reload();
   }
 }

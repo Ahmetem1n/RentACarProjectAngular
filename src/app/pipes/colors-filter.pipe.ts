@@ -7,7 +7,6 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class ColorsFilterPipe implements PipeTransform {
   transform(value: Color[], colorFilter: string): Color[] {
     colorFilter = colorFilter ? colorFilter.toLocaleLowerCase() : '';
-    console.log(colorFilter);
     return colorFilter
       ? value.filter(
           (c: Color) =>

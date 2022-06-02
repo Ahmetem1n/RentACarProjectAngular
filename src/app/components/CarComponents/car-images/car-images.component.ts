@@ -1,3 +1,4 @@
+import { ToastrService } from 'ngx-toastr';
 import { CarService } from './../../../services/car.service';
 import { CarDetailDto } from './../../../models/carDetailDto';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -16,7 +17,8 @@ export class CarImagesComponent implements OnInit {
     private carImageService: CarImageService,
     private carService: CarService,
     private formBuilder: FormBuilder,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private toastrService: ToastrService,
   ) {}
 
   ngOnInit(): void {
@@ -33,7 +35,6 @@ export class CarImagesComponent implements OnInit {
           .subscribe((response) => {
             this.carImages = response.data;
             this.carImages.length = 4;
-            console.log(this.carImages);
             this.createImageForm();
           });
       }
@@ -44,7 +45,6 @@ export class CarImagesComponent implements OnInit {
   getCarDetailDto(){
     this.activatedRoute.params.subscribe((params) => {
       if (params['carId']) {
-        console.log(params['carId']);
         this.carService.getCarDetailDtos().subscribe((response) => {
           this.carDetailDto = response.data.find(
             (c) => c.carId == params['carId']
@@ -55,18 +55,60 @@ export class CarImagesComponent implements OnInit {
   }
 
   imageDelete(carImage: CarImage) {
-    this.carImageService.deleteCarImage(carImage).subscribe();
-    window.location.reload();
+    this.carImageService.deleteCarImage(carImage).subscribe((response) => {
+      this.toastrService.success(response.message, 'Başarılı');
+      setTimeout(this.pageRefresh,2000);
+    },
+    (responseError) => {
+      if (
+        responseError.error.ValidationErrors &&
+        responseError.error.ValidationErrors.length > 0
+      ) {
+        for (
+          let i = 0;
+          i < responseError.error.ValidationErrors.length;
+          i++
+        ) {
+          this.toastrService.error(
+            responseError.error.ValidationErrors[i].ErrorMessage,
+            'Doğrulama Hatası'
+          );
+        }
+      } else {
+        this.toastrService.error(responseError.error.message, 'Hata');
+      }
+    });
   }
 
   imageForm: FormGroup;
   imageAdd() {
     if (this.imageForm.valid) {
       let imageForm = Object.assign({}, this.imageForm.value);
-      this.carImageService.addCarImage(imageForm).subscribe();
-      window.location.reload();
+      this.carImageService.addCarImage(imageForm).subscribe((response) => {
+        this.toastrService.success(response.message, 'Başarılı');
+        setTimeout(this.pageRefresh,2000);
+      },
+      (responseError) => {
+        if (
+          responseError.error.ValidationErrors &&
+          responseError.error.ValidationErrors.length > 0
+        ) {
+          for (
+            let i = 0;
+            i < responseError.error.ValidationErrors.length;
+            i++
+          ) {
+            this.toastrService.error(
+              responseError.error.ValidationErrors[i].ErrorMessage,
+              'Doğrulama Hatası'
+            );
+          }
+        } else {
+          this.toastrService.error(responseError.error.message, 'Hata');
+        }
+      });
     } else {
-      console.log('Form Tamamlanmadı');
+      this.toastrService.error("Form Tamamlanmadı", 'Hata');
     }
   }
 
@@ -79,5 +121,9 @@ export class CarImagesComponent implements OnInit {
         });
       }
     });
+  }
+
+  pageRefresh(){
+    window.location.reload()
   }
 }

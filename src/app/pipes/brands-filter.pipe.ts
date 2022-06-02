@@ -7,7 +7,6 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class BrandsFilterPipe implements PipeTransform {
   transform(value: Brand[], brandFilter: string): Brand[] {
     brandFilter = brandFilter ? brandFilter.toLocaleLowerCase() : '';
-    console.log(brandFilter);
     return brandFilter
       ? value.filter(
           (b: Brand) =>

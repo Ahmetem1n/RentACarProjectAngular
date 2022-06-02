@@ -41,7 +41,6 @@ export class ClassesComponent implements OnInit {
   }
 
   createClassDetail(classs: Class) {
-    console.log(classs);
     this.classService.detailClass(classs.classId).subscribe((response) => {
       this.class = response.data;
       this.createClassUpdateAndDeleteForm();
@@ -66,8 +65,8 @@ export class ClassesComponent implements OnInit {
       let classModel = Object.assign({}, this.classAddForm.value);
       this.classService.addClass(classModel).subscribe(
         (response) => {
-          this.toastrService.success(response.message, 'Success');
-          window.location.reload();
+          this.toastrService.success(response.message, 'Başarılı');
+          setTimeout(this.pageRefresh,2000);
         },
         (responseError) => {
           if (
@@ -81,16 +80,16 @@ export class ClassesComponent implements OnInit {
             ) {
               this.toastrService.error(
                 responseError.error.ValidationErrors[i].ErrorMessage,
-                'Validation Error'
+                'Doğrulama Hatası'
               );
             }
           } else {
-            this.toastrService.error(responseError.error.message, 'Error');
+            this.toastrService.error(responseError.error.message, 'Hata');
           }
         }
       );
     } else {
-      this.toastrService.error('Form not completed', 'Warning');
+      this.toastrService.error('Form Tamamlanmadı','Hata');
     }
   }
 
@@ -99,8 +98,8 @@ export class ClassesComponent implements OnInit {
       let classModel = Object.assign({}, this.classUpdateAndDeleteForm.value);
       this.classService.deleteClass(classModel).subscribe(
         (response) => {
-          this.toastrService.success(response.message, 'Success');
-          window.location.reload();
+          this.toastrService.success(response.message, 'Başarılı');
+          setTimeout(this.pageRefresh,2000);
         },
         (responseError) => {
           if (
@@ -114,16 +113,16 @@ export class ClassesComponent implements OnInit {
             ) {
               this.toastrService.error(
                 responseError.error.ValidationErrors[i].ErrorMessage,
-                'Validation Error'
+                'Doğrulama Hatası'
               );
             }
           } else {
-            this.toastrService.error(responseError.error.message, 'Error');
+            this.toastrService.error(responseError.error.message, 'Hata');
           }
         }
       );
     } else {
-      this.toastrService.error('Form not completed', 'Warning');
+      this.toastrService.error('Form Tamamlanmadı','Hata');
     }
   }
 
@@ -132,8 +131,8 @@ export class ClassesComponent implements OnInit {
       let classModel = Object.assign({}, this.classUpdateAndDeleteForm.value);
       this.classService.updateClass(classModel).subscribe(
         (response) => {
-          this.toastrService.success(response.message, 'Success');
-          window.location.reload();
+          this.toastrService.success(response.message, 'Başarılı');
+          setTimeout(this.pageRefresh,2000);
         },
         (responseError) => {
           if (
@@ -147,16 +146,19 @@ export class ClassesComponent implements OnInit {
             ) {
               this.toastrService.error(
                 responseError.error.ValidationErrors[i].ErrorMessage,
-                'Validation Error'
+                'Doğrulama Hatası'
               );
             }
           } else {
-            this.toastrService.error(responseError.error.message, 'Error');
+            this.toastrService.error(responseError.error.message, 'Hata');
           }
         }
       );
     } else {
-      this.toastrService.error('Form not completed', 'Warning');
+      this.toastrService.error('Form Tamamlanmadı','Hata');
     }
+  }
+  pageRefresh(){
+    window.location.reload()
   }
 }

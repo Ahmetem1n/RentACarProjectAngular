@@ -140,12 +140,6 @@ export class CarsComponent implements OnInit {
     });
   }
 
-  getBranchId() {
-    this.branchService.getBranchs().subscribe((response) => {
-      this.branchs = response.data;
-    });
-  }
-
   getGears() {
     this.gearService.getGears().subscribe((response) => {
       this.gears = response.data;
@@ -175,50 +169,6 @@ export class CarsComponent implements OnInit {
       this.car = response.data;
       this.createCarUpdateAndDeleteForm();
     });
-  }
-
-  carImages: CarImage[] = [];
-  currentCarId: number;
-  createCarImage(carId: number) {
-    this.carImageService.getByCarId(carId).subscribe((response) => {
-      this.carImages = response.data;
-      this.carImages.length = 4;
-      this.currentCarId = carId;
-    });
-  }
-
-  resimSilme(carImage: CarImage) {
-    console.log(carImage.imageId);
-    this.carImageService.deleteCarImage(carImage).subscribe(
-      (response) => {
-        this.toastrService.success(response.message, 'Success');
-        // window.location.reload();
-      },
-      (responseError) => {
-        if (
-          responseError.error.ValidationErrors &&
-          responseError.error.ValidationErrors.length > 0
-        ) {
-          for (
-            let i = 0;
-            i < responseError.error.ValidationErrors.length;
-            i++
-          ) {
-            this.toastrService.error(
-              responseError.error.ValidationErrors[i].ErrorMessage,
-              'Validation Error'
-            );
-          }
-        } else {
-          this.toastrService.error(responseError.error.message, 'Error');
-        }
-      }
-    );
-  }
-
-  @ViewChild('imagePath') imagePath: ElementRef;
-  addCarImage(carId: number, imagePath: string) {
-    console.log(carId, this.imagePath.nativeElement.value);
   }
 
   createCarUpdateAndDeleteForm() {
@@ -265,8 +215,8 @@ export class CarsComponent implements OnInit {
       let carModel = Object.assign({}, this.carAddForm.value);
       this.carService.addCar(carModel).subscribe(
         (response) => {
-          this.toastrService.success(response.message, 'Success');
-          window.location.reload();
+          this.toastrService.success(response.message, 'Başarılı');
+          setTimeout(this.pageRefresh,2000);
         },
         (responseError) => {
           if (
@@ -280,16 +230,16 @@ export class CarsComponent implements OnInit {
             ) {
               this.toastrService.error(
                 responseError.error.ValidationErrors[i].ErrorMessage,
-                'Validation Error'
+                'Doğrulama Hatası'
               );
             }
           } else {
-            this.toastrService.error(responseError.error.message, 'Error');
+            this.toastrService.error(responseError.error.message, 'Hata');
           }
         }
       );
     } else {
-      this.toastrService.error('Form not completed', 'Warning');
+      this.toastrService.error('Form Tamamlanmadı','Hata');
     }
   }
 
@@ -298,8 +248,8 @@ export class CarsComponent implements OnInit {
       let carModel = Object.assign({}, this.carUpdateAndDeleteForm.value);
       this.carService.deleteCar(carModel).subscribe(
         (response) => {
-          this.toastrService.success(response.message, 'Success');
-          window.location.reload();
+          this.toastrService.success(response.message, 'Başarılı');
+          setTimeout(this.pageRefresh,2000);
         },
         (responseError) => {
           if (
@@ -313,16 +263,16 @@ export class CarsComponent implements OnInit {
             ) {
               this.toastrService.error(
                 responseError.error.ValidationErrors[i].ErrorMessage,
-                'Validation Error'
+                'Doğrulama Hatası'
               );
             }
           } else {
-            this.toastrService.error(responseError.error.message, 'Error');
+            this.toastrService.error(responseError.error.message, 'Hata');
           }
         }
       );
     } else {
-      this.toastrService.error('Form not completed', 'Warning');
+      this.toastrService.error('Form Tamamlanmadı','Hata');
     }
   }
 
@@ -331,8 +281,8 @@ export class CarsComponent implements OnInit {
       let carModel = Object.assign({}, this.carUpdateAndDeleteForm.value);
       this.carService.updateCar(carModel).subscribe(
         (response) => {
-          this.toastrService.success(response.message, 'Success');
-          window.location.reload();
+          this.toastrService.success(response.message, 'Başarılı');
+          setTimeout(this.pageRefresh,2000);
         },
         (responseError) => {
           if (
@@ -346,16 +296,20 @@ export class CarsComponent implements OnInit {
             ) {
               this.toastrService.error(
                 responseError.error.ValidationErrors[i].ErrorMessage,
-                'Validation Error'
+                'Doğrulama Hatası'
               );
             }
           } else {
-            this.toastrService.error(responseError.error.message, 'Error');
+            this.toastrService.error(responseError.error.message, 'Hata');
           }
         }
       );
     } else {
-      this.toastrService.error('Form not completed', 'Warning');
+      this.toastrService.error('Form Tamamlanmadı','Hata');
     }
+  }
+
+  pageRefresh(){
+    window.location.reload()
   }
 }

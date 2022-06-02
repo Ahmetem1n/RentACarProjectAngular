@@ -22,15 +22,7 @@ export class RentalDetailsComponent implements OnInit {
   rentalDetailDtos: RentalDetailDto[] = [];
 
   rentalDetailUpdateAndDeleteForm: FormGroup;
-  rentalDetail: RentalDetail = {
-    rentalId: 0,
-    userId: 0,
-    carId: 0,
-    branchId: 0,
-    rentDate: undefined,
-    returnDate: undefined,
-    rentalPrice: 0,
-  };
+  rentalDetail: RentalDetail;
 
   cars: Car[] = [];
   branchs: Branch[] = [];
@@ -54,7 +46,6 @@ export class RentalDetailsComponent implements OnInit {
     this.getCustomers();
     this.getCars();
     this.getBranchs();
-    this.createRentalDetailUpdateAndDeleteForm();
   }
 
   getRentalDetailDtos() {
@@ -68,7 +59,6 @@ export class RentalDetailsComponent implements OnInit {
     } else {
       this.rentalDetailService.getRentalDetailDtos().subscribe((response) => {
         this.rentalDetailDtos = response.data;
-        console.log(this.rentalDetailDtos)
         this.dataLoaded = true;
       });
     }
@@ -107,16 +97,20 @@ export class RentalDetailsComponent implements OnInit {
   }
 
   createRentalDetailUpdateAndDeleteForm() {
-    this.rentalDetailUpdateAndDeleteForm = this.formBuilder.group({
-      rentalId: [this.rentalDetail.rentalId, Validators.required],
-      userId: [this.rentalDetail.userId, Validators.required],
-      carId: [this.rentalDetail.carId, Validators.required],
-      branchId: [this.rentalDetail.branchId, Validators.required],
-      rentDate: [this.rentalDetail.rentDate, Validators.required],
-      returnDate: [this.rentalDetail.returnDate, Validators.required],
-      rentalPrice: [this.rentalDetail.rentalPrice, Validators.required],
-    });
-    //console.log(this.rentalDetail.rentDate.toString().substring(0,10))
+    if (this.rentalDetail) {
+      this.rentalDetailUpdateAndDeleteForm = this.formBuilder.group({
+        rentalId: [this.rentalDetail.rentalId, Validators.required],
+        userId: [this.rentalDetail.userId, Validators.required],
+        carId: [this.rentalDetail.carId, Validators.required],
+        branchId: [this.rentalDetail.branchId, Validators.required],
+        rentDate: [
+          this.rentalDetail.rentDate.toString().split('T')[0],
+          Validators.required,
+        ],
+        returnDate: [this.rentalDetail.returnDate.toString().split('T')[0], Validators.required],
+        rentalPrice: [this.rentalDetail.rentalPrice, Validators.required],
+      });
+    }
   }
 
   delete() {
@@ -127,8 +121,8 @@ export class RentalDetailsComponent implements OnInit {
       );
       this.rentalDetailService.deleteRentalDetail(rentalDetailModel).subscribe(
         (response) => {
-          this.toastrService.success(response.message, 'Success');
-          window.location.reload();
+          this.toastrService.success(response.message, 'Başarılı');
+          setTimeout(this.pageRefresh,2000);
         },
         (responseError) => {
           if (
@@ -142,16 +136,16 @@ export class RentalDetailsComponent implements OnInit {
             ) {
               this.toastrService.error(
                 responseError.error.ValidationErrors[i].ErrorMessage,
-                'Validation Error'
+                'Doğrulama Hatası'
               );
             }
           } else {
-            this.toastrService.error(responseError.error.message, 'Error');
+            this.toastrService.error(responseError.error.message, 'Hata');
           }
         }
       );
     } else {
-      this.toastrService.error('Form not completed', 'Warning');
+      this.toastrService.error('Form Tamamlanmadı','Hata');
     }
   }
 
@@ -163,8 +157,8 @@ export class RentalDetailsComponent implements OnInit {
       );
       this.rentalDetailService.updateRentalDetail(rentalDetailModel).subscribe(
         (response) => {
-          this.toastrService.success(response.message, 'Success');
-          window.location.reload();
+          this.toastrService.success(response.message, 'Başarılı');
+          setTimeout(this.pageRefresh,2000);
         },
         (responseError) => {
           if (
@@ -178,16 +172,20 @@ export class RentalDetailsComponent implements OnInit {
             ) {
               this.toastrService.error(
                 responseError.error.ValidationErrors[i].ErrorMessage,
-                'Validation Error'
+                'Doğrulama Hatası'
               );
             }
           } else {
-            this.toastrService.error(responseError.error.message, 'Error');
+            this.toastrService.error(responseError.error.message, 'Hata');
           }
         }
       );
     } else {
-      this.toastrService.error('Form not completed', 'Warning');
+      this.toastrService.error('Form Tamamlanmadı','Hata');
     }
+  }
+
+  pageRefresh(){
+    window.location.reload()
   }
 }

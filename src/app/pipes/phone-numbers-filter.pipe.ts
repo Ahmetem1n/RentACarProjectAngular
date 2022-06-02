@@ -8,7 +8,6 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class PhoneNumbersFilterPipe implements PipeTransform {
   transform(value: PhoneNumberDetailDto[], phoneNumberFilter: string): PhoneNumberDetailDto[] {
     phoneNumberFilter = phoneNumberFilter ? phoneNumberFilter.toLocaleLowerCase() : '';
-    console.log(phoneNumberFilter);
     return phoneNumberFilter
       ? value.filter(
           (p: PhoneNumberDetailDto) =>

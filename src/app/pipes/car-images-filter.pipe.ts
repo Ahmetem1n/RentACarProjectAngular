@@ -11,7 +11,6 @@ export class CarImagesFilterPipe implements PipeTransform {
     carImageFilter: string
   ): CarImageDetailDto[] {
     carImageFilter = carImageFilter ? carImageFilter.toLocaleLowerCase() : '';
-    console.log(carImageFilter);
     return carImageFilter
       ? value.filter(
           (c: CarImageDetailDto) =>

@@ -16,6 +16,7 @@ import { IdentityInformationService } from 'src/app/services/identity-informatio
 import { OperationClaimService } from 'src/app/services/operation-claim.service';
 import { UserOperationClaimService } from 'src/app/services/user-operation-claim.service';
 import { PhoneNumber } from 'src/app/models/phoneNumber';
+import { delay } from 'rxjs';
 
 @Component({
   selector: 'app-customer-detail',
@@ -60,7 +61,7 @@ export class CustomerDetailComponent implements OnInit {
               return;
             }
           }
-          console.log('Seçilen Kullanıcı Müşteri Değil');
+          this.toastrService.error("Seçilen Kullanıcı Müşteri Değil.", 'Hata');
         });
       }
     });
@@ -106,7 +107,6 @@ export class CustomerDetailComponent implements OnInit {
       .getByUserId(userId)
       .subscribe((response) => {
         this.identityInformation = response.data;
-        console.log(this.identityInformation);
         if (response.data) {
           this.updateIdentityInformationForm();
         }
@@ -161,15 +161,62 @@ export class CustomerDetailComponent implements OnInit {
       if (this.identityInformation) {
         this.identityInformationService
           .updateIdentityInformation(identityInformationModel)
-          .subscribe();
+          .subscribe(
+            (response) => {
+              this.toastrService.success(response.message, 'Başarılı');
+              setTimeout(this.pageRefresh,2000);
+            },
+            (responseError) => {
+              if (
+                responseError.error.ValidationErrors &&
+                responseError.error.ValidationErrors.length > 0
+              ) {
+                for (
+                  let i = 0;
+                  i < responseError.error.ValidationErrors.length;
+                  i++
+                ) {
+                  this.toastrService.error(
+                    responseError.error.ValidationErrors[i].ErrorMessage,
+                    'Doğrulama Hatası'
+                  );
+                }
+              } else {
+                this.toastrService.error(responseError.error.message, 'Hata');
+              }
+            }
+          );
       } else {
         this.identityInformationService
           .addIdentityInformation(identityInformationModel)
-          .subscribe();
+          .subscribe(
+            (response) => {
+              this.toastrService.success(response.message, 'Başarılı');
+              setTimeout(this.pageRefresh,2000);
+            },
+            (responseError) => {
+              if (
+                responseError.error.ValidationErrors &&
+                responseError.error.ValidationErrors.length > 0
+              ) {
+                for (
+                  let i = 0;
+                  i < responseError.error.ValidationErrors.length;
+                  i++
+                ) {
+                  this.toastrService.error(
+                    responseError.error.ValidationErrors[i].ErrorMessage,
+                    'Doğrulama Hatası'
+                  );
+                }
+              } else {
+                this.toastrService.error(responseError.error.message, 'Hata');
+              }
+            }
+          );
       }
-      window.location.reload()
     } else {
-      console.log('Form tamamlanmadı');
+      this.toastrService.error("Form Tamamlanmadı",'Hata')
     }
   }
 
@@ -177,10 +224,33 @@ export class CustomerDetailComponent implements OnInit {
     if (this.identityInformation) {
       this.identityInformationService
         .deleteIdentityInformation(this.identityInformation)
-        .subscribe();
-        window.location.reload()
+        .subscribe(
+          (response) => {
+            this.toastrService.success(response.message, 'Başarılı');
+            setTimeout(this.pageRefresh,2000);
+          },
+          (responseError) => {
+            if (
+              responseError.error.ValidationErrors &&
+              responseError.error.ValidationErrors.length > 0
+            ) {
+              for (
+                let i = 0;
+                i < responseError.error.ValidationErrors.length;
+                i++
+              ) {
+                this.toastrService.error(
+                  responseError.error.ValidationErrors[i].ErrorMessage,
+                  'Doğrulama Hatası'
+                );
+              }
+            } else {
+              this.toastrService.error(responseError.error.message, 'Hata');
+            }
+          }
+        );
     } else {
-      console.log('Silinecek Bilgi Yok');
+      this.toastrService.error("Silinecek Bilgi Yok",'Hata')
     }
   }
 
@@ -189,7 +259,6 @@ export class CustomerDetailComponent implements OnInit {
   getDrivingInformation(userId: number) {
     this.drivingInformationService.getByUserId(userId).subscribe((response) => {
       this.drivingInformation = response.data;
-      console.log(this.drivingInformation);
       if (response.data) {
         this.updateDrivingInformationForm();
       }
@@ -228,7 +297,6 @@ export class CustomerDetailComponent implements OnInit {
   }
 
   updateDrivingInformation() {
-    console.log(this.drivingInformationForm)
     if (this.drivingInformationForm.valid) {
       let drivingInformationModel = Object.assign(
         {},
@@ -237,15 +305,62 @@ export class CustomerDetailComponent implements OnInit {
       if (this.drivingInformation) {
         this.drivingInformationService
           .updateDrivingInformation(drivingInformationModel)
-          .subscribe();
+          .subscribe(
+            (response) => {
+              this.toastrService.success(response.message, 'Başarılı');
+              setTimeout(this.pageRefresh,2000);
+            },
+            (responseError) => {
+              if (
+                responseError.error.ValidationErrors &&
+                responseError.error.ValidationErrors.length > 0
+              ) {
+                for (
+                  let i = 0;
+                  i < responseError.error.ValidationErrors.length;
+                  i++
+                ) {
+                  this.toastrService.error(
+                    responseError.error.ValidationErrors[i].ErrorMessage,
+                    'Doğrulama Hatası'
+                  );
+                }
+              } else {
+                this.toastrService.error(responseError.error.message, 'Hata');
+              }
+            }
+          );
       } else {
         this.drivingInformationService
           .addDrivingInformation(drivingInformationModel)
-          .subscribe();
+          .subscribe(
+            (response) => {
+              this.toastrService.success(response.message, 'Başarılı');
+              setTimeout(this.pageRefresh,2000);
+            },
+            (responseError) => {
+              if (
+                responseError.error.ValidationErrors &&
+                responseError.error.ValidationErrors.length > 0
+              ) {
+                for (
+                  let i = 0;
+                  i < responseError.error.ValidationErrors.length;
+                  i++
+                ) {
+                  this.toastrService.error(
+                    responseError.error.ValidationErrors[i].ErrorMessage,
+                    'Doğrulama Hatası'
+                  );
+                }
+              } else {
+                this.toastrService.error(responseError.error.message, 'Hata');
+              }
+            }
+          );
       }
-      window.location.reload()
     } else {
-      console.log('Form tamamlanmadı');
+      this.toastrService.error("Form Tamamlanmadı",'Hata')
     }
   }
 
@@ -253,10 +368,33 @@ export class CustomerDetailComponent implements OnInit {
     if (this.drivingInformation) {
       this.drivingInformationService
         .deleteDrivingInformation(this.drivingInformation)
-        .subscribe();
-        window.location.reload()
+        .subscribe(
+          (response) => {
+            this.toastrService.success(response.message, 'Başarılı');
+            setTimeout(this.pageRefresh,2000);
+          },
+          (responseError) => {
+            if (
+              responseError.error.ValidationErrors &&
+              responseError.error.ValidationErrors.length > 0
+            ) {
+              for (
+                let i = 0;
+                i < responseError.error.ValidationErrors.length;
+                i++
+              ) {
+                this.toastrService.error(
+                  responseError.error.ValidationErrors[i].ErrorMessage,
+                  'Doğrulama Hatası'
+                );
+              }
+            } else {
+              this.toastrService.error(responseError.error.message, 'Hata');
+            }
+          }
+        );
     } else {
-      console.log('Silinecek Bilgi Yok');
+      this.toastrService.error("Silinecek Bilgi Yok",'Hata')
     }
   }
 
@@ -279,23 +417,67 @@ export class CustomerDetailComponent implements OnInit {
   }
 
   deletePhoneNumber(phoneNumber: PhoneNumber) {
-    this.phoneNumberService.deletePhoneNumber(phoneNumber).subscribe();
-    window.location.reload();
+    this.phoneNumberService.deletePhoneNumber(phoneNumber).subscribe(
+      (response) => {
+        this.toastrService.success(response.message, 'Başarılı');
+        setTimeout(this.pageRefresh,2000);
+      },
+      (responseError) => {
+        if (
+          responseError.error.ValidationErrors &&
+          responseError.error.ValidationErrors.length > 0
+        ) {
+          for (
+            let i = 0;
+            i < responseError.error.ValidationErrors.length;
+            i++
+          ) {
+            this.toastrService.error(
+              responseError.error.ValidationErrors[i].ErrorMessage,
+              'Doğrulama Hatası'
+            );
+          }
+        } else {
+          this.toastrService.error(responseError.error.message, 'Hata');
+        }
+      }
+    );
   }
 
   addPhoneNumber() {
     if (this.phoneNumberForm.valid) {
-      let phoneNumberForm = Object.assign(
-        {},
-        this.phoneNumberForm.value
+      let phoneNumberForm = Object.assign({}, this.phoneNumberForm.value);
+      this.phoneNumberService.addPhoneNumber(phoneNumberForm).subscribe(
+        (response) => {
+          this.toastrService.success(response.message, 'Başarılı');
+          setTimeout(this.pageRefresh,2000);
+        },
+        (responseError) => {
+          if (
+            responseError.error.ValidationErrors &&
+            responseError.error.ValidationErrors.length > 0
+          ) {
+            for (
+              let i = 0;
+              i < responseError.error.ValidationErrors.length;
+              i++
+            ) {
+              this.toastrService.error(
+                responseError.error.ValidationErrors[i].ErrorMessage,
+                'Doğrulama Hatası'
+              );
+            }
+          } else {
+            this.toastrService.error(responseError.error.message, 'Hata');
+          }
+        }
       );
-        this.phoneNumberService
-          .addPhoneNumber(phoneNumberForm)
-          .subscribe();
-          window.location.reload();
-      
     } else {
-      console.log('Form tamamlanmadı');
+      this.toastrService.error("Form Tamamlanmadı",'Hata')
     }
+  }
+
+  pageRefresh(){
+    window.location.reload()
   }
 }

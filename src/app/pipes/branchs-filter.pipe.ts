@@ -8,28 +8,13 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'branchsFilter',
 })
 export class BranchsFilterPipe implements PipeTransform {
-  cities: City[] = [];
-
-  constructor(private cityService: CityService) {}
-
-  getCities() {
-    this.cityService.getCities().subscribe((response) => {
-      this.cities = response.data;
-    });
-  }
-
-  ngOnInit(): void {
-    this.getCities();
-  }
-
   transform(value: BranchDetailDto[], branchFilter: string): BranchDetailDto[] {
     branchFilter = branchFilter ? branchFilter.toLocaleLowerCase() : '';
-    console.log(branchFilter);
     return branchFilter
       ? value.filter(
           (b: BranchDetailDto) =>
             b.branchName.toLocaleLowerCase().indexOf(branchFilter) !== -1 ||
-            b.cityName.toLocaleLowerCase().indexOf(branchFilter) !== -1 
+            b.cityName.toLocaleLowerCase().indexOf(branchFilter) !== -1
         )
       : value;
   }

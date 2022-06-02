@@ -35,7 +35,6 @@ export class CarDetailComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((params) => {
       if (params['carId']) {
-        console.log(params['carId']);
         this.carService.getCarDetailDtos().subscribe((response) => {
           this.carDetailDto = response.data.find(
             (c) => c.carId == params['carId']

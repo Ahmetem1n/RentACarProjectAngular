@@ -8,7 +8,6 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class CardsFilterPipe implements PipeTransform {
   transform(value: CardDetailDto[], cardFilter: string): CardDetailDto[] {
     cardFilter = cardFilter ? cardFilter.toLocaleLowerCase() : '';
-    console.log(cardFilter);
     return cardFilter
       ? value.filter(
           (c: CardDetailDto) =>

@@ -22,7 +22,6 @@ export class BranchDetailComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((params) => {
       if (params['branchId']) {
-        console.log(params['branchId']);
         this.branchService.getBranchDetailDtos().subscribe((response) => {
           this.branchDetailDto = response.data.find(
             (b) => b.branchId == params['branchId']

@@ -41,7 +41,6 @@ export class GearsComponent implements OnInit {
   }
 
   createGearDetail(gear: Gear) {
-    console.log(gear);
     this.gearService.detailGear(gear.gearId).subscribe((response) => {
       this.gear = response.data;
       this.createGearUpdateAndDeleteForm();
@@ -66,8 +65,8 @@ export class GearsComponent implements OnInit {
       let gearModel = Object.assign({}, this.gearAddForm.value);
       this.gearService.addGear(gearModel).subscribe(
         (response) => {
-          this.toastrService.success(response.message, 'Success');
-          window.location.reload();
+          this.toastrService.success(response.message, 'Başarılı');
+          setTimeout(this.pageRefresh,2000);
         },
         (responseError) => {
           if (
@@ -81,16 +80,16 @@ export class GearsComponent implements OnInit {
             ) {
               this.toastrService.error(
                 responseError.error.ValidationErrors[i].ErrorMessage,
-                'Validation Error'
+                'Doğrulama Hatası'
               );
             }
           } else {
-            this.toastrService.error(responseError.error.message, 'Error');
+            this.toastrService.error(responseError.error.message, 'Hata');
           }
         }
       );
     } else {
-      this.toastrService.error('Form not completed', 'Warning');
+      this.toastrService.error('Form Tamamlanmadı','Hata');
     }
   }
 
@@ -99,8 +98,8 @@ export class GearsComponent implements OnInit {
       let gearModel = Object.assign({}, this.gearUpdateAndDeleteForm.value);
       this.gearService.deleteGear(gearModel).subscribe(
         (response) => {
-          this.toastrService.success(response.message, 'Success');
-          window.location.reload();
+          this.toastrService.success(response.message, 'Başarılı');
+          setTimeout(this.pageRefresh,2000);
         },
         (responseError) => {
           if (
@@ -114,16 +113,16 @@ export class GearsComponent implements OnInit {
             ) {
               this.toastrService.error(
                 responseError.error.ValidationErrors[i].ErrorMessage,
-                'Validation Error'
+                'Doğrulama Hatası'
               );
             }
           } else {
-            this.toastrService.error(responseError.error.message, 'Error');
+            this.toastrService.error(responseError.error.message, 'Hata');
           }
         }
       );
     } else {
-      this.toastrService.error('Form not completed', 'Warning');
+      this.toastrService.error('Form Tamamlanmadı','Hata');
     }
   }
 
@@ -132,8 +131,8 @@ export class GearsComponent implements OnInit {
       let gearModel = Object.assign({}, this.gearUpdateAndDeleteForm.value);
       this.gearService.updateGear(gearModel).subscribe(
         (response) => {
-          this.toastrService.success(response.message, 'Success');
-          window.location.reload();
+          this.toastrService.success(response.message, 'Başarılı');
+          setTimeout(this.pageRefresh,2000);
         },
         (responseError) => {
           if (
@@ -147,16 +146,20 @@ export class GearsComponent implements OnInit {
             ) {
               this.toastrService.error(
                 responseError.error.ValidationErrors[i].ErrorMessage,
-                'Validation Error'
+                'Doğrulama Hatası'
               );
             }
           } else {
-            this.toastrService.error(responseError.error.message, 'Error');
+            this.toastrService.error(responseError.error.message, 'Hata');
           }
         }
       );
     } else {
-      this.toastrService.error('Form not completed', 'Warning');
+      this.toastrService.error('Form Tamamlanmadı','Hata');
     }
+  }
+
+  pageRefresh(){
+    window.location.reload()
   }
 }

@@ -7,7 +7,6 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class IdentityInformationsFilterPipe implements PipeTransform {
   transform(value: IdentityInformation[], identityInformationFilter: string): IdentityInformation[] {
     identityInformationFilter = identityInformationFilter ? identityInformationFilter.toLocaleLowerCase() : '';
-    console.log(identityInformationFilter);
     return identityInformationFilter
       ? value.filter(
           (i: IdentityInformation) =>

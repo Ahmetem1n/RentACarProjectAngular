@@ -7,7 +7,6 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class ClassesFilterPipe implements PipeTransform {
   transform(value: Class[], classFilter: string): Class[] {
     classFilter = classFilter ? classFilter.toLocaleLowerCase() : '';
-    console.log(classFilter);
     return classFilter
       ? value.filter(
           (c: Class) =>

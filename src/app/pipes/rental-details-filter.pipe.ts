@@ -8,7 +8,6 @@ import { RentalDetailDto } from '../models/rentalDetailDto';
 export class RentalDetailsFilterPipe implements PipeTransform {
   transform(value: RentalDetailDto[], rentalDetailFilter: string): RentalDetailDto[] {
     rentalDetailFilter = rentalDetailFilter ? rentalDetailFilter.toLocaleLowerCase() : '';
-    console.log(rentalDetailFilter);
     return rentalDetailFilter
       ? value.filter(
           (r: RentalDetailDto) =>

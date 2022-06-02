@@ -53,10 +53,10 @@
         {{ rentalDetailDto.branchName }}
       </td>
       <td>
-        {{ rentalDetailDto.rentDate }}
+        {{ rentalDetailDto.rentDate.toString().split('T')[0] }}
       </td>
       <td>
-        {{ rentalDetailDto.returnDate }}
+        {{ rentalDetailDto.returnDate.toString().split('T')[0] }}
       </td>
       <td>
         {{ rentalDetailDto.rentalPrice }}
@@ -92,6 +92,7 @@
 
 <!-- RentalDetail Güncelleme Modal -->
 <div
+*ngIf="rentalDetailUpdateAndDeleteForm"
   class="modal fade"
   id="update"
   tabindex="-1"
@@ -221,6 +222,7 @@
 
 <!-- RentalDetail Silme Modal -->
 <div
+ *ngIf="rentalDetailUpdateAndDeleteForm"
   class="modal fade"
   id="delete"
   tabindex="-1"

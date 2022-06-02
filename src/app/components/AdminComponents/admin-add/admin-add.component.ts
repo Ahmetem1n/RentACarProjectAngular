@@ -40,7 +40,7 @@ export class AdminAddComponent implements OnInit {
       let adminModel = Object.assign({}, this.adminAddForm.value);
       this.adminService.addAdmin(adminModel).subscribe(
         (response) => {
-          this.toastrService.success(response.message, 'Success');
+          this.toastrService.success(response.message, 'Başarılı');
         },
         (responseError) => {
           if (
@@ -54,16 +54,16 @@ export class AdminAddComponent implements OnInit {
             ) {
               this.toastrService.error(
                 responseError.error.ValidationErrors[i].ErrorMessage,
-                'Validation Error'
+                'Doğrulama Hatası'
               );
             }
           } else {
-            this.toastrService.error(responseError.error.message, 'Error');
+            this.toastrService.error(responseError.error.message, 'Hata');
           }
         }
       );
     } else {
-      this.toastrService.error('Form not completed', 'Warning');
+      this.toastrService.error('Form Tamamlanmadı','Hata');
     }
   }
 }

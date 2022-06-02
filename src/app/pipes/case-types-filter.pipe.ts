@@ -7,7 +7,6 @@ import { CaseType } from './../models/caseType';
 export class CaseTypesFilterPipe implements PipeTransform {
   transform(value: CaseType[], caseTypeFilter: string): CaseType[] {
     caseTypeFilter = caseTypeFilter ? caseTypeFilter.toLocaleLowerCase() : '';
-    console.log(caseTypeFilter);
     return caseTypeFilter
       ? value.filter(
           (c: CaseType) =>

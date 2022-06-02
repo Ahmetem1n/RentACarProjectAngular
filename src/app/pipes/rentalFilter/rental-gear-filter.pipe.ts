@@ -7,7 +7,6 @@ import { CarDetailDto } from './../../models/carDetailDto';
 export class RentalGearFilterPipe implements PipeTransform {
   transform(value: CarDetailDto[], carFilter: string): CarDetailDto[] {
     carFilter = carFilter ? carFilter.toLocaleLowerCase() : '';
-    console.log(carFilter);
     return carFilter
       ? value.filter(
           (c: CarDetailDto) =>

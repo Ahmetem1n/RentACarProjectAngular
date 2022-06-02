@@ -203,7 +203,7 @@
             </div>
           </div>
 
-          <div class="mb-3">
+          <div class="mb-3" *ngIf="getRole()=='Yönetici'">
             <label for="recipient-name" class="col-form-label">Yetki:</label>
             <div>
               <select formControlName="claimId" id="claimId" class="form-group">
@@ -351,7 +351,7 @@
             </div>
           </div>
 
-          <div class="mb-3">
+          <div class="mb-3" *ngIf="getRole()=='Yönetici'">
             <label for="recipient-name" class="col-form-label">Yetki:</label>
             <div>
               <select formControlName="claimId" id="claimId" class="form-group">
@@ -501,7 +501,7 @@
             </div>
           </div>
 
-          <div class="mb-3">
+          <div class="mb-3" *ngIf="getRole()=='Yönetici'">
             <label for="recipient-name" class="col-form-label">Yetki:</label>
             <div>
               <select formControlName="claimId" id="claimId" class="form-group">
