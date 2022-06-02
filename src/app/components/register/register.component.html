@@ -1,88 +1,82 @@
-      <div class="asd">
-      <form [formGroup]="registerForm">
-        <h1 class="h3 mb-3 fw-normal">Kayıt Ol</h1>
-        <div class="form-floating">
-            <input
-              formControlName="firstName"
-              type="text"
-              class="form-control"
-              id="floatingInput"
-              placeholder="Adı"
-            />
-            <label for="floatingInput">Adı</label>
-          </div>
-          <div class="form-floating">
-            <input
-              formControlName="lastName"
-              type="text"
-              class="form-control"
-              id="floatingInput"
-              placeholder="Soyadı"
-            />
-            <label for="floatingInput">Soyadı</label>
-          </div>
-        <div class="form-floating">
-          <input
-            formControlName="email"
-            type="email"
-            class="form-control"
-            id="floatingInput"
-            placeholder="Mail Adresi"
-          />
-          <label for="floatingInput">Mail Adresi</label>
-        </div>
-        <div class="form-floating">
-            <input
-              formControlName="nationalityId"
-              type="text"
-              class="form-control"
-              id="floatingInput"
-              placeholder="TC No"
-            />
-            <label for="floatingInput">TC No</label>
-          </div>
-          <div class="form-floating">
-            <input
-              formControlName="birthYear"
-              type="number"
-              class="form-control"
-              id="floatingInput"
-              placeholder="Doğum Yılı"
-            />
-            <label for="floatingInput">Doğum Yılı</label>
-          </div>
-        <div class="form-floating">
-          <input
-            formControlName="password"
-            type="password"
-            class="form-control"
-            id="floatingPassword"
-            placeholder="Şifre"
-          />
-          <label for="floatingPassword">Şifre</label>
-        </div>
-        <div class="form-floating">
-            <input
-              formControlName="photo"
-              type="text"
-              class="form-control"
-              id="floatingInput"
-              placeholder="Fotoğraf"
-            />
-            <label for="floatingInput">Fotoğraf</label>
-          </div>
-  
-        <div class="checkbox mb-3">
-          <label>
-            <input type="checkbox" value="remember-me" /> Remember me
-          </label>
-        </div>
-        <button
-          class="btn btn-lg btn-primary"
-          type="submit"
-          (click)="register()"
-        >
-          Kayıt Ol
-        </button>
-      </form>
+<div class="asd">
+  <form [formGroup]="registerForm">
+    <h1 class="h3 mb-3 fw-normal">Kayıt Ol</h1>
+    <div class="form-floating">
+      <input
+        formControlName="firstName"
+        type="text"
+        class="form-control"
+        id="floatingInput"
+        placeholder="Adı"
+      />
+      <label for="floatingInput">Adı</label>
     </div>
+    <div class="form-floating">
+      <input
+        formControlName="lastName"
+        type="text"
+        class="form-control"
+        id="floatingInput"
+        placeholder="Soyadı"
+      />
+      <label for="floatingInput">Soyadı</label>
+    </div>
+    <div class="form-floating">
+      <input
+        formControlName="email"
+        type="email"
+        class="form-control"
+        id="floatingInput"
+        placeholder="Mail Adresi"
+      />
+      <label for="floatingInput">Mail Adresi</label>
+    </div>
+    <div class="form-floating">
+      <input
+        formControlName="nationalityId"
+        type="text"
+        class="form-control"
+        id="floatingInput"
+        placeholder="TC No"
+      />
+      <label for="floatingInput">TC No</label>
+    </div>
+    <div class="form-floating">
+      <input
+        formControlName="birthYear"
+        type="number"
+        class="form-control"
+        id="floatingInput"
+        placeholder="Doğum Yılı"
+      />
+      <label for="floatingInput">Doğum Yılı</label>
+    </div>
+    <div class="form-floating">
+      <input
+        formControlName="password"
+        type="password"
+        class="form-control"
+        id="floatingPassword"
+        placeholder="Şifre"
+      />
+      <label for="floatingPassword">Şifre</label>
+    </div>
+    <div class="form-floating">
+      <input
+        formControlName="photo"
+        type="text"
+        class="form-control"
+        id="floatingInput"
+        placeholder="Fotoğraf"
+      />
+      <label for="floatingInput">Fotoğraf</label>
+    </div>
+
+    <div class="checkbox mb-3">
+      <label> <input type="checkbox" value="remember-me" /> Remember me </label>
+    </div>
+    <button class="btn btn-lg btn-primary" type="submit" (click)="register()">
+      Kayıt Ol
+    </button>
+  </form>
+</div>

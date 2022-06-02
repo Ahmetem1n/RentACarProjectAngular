@@ -2,6 +2,7 @@
     width: 400px;
   }
   .asd{
-    margin-top: 75px;
-    margin-left: 470px;
+    display: flex;
+  flex-direction: row;
+  justify-content: center;
   }
