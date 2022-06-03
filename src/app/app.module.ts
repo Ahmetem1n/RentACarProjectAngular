@@ -6,11 +6,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AdminAddComponent } from './components/AdminComponents/admin-add/admin-add.component';
-import { AdminDeleteComponent } from './components/AdminComponents/admin-delete/admin-delete.component';
-import { AdminDetailComponent } from './components/AdminComponents/admin-detail/admin-detail.component';
-import { AdminUpdateComponent } from './components/AdminComponents/admin-update/admin-update.component';
-import { AdminsComponent } from './components/AdminComponents/admins/admins.component';
 import { AuthComponent } from './components/AuthComponents/auth/auth.component';
 import { BranchDetailComponent } from './components/BranchComponents/branch-detail/branch-detail.component';
 import { BranchsComponent } from './components/BranchComponents/branchs/branchs.component';
@@ -25,7 +20,6 @@ import { CarImageDetailComponent } from './components/CarImageComponents/car-ima
 import { CaseTypesComponent } from './components/CaseTypeComponents/case-types/case-types.component';
 import { ClassesComponent } from './components/ClassComponents/classes/classes.component';
 import { ColorsComponent } from './components/ColorComponents/colors/colors.component';
-import { CustomerDetailComponent } from './components/CustomerComponents/customer-detail/customer-detail.component';
 import { DrivingInformationDetailComponent } from './components/DrivingInformationComponents/driving-information-detail/driving-information-detail.component';
 import { DrivingInformationsComponent } from './components/DrivingInformationComponents/driving-informations/driving-informations.component';
 import { FuelsComponent } from './components/FuelComponents/fuels/fuels.component';
@@ -33,7 +27,6 @@ import { GearsComponent } from './components/GearComponents/gears/gears.componen
 import { IdentityInformationDetailComponent } from './components/IdentityInformationComponents/identity-information-detail/identity-information-detail.component';
 import { IdentityInformationsComponent } from './components/IdentityInformationComponents/identity-informations/identity-informations.component';
 import { LoginComponent } from './components/login/login.component';
-import { MenuComponent } from './components/menu/menu.component';
 import { NaviComponent } from './components/navi/navi.component';
 import { PhoneNumberDetailComponent } from './components/PhoneNumberComponents/phone-number-detail/phone-number-detail.component';
 import { PhoneNumbersComponent } from './components/PhoneNumberComponents/phone-numbers/phone-numbers.component';
@@ -44,7 +37,6 @@ import { CustomersComponent } from './components/UserComponents/customers/custom
 import { UserDetailComponent } from './components/UserComponents/user-detail/user-detail.component';
 import { UsersComponent } from './components/UserComponents/users/users.component';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
-import { AdminsFilterPipe } from './pipes/admins-filter.pipe';
 import { BranchsFilterPipe } from './pipes/branchs-filter.pipe';
 import { BrandsFilterPipe } from './pipes/brands-filter.pipe';
 import { CarImagesFilterPipe } from './pipes/car-images-filter.pipe';
@@ -71,10 +63,8 @@ import { UsersFilterPipe } from './pipes/users-filter.pipe';
   declarations: [
     AppComponent,
     NaviComponent,
-    MenuComponent,
     LoginComponent,
     //GetAllComponent
-    AdminsComponent,
     AuthComponent,
     BranchsComponent,
     BrandsComponent,
@@ -92,25 +82,16 @@ import { UsersFilterPipe } from './pipes/users-filter.pipe';
     PhoneNumbersComponent,
     RentalDetailsComponent,
     UsersComponent,
-    //AddComponent
-    AdminAddComponent,
-    //UpdateComponent
-    AdminUpdateComponent,
-    //DeleteComponent
-    AdminDeleteComponent,
     //DetailComponent
-    AdminDetailComponent,
     CarDetailComponent,
     CardDetailComponent,
     CarImageDetailComponent,
-    CustomerDetailComponent,
     DrivingInformationDetailComponent,
     IdentityInformationDetailComponent,
     PhoneNumberDetailComponent,
     RentalDetailDetailComponent,
     UserDetailComponent,
     //Pipes
-    AdminsFilterPipe,
     BranchsFilterPipe,
     BrandsFilterPipe,
     CarsFilterPipe,

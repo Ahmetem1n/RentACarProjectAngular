@@ -27,7 +27,6 @@ export class UsersComponent implements OnInit {
     nationalityId: '',
     birthYear: 0,
     email: '',
-    photo: '',
     status: '',
     claimName: '',
     claimId: 0,
@@ -102,7 +101,6 @@ export class UsersComponent implements OnInit {
       nationalityId: [this.user.nationalityId, Validators.required],
       birthYear: [this.user.birthYear, Validators.required],
       email: [this.user.email, Validators.required],
-      photo: [this.user.photo, Validators.required],
       status: [this.user.status, Validators.required],
       claimId: [this.user.claimId, Validators.required],
     });
@@ -115,56 +113,9 @@ export class UsersComponent implements OnInit {
       nationalityId: ['', Validators.required],
       birthYear: ['', Validators.required],
       email: ['', Validators.required],
-      photo: ['', Validators.required],
       status: ['', Validators.required],
       claimId: ['', Validators.required],
     });
-  }
-
-  add() {
-    if (this.userAddForm.valid) {
-      let userModel = Object.assign({}, this.userAddForm.value);
-      let userOperationClaim: UserOperationClaim;
-      this.userOperationClaimService
-        .getUserOperationClaims()
-        .subscribe((response) => {
-          userOperationClaim = response.data.find(
-            (u) => u.userId == userModel.userId
-          );
-        });
-      userOperationClaim.claimId = userModel.claimId;
-      this.userOperationClaimService
-        .updateUserOperationClaim(userOperationClaim)
-        .subscribe((response) => {
-          this.userService.addUser(userModel).subscribe(
-            (response) => {
-              this.toastrService.success(response.message, 'Başarılı');
-              setTimeout(this.pageRefresh, 2000);
-            },
-            (responseError) => {
-              if (
-                responseError.error.ValidationErrors &&
-                responseError.error.ValidationErrors.length > 0
-              ) {
-                for (
-                  let i = 0;
-                  i < responseError.error.ValidationErrors.length;
-                  i++
-                ) {
-                  this.toastrService.error(
-                    responseError.error.ValidationErrors[i].ErrorMessage,
-                    'Doğrulama Hatası'
-                  );
-                }
-              } else {
-                this.toastrService.error(responseError.error.message, 'Hata');
-              }
-            }
-          );
-        });
-    } else {
-      this.toastrService.error('Form Tamamlanmadı', 'Hata');
-    }
   }
 
   delete() {

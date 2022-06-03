@@ -16,7 +16,6 @@ export class UsersFilterPipe implements PipeTransform {
             u.nationalityId.toLocaleLowerCase().indexOf(userFilter) !== -1 ||
             String(u.birthYear).toLocaleLowerCase().indexOf(userFilter) !== -1 ||
             u.email.toLocaleLowerCase().indexOf(userFilter) !== -1 ||
-            u.photo.toLocaleLowerCase().indexOf(userFilter) !== -1 ||
             String(u.status).toLocaleLowerCase().indexOf(userFilter) !== -1 ||
             u.claimName.toLocaleLowerCase().indexOf(userFilter) !== -1
         )

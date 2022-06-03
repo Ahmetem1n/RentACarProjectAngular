@@ -1,6 +1,8 @@
-<div class="asd">
+<div class="asd" *ngIf="registerForm">
   <form [formGroup]="registerForm">
-    <h1 class="h3 mb-3 fw-normal">Kayıt Ol</h1>
+    <h1 class="h3 mb-3 fw-normal" *ngIf="!getRole()">Kayıt Ol</h1>
+    <h1 class="h3 mb-3 fw-normal" *ngIf="getRole()=='Yönetici'">Kullanıcı Kayıt Et</h1>
+    <h1 class="h3 mb-3 fw-normal" *ngIf="getRole()=='Çalışan'">Müşteri Kayıt Et</h1>
     <div class="form-floating">
       <input
         formControlName="firstName"
@@ -41,14 +43,20 @@
       />
       <label for="floatingInput">TC No</label>
     </div>
+    
     <div class="form-floating">
-      <input
-        formControlName="birthYear"
-        type="number"
-        class="form-control"
-        id="floatingInput"
-        placeholder="Doğum Yılı"
-      />
+      <select
+          formControlName="birthYear"
+          id="birthYear"
+          class="form-control"
+        >
+          <option
+            *ngFor="let birthYear of birthYears; let i = index"
+            [ngValue]="birthYears[i]"
+          >
+            {{ birthYears[i] }}
+          </option>
+        </select>
       <label for="floatingInput">Doğum Yılı</label>
     </div>
     <div class="form-floating">
@@ -61,22 +69,25 @@
       />
       <label for="floatingPassword">Şifre</label>
     </div>
-    <div class="form-floating">
-      <input
-        formControlName="photo"
-        type="text"
-        class="form-control"
-        id="floatingInput"
-        placeholder="Fotoğraf"
-      />
-      <label for="floatingInput">Fotoğraf</label>
+
+    <div class="form-floating" *ngIf="getRole()=='Yönetici'">
+      <select formControlName="claimId" id="claimId" class="form-control">
+        <option
+          *ngFor="let operationClaim of operationClaims; let i = index"
+          [ngValue]="operationClaims[i].claimId"
+        >
+          {{ operationClaims[i].claimName }}
+        </option>
+      </select>
+      <label for="floatingInput">Yetki</label>
     </div>
 
-    <div class="checkbox mb-3">
-      <label> <input type="checkbox" value="remember-me" /> Remember me </label>
-    </div>
-    <button class="btn btn-lg btn-primary" type="submit" (click)="register()">
+    <button class="btn btn-lg btn-primary" type="submit" (click)="register()"  *ngIf="!getRole()">
       Kayıt Ol
+    </button>
+
+    <button class="btn btn-lg btn-primary" type="submit" (click)="register()" *ngIf="getRole()=='Yönetici' || getRole()=='Çalışan'">
+      Kayıt Et
     </button>
   </form>
 </div>

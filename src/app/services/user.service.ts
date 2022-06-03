@@ -1,3 +1,4 @@
+import { OperationClaim } from './../models/operationClaim';
 import { UserDetailDto } from './../models/userDetailDto';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -33,6 +34,11 @@ export class UserService {
   getByCustomers(): Observable<ListResponseModel<UserDetailDto>> {
     let newPath = this.apiUrl + 'users/getbycustomers';
     return this.httpClient.get<ListResponseModel<UserDetailDto>>(newPath);
+  }
+
+  getByUserClaim(userId:number) {
+    let newPath = this.apiUrl + 'users/getbyuserclaim?userId='+userId;
+    return this.httpClient.get<SingleResponseModel<OperationClaim>>(newPath);
   }
 
   addUser(user: User): Observable<ResponseModel> {

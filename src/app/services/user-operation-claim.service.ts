@@ -37,4 +37,9 @@ export class UserOperationClaimService {
     let newPath = this.apiUrl + 'userOperationClaims/getById?detailId=' + detailId;
     return this.httpClient.get<SingleResponseModel<UserOperationClaim>>(newPath);
   }
+
+  getUserOperationClaimsByUserId(userId: number) {
+    let newPath = this.apiUrl + 'userOperationClaims/getByUserId?userId=' + userId;
+    return this.httpClient.get<SingleResponseModel<UserOperationClaim>>(newPath);
+  }
 }

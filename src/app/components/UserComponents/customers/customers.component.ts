@@ -29,7 +29,6 @@ export class CustomersComponent implements OnInit {
     nationalityId: '',
     birthYear: 0,
     email: '',
-    photo: '',
     status: '',
   };
 
@@ -134,7 +133,6 @@ export class CustomersComponent implements OnInit {
       nationalityId: [this.user.nationalityId, Validators.required],
       birthYear: [this.user.birthYear, Validators.required],
       email: [this.user.email, Validators.required],
-      photo: [this.user.photo, Validators.required],
       status: [this.user.status, Validators.required],
     });
   }
@@ -146,7 +144,6 @@ export class CustomersComponent implements OnInit {
       nationalityId: ['', Validators.required],
       birthYear: ['', Validators.required],
       email: ['', Validators.required],
-      photo: ['', Validators.required],
       status: ['', Validators.required],
     });
   }  

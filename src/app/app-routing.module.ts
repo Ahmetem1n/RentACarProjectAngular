@@ -1,10 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AdminAddComponent } from './components/AdminComponents/admin-add/admin-add.component';
-import { AdminDeleteComponent } from './components/AdminComponents/admin-delete/admin-delete.component';
-import { AdminDetailComponent } from './components/AdminComponents/admin-detail/admin-detail.component';
-import { AdminUpdateComponent } from './components/AdminComponents/admin-update/admin-update.component';
-import { AdminsComponent } from './components/AdminComponents/admins/admins.component';
 import { AuthComponent } from './components/AuthComponents/auth/auth.component';
 import { BranchDetailComponent } from './components/BranchComponents/branch-detail/branch-detail.component';
 import { BranchsComponent } from './components/BranchComponents/branchs/branchs.component';
@@ -19,7 +14,6 @@ import { CarImageDetailComponent } from './components/CarImageComponents/car-ima
 import { CaseTypesComponent } from './components/CaseTypeComponents/case-types/case-types.component';
 import { ClassesComponent } from './components/ClassComponents/classes/classes.component';
 import { ColorsComponent } from './components/ColorComponents/colors/colors.component';
-import { CustomerDetailComponent } from './components/CustomerComponents/customer-detail/customer-detail.component';
 import { DrivingInformationDetailComponent } from './components/DrivingInformationComponents/driving-information-detail/driving-information-detail.component';
 import { DrivingInformationsComponent } from './components/DrivingInformationComponents/driving-informations/driving-informations.component';
 import { FuelsComponent } from './components/FuelComponents/fuels/fuels.component';
@@ -45,7 +39,6 @@ const routes: Routes = [
   { path: 'deneme', component: GetByUsableComponent },
 
   //GETALL COMPONENT PATH
-  { path: 'admins', component: AdminsComponent, canActivate: [AdminGuard] },
   { path: 'auths', component: AuthComponent },
   { path: 'branchs', component: BranchsComponent },
   { path: 'brands', component: BrandsComponent },
@@ -55,7 +48,6 @@ const routes: Routes = [
   { path: 'caseTypes', component: CaseTypesComponent },
   { path: 'classes', component: ClassesComponent },
   { path: 'colors', component: ColorsComponent },
-  //{ path: 'customers', component: CustomersComponent },
   { path: 'drivingInformations', component: DrivingInformationsComponent },
   { path: 'fuels', component: FuelsComponent },
   { path: 'gears', component: GearsComponent },
@@ -65,23 +57,12 @@ const routes: Routes = [
   { path: 'users', component: UsersComponent },
   { path: 'customers', component: CustomersComponent },
 
-  //ADD COMPONENT PATH
-  { path: 'admin/add', component: AdminAddComponent },
-
-  //DELETE COMPONENT PATH
-  { path: 'admin/delete/:adminId', component: AdminDeleteComponent },
-
-  //UPDATE COMPONENT PATH
-  { path: 'admin/update/:adminId', component: AdminUpdateComponent },
 
   //DETAIL COMPONENT PATH
-  { path: 'admin/detail/:adminId', component: AdminDetailComponent },
   { path: 'car/detail/:carId', component: CarDetailComponent },
-  { path: 'customer/detail/:userId', component: CustomerDetailComponent },
   { path: 'branch/detail/:branchId', component: BranchDetailComponent },
   { path: 'card/detail', component: CardDetailComponent },
   { path: 'carImage/detail', component: CarImageDetailComponent },
-  { path: 'customer/detail', component: CustomerDetailComponent },
   {
     path: 'drivingInformation/detail',
     component: DrivingInformationDetailComponent,
@@ -93,6 +74,7 @@ const routes: Routes = [
   { path: 'phoneNumber/detail', component: PhoneNumberDetailComponent },
   { path: 'rentalDetail/detail', component: RentalDetailDetailComponent },
   { path: 'user/detail/:userId', component: UserDetailComponent },
+  { path: 'my_account', component: UserDetailComponent },
 ];
 const deneme=[{ path: '', component: UserDetailComponent }]
 

@@ -107,7 +107,10 @@ export class RentalDetailsComponent implements OnInit {
           this.rentalDetail.rentDate.toString().split('T')[0],
           Validators.required,
         ],
-        returnDate: [this.rentalDetail.returnDate.toString().split('T')[0], Validators.required],
+        returnDate: [
+          this.rentalDetail.returnDate.toString().split('T')[0],
+          Validators.required,
+        ],
         rentalPrice: [this.rentalDetail.rentalPrice, Validators.required],
       });
     }
@@ -122,7 +125,7 @@ export class RentalDetailsComponent implements OnInit {
       this.rentalDetailService.deleteRentalDetail(rentalDetailModel).subscribe(
         (response) => {
           this.toastrService.success(response.message, 'Başarılı');
-          setTimeout(this.pageRefresh,2000);
+          setTimeout(this.pageRefresh, 2000);
         },
         (responseError) => {
           if (
@@ -145,47 +148,11 @@ export class RentalDetailsComponent implements OnInit {
         }
       );
     } else {
-      this.toastrService.error('Form Tamamlanmadı','Hata');
+      this.toastrService.error('Form Tamamlanmadı', 'Hata');
     }
   }
 
-  update() {
-    if (this.rentalDetailUpdateAndDeleteForm.valid) {
-      let rentalDetailModel = Object.assign(
-        {},
-        this.rentalDetailUpdateAndDeleteForm.value
-      );
-      this.rentalDetailService.updateRentalDetail(rentalDetailModel).subscribe(
-        (response) => {
-          this.toastrService.success(response.message, 'Başarılı');
-          setTimeout(this.pageRefresh,2000);
-        },
-        (responseError) => {
-          if (
-            responseError.error.ValidationErrors &&
-            responseError.error.ValidationErrors.length > 0
-          ) {
-            for (
-              let i = 0;
-              i < responseError.error.ValidationErrors.length;
-              i++
-            ) {
-              this.toastrService.error(
-                responseError.error.ValidationErrors[i].ErrorMessage,
-                'Doğrulama Hatası'
-              );
-            }
-          } else {
-            this.toastrService.error(responseError.error.message, 'Hata');
-          }
-        }
-      );
-    } else {
-      this.toastrService.error('Form Tamamlanmadı','Hata');
-    }
-  }
-
-  pageRefresh(){
-    window.location.reload()
+  pageRefresh() {
+    window.location.reload();
   }
 }

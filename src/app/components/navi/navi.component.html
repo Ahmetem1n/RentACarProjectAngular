@@ -53,7 +53,7 @@
       </ul>
       <button class="btn-primary" routerLink="login" *ngIf="!getRole()">Giriş Yap</button>
       <button class="btn-primary" routerLink="register" *ngIf="!getRole()">Kayıt Ol</button>
-      <button class="btn-primary" routerLink="" *ngIf="getRole()">Hesabım</button>
+      <button class="btn-primary" routerLink="my_account" *ngIf="getRole()">Hesabım</button>
       <button class="btn-primary" *ngIf="getRole()" (click)="logout()">Çıkış Yap</button>
     </div>
   </div>

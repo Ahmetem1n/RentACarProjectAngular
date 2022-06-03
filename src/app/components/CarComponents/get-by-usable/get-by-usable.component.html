@@ -94,7 +94,7 @@
 
 <div *ngIf="dataLoaded" class="çerçeve">
   <div class="input-group">
-    <div class="çerçeve" style="max-height: 600px;">
+    <div class="çerçeve" style="max-height: 600px">
       <div class="mb-3">
         <label for="recipient-name" class="col-form-label"
           >Marka Filtreleme:</label
@@ -343,6 +343,65 @@
             </div>
             <div class="modal-body">
               <form [formGroup]="paymentForm">
+                <div class="mb-3">
+                  <label for="recipient-name" class="col-form-label"
+                    >Fiyat:</label
+                  >
+                  <div class="form-group">
+                    <input disabled type="text" class="form-control" value="{{fiyat}}" />
+                  </div>
+                </div>
+                <div class="mb-3">
+                  <label for="recipient-name" class="col-form-label"
+                    >Kart Sahibi Ad Soyad:</label
+                  >
+                  <div class="form-group">
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="Kart Sahibi Ad Soyad"
+                    />
+                  </div>
+                </div>
+
+                <div class="mb-3">
+                  <label for="recipient-name" class="col-form-label"
+                    >Kart Numarası:</label
+                  >
+                  <div class="form-group">
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="Kart Numarası"
+                    />
+                  </div>
+                </div>
+
+                <div class="mb-3">
+                  <label for="recipient-name" class="col-form-label"
+                    >Son Geçerlilik Tarihi:</label
+                  >
+                  <div class="form-group">
+                    <input
+                      type="date"
+                      class="form-control"
+                      placeholder="Son Geçerlilik Tarihi"
+                    />
+                  </div>
+                </div>
+
+                <div class="mb-3">
+                  <label for="recipient-name" class="col-form-label"
+                    >Cvv No:</label
+                  >
+                  <div class="form-group">
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="Cvv No"
+                    />
+                  </div>
+                </div>
                 <div class="modal-footer">
                   <button
                     type="button"
@@ -356,7 +415,7 @@
                     class="btn btn-primary"
                     (click)="rentControl()"
                   >
-                    Kaydet
+                    Öde
                   </button>
                 </div>
               </form>

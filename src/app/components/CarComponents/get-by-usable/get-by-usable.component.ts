@@ -79,7 +79,7 @@ export class GetByUsableComponent implements OnInit {
     private classService: ClassService,
     private caseTypeService: CaseTypeService,
     private rentalDetailService: RentalDetailService,
-    private toastrService:ToastrService,
+    private toastrService: ToastrService,
     private formBuilder: FormBuilder
   ) {}
 
@@ -140,8 +140,11 @@ export class GetByUsableComponent implements OnInit {
     var day = Math.floor((date1 - date2) / 1000 / 60 / 60 / 24) + 1;
     return day;
   }
+
+  fiyat:number
   fiyatHesapla(dailyPrice: number) {
     var day = this.gunHesapla();
+    this.fiyat=day*dailyPrice
     return day * dailyPrice;
   }
 
@@ -238,17 +241,25 @@ export class GetByUsableComponent implements OnInit {
         returnParts[1] - 1,
         returnParts[2]
       );
-      this.carService.getByUsable(rentModel).subscribe((response) => {
-        this.carDetailDtos = response.data;
-        if (this.carDetailDtos.length > 0) {
-          this.dataLoaded = true;
-        } else {
-          this.dataLoaded = false;
-          this.toastrService.info("Seçilen özelliklere uygun araç bulunamadı.", 'Hata');
+      this.carService.getByUsable(rentModel).subscribe(
+        (response) => {
+          this.carDetailDtos = response.data;
+          if (this.carDetailDtos.length > 0) {
+            this.dataLoaded = true;
+          } else {
+            this.dataLoaded = false;
+            this.toastrService.info(
+              'Seçilen özelliklere uygun araç bulunamadı.',
+              'Hata'
+            );
+          }
+        },
+        (responseError) => {
+          this.toastrService.error(responseError.error.message, 'Hata');
         }
-      });
+      );
     } else {
-      this.toastrService.error("Form Tamamlanmadı.", 'Hata');
+      this.toastrService.error('Form Tamamlanmadı.', 'Hata');
     }
   }
 
@@ -268,11 +279,7 @@ export class GetByUsableComponent implements OnInit {
       rentalPrice: this.fiyatHesapla(paymentModel.carDetailDto.dailyPrice),
     };
     if (!localStorage.getItem('token')) {
-      alert(
-        'Araçların Kiralanabilmesi Giriş Yapılması Gerekmektedir.' +
-          '\nŞu Anda Giriş Yapılmamış.' +
-          '\nGiriş Sayfasına Yönlendirileceksiniz. Onaylıyor Musunuz?'
-      );
+      this.toastrService.error("Araçların Kiralanabilmesi Giriş Yapılması Gerekmektedir.", 'Hata');
     } else if (this.getRole() == 'Müşteri') {
       let userId = this.authService.getCurrentUserId;
       rentalAddModel.userId = userId;
@@ -281,19 +288,16 @@ export class GetByUsableComponent implements OnInit {
       rentalAddModel.userId = rentModel.userId;
       this.rentCar(rentalAddModel);
     } else {
-      alert(
-        'Bu işlemi yapmak için yetkiniz yok. Sistem yöneticisine başvurun !!!'
-      );
+      this.toastrService.error('Bu işlemi yapmak için yetkiniz yok. Sistem yöneticisine başvurun !!!', 'Hata');
     }
   }
 
   rentCar(rentalAddModel: any) {
     if (rentalAddModel.userId) {
-      this.rentalDetailService
-        .addRentalDetail(rentalAddModel)
-        .subscribe((response) => {
+      this.rentalDetailService.addRentalDetail(rentalAddModel).subscribe(
+        (response) => {
           this.toastrService.success(response.message, 'Başarılı');
-          setTimeout(this.pageRefresh,2000);
+          setTimeout(this.pageRefresh, 2000);
         },
         (responseError) => {
           if (
@@ -313,14 +317,15 @@ export class GetByUsableComponent implements OnInit {
           } else {
             this.toastrService.error(responseError.error.message, 'Hata');
           }
-        });
-    }else{
-      this.toastrService.error("Kullanıcı Bilgisi Seçilmedi.", 'Hata');
-    } 
+        }
+      );
+    } else {
+      this.toastrService.error('Kullanıcı Bilgisi Seçilmedi.', 'Hata');
+    }
   }
 
-  pageRefresh(){
-    window.location.reload()
+  pageRefresh() {
+    window.location.reload();
   }
 
   carImages = [

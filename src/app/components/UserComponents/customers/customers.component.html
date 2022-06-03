@@ -17,7 +17,6 @@
         <th scope="col">TC No</th>
         <th scope="col">Doğum Yılı</th>
         <th scope="col">Mail Adresi</th>
-        <th scope="col">Fotoğraf</th>
         <th scope="col">Durum</th>
         <th scope="col">Yetki</th>
         <th scope="col">Kimlik Bilgileri</th>
@@ -35,7 +34,6 @@
         <td>{{ userDetailDto.nationalityId }}</td>
         <td>{{ userDetailDto.birthYear }}</td>
         <td>{{ userDetailDto.email }}</td>
-        <td>{{ userDetailDto.photo }}</td>
         <td>{{ userDetailDto.status }}</td>
         <td>{{ userDetailDto.claimName }}</td>
         <td>
@@ -230,18 +228,7 @@
                 />
               </div>
             </div>
-            <div class="mb-3">
-              <label for="recipient-name" class="col-form-label">Fotoğraf:</label>
-              <div class="form-group">
-                <input
-                  type="text"
-                  id="photo"
-                  formControlName="photo"
-                  class="form-control"
-                  placeholder="Fotoğraf"
-                />
-              </div>
-            </div>
+            
             <div class="mb-3">
               <label for="recipient-name" class="col-form-label">Durum:</label>
               <div class="form-group">
@@ -360,18 +347,7 @@
                 />
               </div>
             </div>
-            <div class="mb-3">
-              <label for="recipient-name" class="col-form-label">Fotoğraf:</label>
-              <div class="form-group">
-                <input
-                  type="text"
-                  id="photo"
-                  formControlName="photo"
-                  class="form-control"
-                  placeholder="Fotoğraf"
-                />
-              </div>
-            </div>
+            
             <div class="mb-3">
               <label for="recipient-name" class="col-form-label">Durum:</label>
               <div class="form-group">
@@ -491,18 +467,7 @@
                 />
               </div>
             </div>
-            <div class="mb-3">
-              <label for="recipient-name" class="col-form-label">Fotoğraf:</label>
-              <div class="form-group">
-                <input
-                  [readonly]="true"
-                  type="text"
-                  id="photo"
-                  formControlName="photo"
-                  class="form-control"
-                />
-              </div>
-            </div>
+            
             <div class="mb-3">
               <label for="recipient-name" class="col-form-label">Durum:</label>
               <div class="form-group">

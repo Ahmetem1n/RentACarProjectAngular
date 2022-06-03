@@ -5,5 +5,4 @@ export interface RegisterModel {
   nationalityId: string;
   birthYear: number;
   password: string;
-  photo: string;
 }

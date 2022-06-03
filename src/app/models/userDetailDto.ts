@@ -6,7 +6,6 @@ export interface UserDetailDto {
   nationalityId: string;
   birthYear: number;
   email: string;
-  photo: string;
   status: string;
   claimName: string;
   claimId:number

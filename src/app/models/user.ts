@@ -5,6 +5,5 @@ export interface User {
   nationalityId: string;
   birthYear: number;
   email: string;
-  photo: string;
   status: string
 }
