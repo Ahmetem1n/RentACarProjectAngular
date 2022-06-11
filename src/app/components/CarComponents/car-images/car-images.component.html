@@ -5,123 +5,114 @@
 >
   <div class="card-header"><b>Araba Bilgisi</b></div>
   <div class="card-body">
-    <td>
-      <tr>
-        <b>Marka:</b>
-      </tr>
-      <tr>
-        <b>Renk:</b>
-      </tr>
-      <tr>
+    <tr>
+      <td><b>Marka:</b></td>
+      <td>
+        {{ carDetailDto.brandName }}
+      </td>
+    </tr>
+    <tr>
+      <td><b>Renk:</b></td>
+      <td>
+        {{ carDetailDto.colorName }}
+      </td>
+    </tr>
+    <tr>
+      <td>
         <b>Şube:</b>
-      </tr>
-      <tr>
+      </td>
+      <td>
+        {{ carDetailDto.branchName }}
+      </td>
+    </tr>
+    <tr>
+      <td>
         <b>Vites:</b>
-      </tr>
-      <tr>
+      </td>
+      <td>
+        {{ carDetailDto.gearName }}
+      </td>
+    </tr>
+    <tr>
+      <td>
         <b>Yakıt:</b>
-      </tr>
-      <tr>
+      </td>
+      <td>
+        {{ carDetailDto.fuelName }}
+      </td>
+    </tr>
+    <tr>
+      <td>
         <b>Sınıf:</b>
-      </tr>
-      <tr>
+      </td>
+      <td>
+        {{ carDetailDto.className }}
+      </td>
+    </tr>
+    <tr>
+      <td>
         <b>Kasa:</b>
-      </tr>
-      <tr>
+      </td>
+      <td>
+        {{ carDetailDto.caseName }}
+      </td>
+    </tr>
+    <tr>
+      <td>
         <b>Plaka:</b>
-      </tr>
-      <tr>
+      </td>
+      <td>
+        {{ carDetailDto.carPlate }}
+      </td>
+    </tr>
+    <tr>
+      <td>
         <b>Yıldız:</b>
-      </tr>
-      <tr>
+      </td>
+      <td>
+        {{ carDetailDto.carStar }}
+      </td>
+    </tr>
+    <tr>
+      <td>
         <b>Yıl:</b>
-      </tr>
-      <tr>
+      </td>
+      <td>
+        {{ carDetailDto.modelYear }}
+      </td>
+    </tr>
+    <tr>
+      <td>
         <b>Günlük Fiyat:</b>
-      </tr>
-      <tr>
+      </td>
+      <td>
+        {{ carDetailDto.dailyPrice }}
+      </td>
+    </tr>
+    <tr>
+      <td>
         <b>Açıklama:</b>
-      </tr>
-      <tr>
+      </td>
+      <td>
+        {{ carDetailDto.description }}
+      </td>
+    </tr>
+    <tr>
+      <td>
         <b>Kullanılabilirlik:</b>
-      </tr>
-      <tr>
+      </td>
+      <td>
+        {{ carDetailDto.carUsable }}
+      </td>
+    </tr>
+    <tr>
+      <td>
         <b>Konum:</b>
-      </tr>
-    </td>
-    <td></td>
-    <td class="padding">
-      <tr>
-        {{
-          carDetailDto.brandName
-        }}
-      </tr>
-      <tr>
-        {{
-          carDetailDto.colorName
-        }}
-      </tr>
-      <tr>
-        {{
-          carDetailDto.branchName
-        }}
-      </tr>
-      <tr>
-        {{
-          carDetailDto.gearName
-        }}
-      </tr>
-      <tr>
-        {{
-          carDetailDto.fuelName
-        }}
-      </tr>
-      <tr>
-        {{
-          carDetailDto.className
-        }}
-      </tr>
-      <tr>
-        {{
-          carDetailDto.caseName
-        }}
-      </tr>
-      <tr>
-        {{
-          carDetailDto.carPlate
-        }}
-      </tr>
-      <tr>
-        {{
-          carDetailDto.carStar
-        }}
-      </tr>
-      <tr>
-        {{
-          carDetailDto.modelYear
-        }}
-      </tr>
-      <tr>
-        {{
-          carDetailDto.dailyPrice
-        }}
-      </tr>
-      <tr>
-        {{
-          carDetailDto.description
-        }}
-      </tr>
-      <tr>
-        {{
-          carDetailDto.carUsable
-        }}
-      </tr>
-      <tr>
-        {{
-          carDetailDto.carLocation
-        }}
-      </tr>
-    </td>
+      </td>
+      <td>
+        {{ carDetailDto.carLocation }}
+      </td>
+    </tr>
   </div>
 </div>
 

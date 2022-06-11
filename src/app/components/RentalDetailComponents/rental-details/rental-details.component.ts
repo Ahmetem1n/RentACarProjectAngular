@@ -59,6 +59,7 @@ export class RentalDetailsComponent implements OnInit {
     } else {
       this.rentalDetailService.getRentalDetailDtos().subscribe((response) => {
         this.rentalDetailDtos = response.data;
+        console.log(response.data)
         this.dataLoaded = true;
       });
     }

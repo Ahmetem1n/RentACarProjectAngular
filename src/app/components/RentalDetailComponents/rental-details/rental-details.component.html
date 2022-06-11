@@ -35,8 +35,8 @@
           rentalDetailDto.nationalityId
         }}</a>
       </td>
-      <td *ngIf="getRole() != 'Müşteri'">
-        <a routerLink="/car/detail/{{ rentalDetailDto.carId }} ">
+      <td *ngIf="getRole() != 'Müşteri'" >
+        <a routerLink="/car/detail/{{ rentalDetailDto.carId }}">
           {{ rentalDetailDto.carPlate }}</a
         >
       </td>
