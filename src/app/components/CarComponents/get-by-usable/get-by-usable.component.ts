@@ -107,9 +107,11 @@ export class GetByUsableComponent implements OnInit {
 
   paymentForm: FormGroup;
   createPaymentForm(carDetailDto: CarDetailDto) {
+    if(carDetailDto){
     this.paymentForm = this.formBuilder.group({
+      price:[this.fiyatHesapla(carDetailDto.dailyPrice),Validators.required],
       carDetailDto: [carDetailDto, Validators.required],
-    });
+    });}
   }
 
   dataLoaded = false;

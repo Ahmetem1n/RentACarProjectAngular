@@ -213,7 +213,7 @@
         </div>
         <div class="row g-0">
           <div
-            [attr.id]="'a'+carDetailDto.carId"
+            [attr.id]="'a' + carDetailDto.carId"
             class="carousel slide carousel-fade"
             data-bs-ride="carousel"
           >
@@ -233,7 +233,7 @@
             <button
               class="carousel-control-prev"
               type="button"
-              [attr.data-bs-target]="'#a'+carDetailDto.carId"
+              [attr.data-bs-target]="'#a' + carDetailDto.carId"
               data-bs-slide="prev"
             >
               <span
@@ -245,7 +245,7 @@
             <button
               class="carousel-control-next"
               type="button"
-              [attr.data-bs-target]="'#a'+carDetailDto.carId"
+              [attr.data-bs-target]="'#a' + carDetailDto.carId"
               data-bs-slide="next"
             >
               <span
@@ -290,15 +290,14 @@
       </div>
 
       <div
-        *ngIf="paymentForm"
         class="modal fade"
         id="payment"
         tabindex="-1"
         aria-labelledby="paymentLabel"
         aria-hidden="true"
       >
-        <div class="modal-dialog">
-          <div class="modal-content">
+        <div class="modal-dialog" >
+          <div class="modal-content" *ngIf="paymentForm">
             <div class="modal-header">
               <h5 class="modal-title" id="paymentLabel">Ödeme Bilgileri</h5>
               <button
@@ -316,10 +315,11 @@
                   >
                   <div class="form-group">
                     <input
-                      disabled
+                      [readonly]="true"
                       type="text"
                       class="form-control"
-                      value="{{ fiyat }}"
+                      id="price"
+                      formControlName="price"
                     />
                   </div>
                 </div>
