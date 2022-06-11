@@ -26,7 +26,7 @@ export class AdminGuard implements CanActivate {
       if (this.authService.getRole()=="Yönetici") {
       return true;
     } else {
-      this.router.navigate(['login']);
+      // this.router.navigate(['login']);
       this.toastrService.info('Sisteme giriş yapmalısınız');
       return false;
     }

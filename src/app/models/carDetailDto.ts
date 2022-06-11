@@ -1,3 +1,4 @@
+import { CarImage } from 'src/app/models/carImage';
 export interface CarDetailDto {
   carId: number;
   branchId: number;
@@ -15,4 +16,5 @@ export interface CarDetailDto {
   description: string;
   carUsable: string;
   carLocation: string;
+  carImages:CarImage[]
 }

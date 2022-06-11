@@ -213,49 +213,16 @@
         </div>
         <div class="row g-0">
           <div
-            id="carouselExampleIndicators"
-            class="carousel slide col-md-6"
+            [attr.id]="'a'+carDetailDto.carId"
+            class="carousel slide carousel-fade"
             data-bs-ride="carousel"
           >
-            <div class="carousel-indicators">
-              <button
-                type="button"
-                data-bs-target="#carouselExampleIndicators"
-                data-bs-slide-to="0"
-                class="active"
-                aria-current="true"
-                aria-label="Slide 1"
-              ></button>
-              <button
-                type="button"
-                data-bs-target="#carouselExampleIndicators"
-                data-bs-slide-to="1"
-                aria-label="Slide 2"
-              ></button>
-              <button
-                type="button"
-                data-bs-target="#carouselExampleIndicators"
-                data-bs-slide-to="2"
-                aria-label="Slide 3"
-              ></button>
-              <button
-                type="button"
-                data-bs-target="#carouselExampleIndicators"
-                data-bs-slide-to="3"
-                aria-label="Slide 4"
-              ></button>
-              <button
-                type="button"
-                data-bs-target="#carouselExampleIndicators"
-                data-bs-slide-to="4"
-                aria-label="Slide 5"
-              ></button>
-            </div>
             <div class="carousel-inner">
-              <div class="carousel-item active">
-                <img src="123" class="d-block w-100" alt="..." />
-              </div>
-              <div class="carousel-item" *ngFor="let carImage of carIm">
+              <div
+                class="carousel-item"
+                *ngFor="let carImage of carDetailDto.carImages; let i = index"
+                [ngClass]="{ active: i == 0 }"
+              >
                 <img
                   src="{{ carImage.imagePath }}"
                   class="d-block w-100"
@@ -266,7 +233,7 @@
             <button
               class="carousel-control-prev"
               type="button"
-              data-bs-target="#carouselExampleIndicators"
+              [attr.data-bs-target]="'#a'+carDetailDto.carId"
               data-bs-slide="prev"
             >
               <span
@@ -278,7 +245,7 @@
             <button
               class="carousel-control-next"
               type="button"
-              data-bs-target="#carouselExampleIndicators"
+              [attr.data-bs-target]="'#a'+carDetailDto.carId"
               data-bs-slide="next"
             >
               <span
@@ -348,7 +315,12 @@
                     >Fiyat:</label
                   >
                   <div class="form-group">
-                    <input disabled type="text" class="form-control" value="{{fiyat}}" />
+                    <input
+                      disabled
+                      type="text"
+                      class="form-control"
+                      value="{{ fiyat }}"
+                    />
                   </div>
                 </div>
                 <div class="mb-3">

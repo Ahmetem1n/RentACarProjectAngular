@@ -19,4 +19,8 @@ export class NaviComponent implements OnInit {
     localStorage.removeItem('token');
     this.router.navigate(['']);
   }
+
+  getCurrentUserName(){
+    return this.authService.getCurrentUserName();
+  }
 }

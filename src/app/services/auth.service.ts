@@ -72,4 +72,22 @@ export class AuthService {
 
     return role;
   }
+
+  getCurrentUserName() {
+    if (!this.loggedIn()) return false;
+
+    let decodedToken = this.getDecodedToken;
+
+    let roleString = Object.keys(decodedToken).filter((t) =>
+      t.endsWith('/name')
+    )[0];
+    let role = '';
+    if (roleString) {
+      for (let i = 0; i < decodedToken[roleString].length; i++) {
+        role += decodedToken[roleString][i];
+      }
+    }
+
+    return role;
+  }
 }

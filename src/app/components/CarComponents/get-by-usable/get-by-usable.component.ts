@@ -244,6 +244,7 @@ export class GetByUsableComponent implements OnInit {
       this.carService.getByUsable(rentModel).subscribe(
         (response) => {
           this.carDetailDtos = response.data;
+          console.log(this.carDetailDtos);
           if (this.carDetailDtos.length > 0) {
             this.dataLoaded = true;
           } else {

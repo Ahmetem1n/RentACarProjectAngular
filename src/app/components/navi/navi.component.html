@@ -51,6 +51,7 @@
           <a class="nav-link active" aria-current="page" routerLink="users" *ngIf="getRole()=='Çalışan'">Müşteriler</a>
         </li>
       </ul>
+      <b *ngIf="getRole()">Hoşgeldiniz - {{getCurrentUserName()}}</b>
       <button class="btn-primary" routerLink="login" *ngIf="!getRole()">Giriş Yap</button>
       <button class="btn-primary" routerLink="register" *ngIf="!getRole()">Kayıt Ol</button>
       <button class="btn-primary" routerLink="my_account" *ngIf="getRole()">Hesabım</button>

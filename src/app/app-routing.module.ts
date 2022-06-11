@@ -1,5 +1,6 @@
+import { EmployeeGuard } from './guards/employee.guard';
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes, CanActivate } from '@angular/router';
 import { AuthComponent } from './components/AuthComponents/auth/auth.component';
 import { BranchDetailComponent } from './components/BranchComponents/branch-detail/branch-detail.component';
 import { BranchsComponent } from './components/BranchComponents/branchs/branchs.component';
@@ -39,8 +40,8 @@ const routes: Routes = [
   { path: 'deneme', component: GetByUsableComponent },
 
   //GETALL COMPONENT PATH
-  { path: 'auths', component: AuthComponent },
-  { path: 'branchs', component: BranchsComponent },
+  { path: 'auths', component: AuthComponent ,canActivate:[AdminGuard?true:false] },
+  { path: 'branchs', component: BranchsComponent},
   { path: 'brands', component: BrandsComponent },
   { path: 'cars', component: CarsComponent },
   { path: 'cards', component: CardsComponent },

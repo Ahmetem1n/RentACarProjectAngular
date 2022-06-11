@@ -26,6 +26,7 @@ export class CarDetailComponent implements OnInit {
     description: null,
     carUsable: null,
     carLocation: null,
+    carImages:null
   };
   constructor(
     private activatedRoute: ActivatedRoute,
